@@ -20,8 +20,8 @@ add_contributions ()
     local var=0
     local count=0
 
-    SIZE=`getfattr -h -e hex -n trusted.glusterfs.quota.size $2 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2`
-    CONTRI=`getfattr -h -e hex -d -m trusted.glusterfs.quota.*.contri $2 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2`
+    SIZE=`getfattr -h -e hex -n user.glusterfs.quota.size $2 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2`
+    CONTRI=`getfattr -h -e hex -d -m user.glusterfs.quota.*.contri $2 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2`
 
     if [ $1 == "file" ]; then
         PATHS=`find  $2 ! -type d | sed -e "\|^$2$|d" | sed -e '/^[ \t]*$/d'`
@@ -33,7 +33,7 @@ add_contributions ()
         return 0
     fi
 
-    CONTRIBUTIONS=`echo $PATHS | xargs getfattr -h -e hex -d -m trusted.glusterfs.quota.*.contri 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2 | sed -e 's/^[ \t]*\([^ \t]*\)/\1/g'`
+    CONTRIBUTIONS=`echo $PATHS | xargs getfattr -h -e hex -d -m user.glusterfs.quota.*.contri 2>&1 | sed -e '/^#/d' | sed -e '/^getfattr/d' | sed -e '/^$/d' | cut -d'=' -f 2 | sed -e 's/^[ \t]*\([^ \t]*\)/\1/g'`
 
     if [ -n "$CONTRIBUTIONS" ]; then
         for i in $CONTRIBUTIONS; do

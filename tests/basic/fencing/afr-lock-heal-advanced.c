@@ -7,7 +7,7 @@
 #include <glusterfs/api/glfs.h>
 #include <glusterfs/api/glfs-handles.h>
 
-#define GF_ENFORCE_MANDATORY_LOCK "trusted.glusterfs.enforce-mandatory-lock"
+#define GF_ENFORCE_MANDATORY_LOCK "user.glusterfs.enforce-mandatory-lock"
 
 FILE *logfile_fp;
 

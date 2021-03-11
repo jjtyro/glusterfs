@@ -15,7 +15,7 @@
 #endif
 
 #ifndef GF_FUSE_AUX_GFID_HEAL
-#define GF_FUSE_AUX_GFID_HEAL "glusterfs.gfid.heal"
+#define GF_FUSE_AUX_GFID_HEAL "user.glusterfs.gfid.heal"
 #endif
 
 #define GLFS_LINE_MAX (PATH_MAX + (2 * UUID_CANONICAL_FORM_LEN))

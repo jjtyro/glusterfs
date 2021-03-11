@@ -23,8 +23,8 @@ TEST glusterfs --volfile-server=$H0 --volfile-id=$V0 --client-pid=-1 $M1
 
 TEST touch $M0
 
-vol_uuid=`getfattr -n trusted.glusterfs.volume-mark -ehex $M1 | sed -n 's/^trusted.glusterfs.volume-mark=0x//p' | cut -b5-36 | sed 's/\([a-f0-9]\{8\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)/\1-\2-\3-\4-/'`
-xtime=trusted.glusterfs.$vol_uuid.xtime
+vol_uuid=`getfattr -n user.glusterfs.volume-mark -ehex $M1 | sed -n 's/^user.glusterfs.volume-mark=0x//p' | cut -b5-36 | sed 's/\([a-f0-9]\{8\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)/\1-\2-\3-\4-/'`
+xtime=user.glusterfs.$vol_uuid.xtime
 
 TEST "getfattr -n $xtime $B0/${V0}-0 | grep -q ${xtime}="
 

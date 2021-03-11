@@ -34,8 +34,8 @@ end-volume
 
 volume ta-index
     type features/index
-    option xattrop-pending-watchlist trusted.afr.ta-
-    option xattrop-dirty-watchlist trusted.afr.dirty
+    option xattrop-pending-watchlist user.afr.ta-
+    option xattrop-dirty-watchlist user.afr.dirty
     option index-base $b/.glusterfs/indices
     subvolumes ta-io-threads
 end-volume
@@ -100,8 +100,8 @@ end-volume
 
 volume ${V0}-index
     type features/index
-    option xattrop-pending-watchlist trusted.afr.${V0}-
-    option xattrop-dirty-watchlist trusted.afr.dirty
+    option xattrop-pending-watchlist user.afr.${V0}-
+    option xattrop-dirty-watchlist user.afr.dirty
     option index-base $b/.glusterfs/indices
     subvolumes ${V0}-io-threads
 end-volume
@@ -252,7 +252,7 @@ end-volume
 
 volume ${V0}-replicate-0
      type cluster/replicate
-     option afr-dirty-xattr trusted.afr.dirty
+     option afr-dirty-xattr user.afr.dirty
      option iam-self-heal-daemon off
      option afr-pending-xattr ${V0}-client-0,${V0}-client-1,${V0}-ta-2
      option thin-arbiter $H0:$ta
@@ -273,7 +273,7 @@ volume ${V0}-distribute
      option unhashed-sticky-bit off
      option use-readdirp on
      option readdir-optimize off
-     option xattr-name trusted.glusterfs.dht
+     option xattr-name user.glusterfs.dht
      option read-freq-threshold 0
      option min-free-disk 10%
      option min-free-inodes 5%
@@ -516,7 +516,7 @@ volume ${V0}-replicate-0
     option data-change-log on
     option entrylk-trace off
     option iam-self-heal-daemon yes
-    option afr-dirty-xattr trusted.afr.dirty
+    option afr-dirty-xattr user.afr.dirty
     option heal-timeout 10
     option read-hash-mode 1
     option metadata-splitbrain-forced-heal off
@@ -607,7 +607,7 @@ function ta_mount_child_up_status()
         local brick_id=$3
         local pid=$(ta_get_mount_pid $mount_path)
         local fpath=$(generate_statedump $pid)
-        up=$(grep -a -B1 trusted.afr.$vol-client-$brick_id $fpath | head -1 | cut -f2 -d'=')
+        up=$(grep -a -B1 user.afr.$vol-client-$brick_id $fpath | head -1 | cut -f2 -d'=')
         rm -f $fpath
         echo "$up"
 }

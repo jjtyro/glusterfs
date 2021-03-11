@@ -46,7 +46,7 @@
 
 #define ACL_BUFFER_MAX 4096 /* size of character buffer */
 
-#define DHT_LINKTO "trusted.glusterfs.dht.linkto"
+#define DHT_LINKTO "user.glusterfs.dht.linkto"
 
 #define POSIX_GFID_HANDLE_SIZE(base_path_len)                                  \
     (base_path_len + SLEN("/") + SLEN(GF_HIDDEN_PATH) + SLEN("/") +            \

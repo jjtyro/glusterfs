@@ -52,10 +52,10 @@
 #include "timer-wheel.h"
 #include <sys/types.h>
 
-char *marker_xattrs[] = {"trusted.glusterfs.quota.*",
-                         "trusted.glusterfs.*.xtime", NULL};
+char *marker_xattrs[] = {"user.glusterfs.quota.*",
+                         "user.glusterfs.*.xtime", NULL};
 
-static char *marker_contri_key = "trusted.*.*.contri";
+static char *marker_contri_key = "user.*.*.contri";
 
 static char *posix_ignore_xattrs[] = {"gfid-req",
                                       GLUSTERFS_INTERNAL_FOP_KEY,
@@ -347,7 +347,7 @@ _posix_get_marker_all_contributions(posix_xattr_filler_t *filler)
         goto out;
     }
 
-    list = GF_MALLOC(size, gf_posix_mt_char);
+    list = alloca(size);
     if (!list) {
         goto out;
     }
@@ -376,7 +376,6 @@ _posix_get_marker_all_contributions(posix_xattr_filler_t *filler)
     ret = 0;
 
 out:
-    GF_FREE(list);
     return ret;
 }
 

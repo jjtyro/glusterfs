@@ -27,11 +27,11 @@ TEST setfattr -n user.test -v qwerty $M0/file5.txt
 TEST $CLI volume replace-brick $V0 $H0:$B0/${V0}1 $H0:$B0/${V0}1_new commit force
 
 # Replaced-brick should accuse the non-replaced-brick (Simulating case for data-loss)
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1_new/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1_new/
 
 # Check if pending xattr and dirty-xattr are set for replaced-brick
-EXPECT "000000000000000100000001" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.dirty $B0/${V0}1_new
+EXPECT "000000000000000100000001" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.dirty $B0/${V0}1_new
 
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 0
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 1
@@ -50,7 +50,7 @@ TEST diff <(ls $B0/${V0}0 | sort) <(ls $B0/${V0}1_new | sort)
 
 # To make sure that files were not lost from brick0
 TEST diff <(ls $B0/${V0}0 | sort) <(ls $B0/${V0}1 | sort)
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0
 
 # Test if data was healed
 TEST diff $B0/${V0}0/file1.txt $B0/${V0}1_new/file1.txt

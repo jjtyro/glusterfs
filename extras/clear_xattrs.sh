@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clear the trusted.gfid xattr in the brick tree
+# Clear the user.gfid xattr in the brick tree
 
 # This script must be run only on a stopped brick/volume
 # Stop the volume to make sure no rebalance/replace-brick
@@ -9,8 +9,8 @@
 # Not much error checking
 remove_xattrs ()
 {
-    find "$1" -exec setfattr -h -x "trusted.gfid" '{}' \;  > /dev/null 2>&1;
-    find "$1" -exec setfattr -h -x "trusted.glusterfs.volume-id" '{}' \;  > /dev/null 2>&1;
+    find "$1" -exec setfattr -h -x "user.gfid" '{}' \;  > /dev/null 2>&1;
+    find "$1" -exec setfattr -h -x "user.glusterfs.volume-id" '{}' \;  > /dev/null 2>&1;
 }
 
 main ()

@@ -19,7 +19,7 @@ cleanup
 
 function get_layout () {
 
-layout=`getfattr -n trusted.glusterfs.dht -e hex $1 2>&1 | grep dht | gawk -F"=" '{print $2}'`
+layout=`getfattr -n user.glusterfs.dht -e hex $1 2>&1 | grep dht | gawk -F"=" '{print $2}'`
 
 echo $layout
 
@@ -27,7 +27,7 @@ echo $layout
 
 function set_layout()
 {
-    setfattr -n  "trusted.glusterfs.dht" -v $1 $2
+    setfattr -n  "user.glusterfs.dht" -v $1 $2
 }
 
 TEST glusterd

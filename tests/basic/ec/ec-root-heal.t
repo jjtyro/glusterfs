@@ -24,11 +24,11 @@ TEST $CLI volume heal $V0 full
 #ls -l gives "Total" line so number of lines will be 1 more
 EXPECT_WITHIN $HEAL_TIMEOUT "^0$" get_pending_heal_count ${V0}
 EXPECT "^11$" num_entries $B0/${V0}6
-ec_version=$(get_hex_xattr trusted.ec.version $B0/${V0}0)
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}1
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}2
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}3
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}4
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}6
+ec_version=$(get_hex_xattr user.ec.version $B0/${V0}0)
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}1
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}2
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}3
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}4
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}6
 
 cleanup;

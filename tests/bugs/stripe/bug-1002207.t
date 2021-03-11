@@ -40,8 +40,8 @@ function set_xattr()
     echo $?
 }
 
-EXPECT 0 set_xattr $M0/file$i.data "trusted.name" "testofafairlylongxattrstringthatbutnotlongenoughtofailmemoryallocation"
-EXPECT 0 xattr_query_check $M0/file$i.data "trusted.name"
+EXPECT 0 set_xattr $M0/file$i.data "user.name" "testofafairlylongxattrstringthatbutnotlongenoughtofailmemoryallocation"
+EXPECT 0 xattr_query_check $M0/file$i.data "user.name"
 
 ## Finish up
 TEST $CLI volume stop $V0;

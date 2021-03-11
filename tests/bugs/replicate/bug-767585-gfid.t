@@ -21,8 +21,8 @@ touch $B0/${V0}0/a $B0/${V0}1/a
 touch $B0/${V0}0/b $B0/${V0}1/b
 touch $B0/${V0}0/c $B0/${V0}1/c
 
-TEST setfattr -n trusted.gfid -v $gfid1 $B0/${V0}0/b
-TEST setfattr -n trusted.gfid -v $gfid2 $B0/${V0}1/c
+TEST setfattr -n user.gfid -v $gfid1 $B0/${V0}0/b
+TEST setfattr -n user.gfid -v $gfid2 $B0/${V0}1/c
 
 sleep 2
 

@@ -35,9 +35,9 @@ TEST rm -f $M0/sync #Make sure the glfd is closed
 TEST wait #Wait for background process to die
 #Goal is to check if there is permanent FOOL changelog
 sleep 5
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick0/glfs_test.txt trusted.afr.dirty
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick1/glfs_test.txt trusted.afr.dirty
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick2/glfs_test.txt trusted.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick0/glfs_test.txt user.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick1/glfs_test.txt user.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/brick2/glfs_test.txt user.afr.dirty
 
 cleanup_tester $(dirname $0)/gfapi-async-calls-test
 

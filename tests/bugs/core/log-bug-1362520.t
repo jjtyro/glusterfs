@@ -25,7 +25,7 @@ log_file=$log_wd/$log_id.log
 
 #Set the client xlator log-level to TRACE and check if the TRACE logs get
 #printed
-TEST setfattr -n trusted.glusterfs.$V0-client-0.set-log-level -v TRACE $M0
+TEST setfattr -n user.glusterfs.$V0-client-0.set-log-level -v TRACE $M0
 TEST ! stat $M0/xyz
 grep -q " T \[rpc-clnt\.c" $log_file
 res=$?
@@ -34,7 +34,7 @@ EXPECT '0' echo $res
 #Set the client xlator log-level to INFO and make sure the TRACE logs do
 #not get printed
 echo > $log_file
-TEST setfattr -n trusted.glusterfs.$V0-client-0.set-log-level -v INFO $M0
+TEST setfattr -n user.glusterfs.$V0-client-0.set-log-level -v INFO $M0
 TEST ! stat $M0/xyz
 grep -q " T \[rpc-clnt\.c" $log_file
 res=$?

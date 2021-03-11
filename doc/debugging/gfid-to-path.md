@@ -3,7 +3,7 @@
 GlusterFS internal file identifier (GFID) is a uuid that is unique to each
 file across the entire cluster. This is analogous to inode number in a
 normal filesystem. The GFID of a file is stored in its xattr named
-`trusted.gfid`.
+`user.gfid`.
 
 #### Special mount using [gfid-access translator][1]:
 ```
@@ -52,15 +52,15 @@ glusterfs.ancestry.path="/dir/file:/dir/file3"
 ### Get file path from GFID (Method 2):
 **(Does not list all hardlinks, returns backend brick path)**
 ```
-getfattr -n trusted.glusterfs.pathinfo -e text /mnt/testvol/.gfid/<GFID>
+getfattr -n user.glusterfs.pathinfo -e text /mnt/testvol/.gfid/<GFID>
 ```
 
 **Example:**
 ```
-[root@vm1 glusterfs]# getfattr -n trusted.glusterfs.pathinfo -e text /mnt/testvol/.gfid/11118443-1894-4273-9340-4b212fa1c0e4
+[root@vm1 glusterfs]# getfattr -n user.glusterfs.pathinfo -e text /mnt/testvol/.gfid/11118443-1894-4273-9340-4b212fa1c0e4
 getfattr: Removing leading '/' from absolute path names
 # file: mnt/testvol/.gfid/11118443-1894-4273-9340-4b212fa1c0e4
-trusted.glusterfs.pathinfo="(<DISTRIBUTE:test-dht> <POSIX(/mnt/brick-test/b):vm1:/mnt/brick-test/b/dir//file3>)"
+user.glusterfs.pathinfo="(<DISTRIBUTE:test-dht> <POSIX(/mnt/brick-test/b):vm1:/mnt/brick-test/b/dir//file3>)"
 ```
 
 ---

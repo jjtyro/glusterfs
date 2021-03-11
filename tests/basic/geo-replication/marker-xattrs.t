@@ -22,7 +22,7 @@ TEST glusterfs --volfile-server=$H0 --volfile-id=$V0 --client-pid=-1 $M1
 TEST touch $M0
 
 vol_uuid=$(get_volume_mark $M1)
-xtime=trusted.glusterfs.$vol_uuid.xtime
+xtime=user.glusterfs.$vol_uuid.xtime
 
 TEST "getfattr -n $xtime $B0/${V0}-1 | grep -q ${xtime}="
 
@@ -58,8 +58,8 @@ EXPECT_WITHIN $CHILD_UP_TIMEOUT "3" mount_get_option_value $M1 $V0-disperse-0 ch
 TEST touch $M0
 
 vol_uuid=$(get_volume_mark $M1)
-xtime=trusted.glusterfs.$vol_uuid.xtime
-stime=trusted.glusterfs.$vol_uuid.stime
+xtime=user.glusterfs.$vol_uuid.xtime
+stime=user.glusterfs.$vol_uuid.stime
 
 stime_val=$(getfattr -e hex -n $xtime $B0/${V0}-1 | grep ${xtime}= | cut -f2 -d'=')
 TEST "setfattr -n $stime -v $stime_val $B0/${V0}-1"

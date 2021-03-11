@@ -29,7 +29,7 @@ function get_cached_brick()
         i=1
         while [ $i -lt 3 ]
         do
-                test=`getfattr -n trusted.glusterfs.dht.linkto -e text $B0/${V0}$BRICK$i 2>&1`
+                test=`getfattr -n user.glusterfs.dht.linkto -e text $B0/${V0}$BRICK$i 2>&1`
                 if [ $? -eq 1 ]
                 then
                         cached=$BRICK"$i"

@@ -51,7 +51,7 @@ i=$(create_files)
 TEST ! ls $B0/${V0}0/file$i
 TEST ! ls $B0/${V0}1/file$i
 TEST ls $B0/${V0}2/file$i
-dirty=$(get_hex_xattr trusted.afr.dirty $B0/${V0}2)
+dirty=$(get_hex_xattr user.afr.dirty $B0/${V0}2)
 TEST [ "$dirty" != "000000000000000000000000" ]
 
 TEST $CLI volume set $V0 self-heal-daemon on

@@ -57,7 +57,7 @@ main(int argc, char *argv[])
         return -1;
     }
 
-    ret = glfs_fremovexattr(fd, "trusted.gfid");
+    ret = glfs_fremovexattr(fd, "user.gfid");
     if (ret == 0 || errno != EPERM) {
         fprintf(stderr,
                 "glfs_fremovexattr gfid exited with ret: "
@@ -66,7 +66,7 @@ main(int argc, char *argv[])
         return -1;
     }
 
-    ret = glfs_fremovexattr(fd, "trusted.glusterfs.volume-id");
+    ret = glfs_fremovexattr(fd, "user.glusterfs.volume-id");
     if (ret == 0 || errno != EPERM) {
         fprintf(stderr,
                 "glfs_fremovexattr volume-id exited with ret: "
@@ -75,19 +75,19 @@ main(int argc, char *argv[])
         return -1;
     }
 
-    ret = glfs_fsetxattr(fd, "trusted.abc", "abc", 3, 0);
+    ret = glfs_fsetxattr(fd, "user.abc", "abc", 3, 0);
     if (ret < 0) {
         fprintf(stderr,
-                "glfs_fsetxattr trusted.abc exited with ret: "
+                "glfs_fsetxattr user.abc exited with ret: "
                 "%d (%s)\n",
                 ret, strerror(errno));
         return -1;
     }
 
-    ret = glfs_fremovexattr(fd, "trusted.abc");
+    ret = glfs_fremovexattr(fd, "user.abc");
     if (ret < 0) {
         fprintf(stderr,
-                "glfs_fremovexattr trusted.abc exited with "
+                "glfs_fremovexattr user.abc exited with "
                 "ret: %d (%s)\n",
                 ret, strerror(errno));
         return -1;

@@ -37,7 +37,7 @@
 #endif
 
 #ifndef XATTR_TRUSTED_PREFIX
-#define XATTR_TRUSTED_PREFIX "trusted."
+#define XATTR_TRUSTED_PREFIX "user."
 #define XATTR_TRUSTED_PREFIX_LEN (sizeof(XATTR_TRUSTED_PREFIX) - 1)
 #endif
 
@@ -121,9 +121,6 @@ sys_chmod(const char *path, mode_t mode);
 
 int
 sys_fchmod(int fd, mode_t mode);
-
-int
-sys_lchmod(const char *path, mode_t mode);
 
 int
 sys_chown(const char *path, uid_t owner, gid_t group);

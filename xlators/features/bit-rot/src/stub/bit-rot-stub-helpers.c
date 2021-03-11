@@ -192,7 +192,7 @@ br_stub_check_stub_directory(xlator_t *this, char *fullpath)
             goto error_return;
         ret = sys_stat(oldpath, &st);
         if (ret)
-            ret = mkdir_p(fullpath, 0600, _gf_true);
+            ret = mkdir_p(fullpath, 0700, _gf_true);
         else
             ret = sys_rename(oldpath, fullpath);
     }

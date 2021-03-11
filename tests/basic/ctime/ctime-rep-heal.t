@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This will test self healing of ctime xattr 'trusted.glusterfs.mdata'
+# This will test self healing of ctime xattr 'user.glusterfs.mdata'
 #
 ###
 

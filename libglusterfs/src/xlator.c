@@ -1315,7 +1315,7 @@ is_gf_log_command(xlator_t *this, const char *name, char *value, size_t size)
     gf_boolean_t syslog_flag = 0;
     glusterfs_ctx_t *ctx = NULL;
 
-    if (!strcmp("trusted.glusterfs.syslog", name)) {
+    if (!strcmp("user.glusterfs.syslog", name)) {
         ret = gf_bin_to_string(key, sizeof(key), value, size);
         if (ret != 0) {
             goto out;
@@ -1333,7 +1333,7 @@ is_gf_log_command(xlator_t *this, const char *name, char *value, size_t size)
         goto out;
     }
 
-    if (fnmatch("trusted.glusterfs*set-log-level", name, FNM_NOESCAPE))
+    if (fnmatch("user.glusterfs*set-log-level", name, FNM_NOESCAPE))
         goto out;
 
     ret = gf_bin_to_string(key, sizeof(key), value, size);
@@ -1348,7 +1348,7 @@ is_gf_log_command(xlator_t *this, const char *name, char *value, size_t size)
     }
 
     /* Some crude way to change the log-level of process */
-    if (!strcmp(name, "trusted.glusterfs.set-log-level")) {
+    if (!strcmp(name, "user.glusterfs.set-log-level")) {
         gf_smsg("glusterfs", gf_log_get_loglevel(), 0, LG_MSG_SET_LOG_LEVEL,
                 "new-value=%d", log_level, "old-value=%d",
                 gf_log_get_loglevel(), NULL);
@@ -1357,7 +1357,7 @@ is_gf_log_command(xlator_t *this, const char *name, char *value, size_t size)
         goto out;
     }
 
-    if (!strcmp(name, "trusted.glusterfs.fuse.set-log-level")) {
+    if (!strcmp(name, "user.glusterfs.fuse.set-log-level")) {
         /* */
         gf_smsg(this->name, gf_log_get_xl_loglevel(this), 0,
                 LG_MSG_SET_LOG_LEVEL, "new-value=%d", log_level, "old-value=%d",
@@ -1375,7 +1375,7 @@ is_gf_log_command(xlator_t *this, const char *name, char *value, size_t size)
     trav = ctx->active->top;
 
     while (trav) {
-        snprintf(key, 1024, "trusted.glusterfs.%s.set-log-level", trav->name);
+        snprintf(key, 1024, "user.glusterfs.%s.set-log-level", trav->name);
         if (fnmatch(name, key, FNM_NOESCAPE) == 0) {
             gf_smsg(trav->name, gf_log_get_xl_loglevel(trav), 0,
                     LG_MSG_SET_LOG_LEVEL, "new-value%d", log_level,

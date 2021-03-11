@@ -108,7 +108,7 @@ main(int argc, char *argv[])
     }
 
     sleep(1);
-    ret = glfs_fgetxattr(fd, "trusted.glusterfs.abc", buf, sizeof buf);
+    ret = glfs_fgetxattr(fd, "user.glusterfs.abc", buf, sizeof buf);
     while (cbk_complete != 1) {
         /* ret will be -ve as xattr doesn't exist, and fgetxattr should
          * return waaaayyy before writev */

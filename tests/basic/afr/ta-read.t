@@ -16,7 +16,7 @@ TEST ta_start_ta_process ta
 TEST ta_create_mount_volfile brick0 brick1 ta
 TEST ta_start_mount_process $M0
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" ta_up_status $V0 $M0 0
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT "trusted.afr.patchy-ta-2" ls $B0/ta
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT "user.afr.patchy-ta-2" ls $B0/ta
 
 TEST touch $M0/FILE
 TEST ls $B0/brick0/FILE
@@ -28,8 +28,8 @@ TEST ta_kill_brick brick0
 EXPECT_WITHIN $PROCESS_DOWN_TIMEOUT "0" ta_mount_child_up_status $M0 $V0 0
 echo "brick0 down">> $M0/FILE
 TEST [ $? -eq 0 ]
-EXPECT "000000010000000000000000" get_hex_xattr trusted.afr.$V0-client-0 $B0/brick1/FILE
-EXPECT "000000010000000000000000" get_hex_xattr trusted.afr.$V0-client-0 $B0/ta/trusted.afr.patchy-ta-2
+EXPECT "000000010000000000000000" get_hex_xattr user.afr.$V0-client-0 $B0/brick1/FILE
+EXPECT "000000010000000000000000" get_hex_xattr user.afr.$V0-client-0 $B0/ta/user.afr.patchy-ta-2
 
 #Umount and mount to remove cached data.
 EXPECT_WITHIN $UMOUNT_TIMEOUT "Y" force_umount $M0

@@ -3,10 +3,10 @@
 . $(dirname $0)/../../include.rc
 . $(dirname $0)/../../volume.rc
 
-# Immediately after replace-brick, trusted.ec.version will be absent, so if it
+# Immediately after replace-brick, user.ec.version will be absent, so if it
 # is present we can assume that heal was started on root
 function root_heal_attempted {
-        if [ -z $(get_hex_xattr trusted.ec.version $1) ]; then
+        if [ -z $(get_hex_xattr user.ec.version $1) ]; then
                 echo "N"
         else
                 echo "Y"

@@ -41,8 +41,8 @@ TEST ! touch $M0/dir/file10
 TEST rm $M0/dir/file1
 TEST touch $M0/dir/file10
 
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.dirty $B0/${V0}0/dir
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.dirty $B0/${V0}1/dir
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.dirty $B0/${V0}0/dir
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.dirty $B0/${V0}1/dir
 
 TEST $CLI volume start $V0 force
 

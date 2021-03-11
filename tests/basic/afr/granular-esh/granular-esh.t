@@ -94,8 +94,8 @@ gfid_newdir=$(get_gfid_string $M0/newdir)
 gfid_newsubdir=$(get_gfid_string $M0/newdir/newsubdir)
 TEST stat $B0/${V0}1/.glusterfs/indices/entry-changes/$gfid_newdir/newsubdir
 # Check if 'data' segment of the changelog is set for the newly created directories 'newdir' and 'newsubdir'
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}1/newdir trusted.afr.$V0-client-0 data
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}1/newdir/newsubdir trusted.afr.$V0-client-0 data
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}1/newdir user.afr.$V0-client-0 data
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}1/newdir/newsubdir user.afr.$V0-client-0 data
 
 # Test that removal of an entire sub-tree in the hierarchy works.
 TEST rm -rf $M0/dir

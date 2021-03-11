@@ -1241,9 +1241,22 @@ glusterd_find_correct_var_run_dir(xlator_t *this, char *var_run_dir)
     struct stat buf = {
         0,
     };
+    char default_var_run_dir[PATH_MAX] = {
+        0,
+    };
 
     GF_VALIDATE_OR_GOTO("glusterd", this, out);
     GF_VALIDATE_OR_GOTO(this->name, var_run_dir, out);
+
+    snprintf(default_var_run_dir, sizeof(default_var_run_dir), "%s", 
+             getenv("DEFAULT_VAR_RUN_DIRECTORY")
+            );
+
+    ret = sys_lstat(default_var_run_dir, &buf);
+    if (ret == 0) {
+        strcpy(var_run_dir, default_var_run_dir);
+        return 0;
+    }
 
     /* /var/run is normally a symbolic link to /run dir, which
      * creates problems as the entry point in the mtab for the mount point
@@ -1367,19 +1380,6 @@ is_downgrade(dict_t *options, gf_boolean_t *downgrade)
     ret = 0;
 out:
     return ret;
-}
-
-void
-glusterd_destroy_hostname_list(glusterd_conf_t *priv)
-{
-    glusterd_hostname_t *hostname_obj = NULL;
-
-    list_for_each_entry(hostname_obj, &priv->hostnames, hostname_list)
-    {
-        list_del_init(&hostname_obj->hostname_list);
-        GF_FREE(hostname_obj->hostname);
-        GF_FREE(hostname_obj);
-    }
 }
 
 /*
@@ -1541,7 +1541,7 @@ init(xlator_t *this)
     if (ret) {
         gf_msg(this->name, GF_LOG_CRITICAL, 0, GD_MSG_CREATE_DIR_FAILED,
                "Unable to create "
-               "snap backend folder");
+               "snap backend folder %s %s",rundir, var_run_dir);
         exit(1);
     }
 
@@ -1853,7 +1853,6 @@ init(xlator_t *this)
     CDS_INIT_LIST_HEAD(&conf->missed_snaps_list);
     CDS_INIT_LIST_HEAD(&conf->brick_procs);
     CDS_INIT_LIST_HEAD(&conf->shd_procs);
-    CDS_INIT_LIST_HEAD(&conf->hostnames);
     pthread_mutex_init(&conf->attach_lock, NULL);
     pthread_mutex_init(&conf->volume_lock, NULL);
 
@@ -2097,7 +2096,6 @@ fini(xlator_t *this)
 
     glusterd_stop_uds_listener(this); /*stop unix socket rpc*/
     glusterd_stop_listener(this);     /*stop tcp/ip socket rpc*/
-    glusterd_destroy_hostname_list(this->private); /*Destroy hostname list */
 
 #if 0
        /* Running threads might be using these resourses, we have to cancel/stop

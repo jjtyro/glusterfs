@@ -43,9 +43,9 @@ TEST $CLI volume heal $V0
 EXPECT_WITHIN $HEAL_TIMEOUT "2" get_pending_heal_count $V0
 
 b1c1dir=$(afr_get_specific_changelog_xattr $B0/${V0}0/dir \
-          trusted.afr.$V0-client-1 "metadata")
+          user.afr.$V0-client-1 "metadata")
 b2c0dir=$(afr_get_specific_changelog_xattr $B0/${V0}1/dir \
-          trusted.afr.$V0-client-0 "metadata")
+          user.afr.$V0-client-0 "metadata")
 
 EXPECT "00000001" echo $b1c1dir
 EXPECT "00000001" echo $b2c0dir

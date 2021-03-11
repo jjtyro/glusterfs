@@ -23,7 +23,7 @@ count_files () {
 }
 
 get_xattr () {
-        cmd="getfattr --absolute-names --only-values -n trusted.glusterfs.dht"
+        cmd="getfattr --absolute-names --only-values -n user.glusterfs.dht"
         $cmd $1 | od -tx1 -An | tr -d ' '
 }
 

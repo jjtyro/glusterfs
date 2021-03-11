@@ -47,7 +47,7 @@ worm_init_state(xlator_t *this, gf_boolean_t fop_with_fd, void *file_ptr)
         gf_log(this->name, GF_LOG_ERROR, "Error creating the dict");
         goto out;
     }
-    ret = dict_set_uint64(dict, "trusted.start_time", start_time);
+    ret = dict_set_uint64(dict, "user.start_time", start_time);
     if (ret) {
         gf_log(this->name, GF_LOG_ERROR, "Error in setting the dict");
         goto out;
@@ -131,15 +131,15 @@ worm_get_state(xlator_t *this, gf_boolean_t fop_with_fd, void *file_ptr,
 
     if (fop_with_fd)
         ret = syncop_fgetxattr(this, (fd_t *)file_ptr, &dict,
-                               "trusted.reten_state", NULL, NULL);
+                               "user.reten_state", NULL, NULL);
     else
         ret = syncop_getxattr(this, (loc_t *)file_ptr, &dict,
-                              "trusted.reten_state", NULL, NULL);
+                              "user.reten_state", NULL, NULL);
     if (ret < 0 || !dict) {
         ret = -1;
         goto out;
     }
-    ret = dict_get_str(dict, "trusted.reten_state", &val);
+    ret = dict_get_str(dict, "user.reten_state", &val);
     if (ret) {
         ret = -2;
         gf_log(this->name, GF_LOG_ERROR, "Empty val");
@@ -255,7 +255,7 @@ gf_worm_set_xattr(xlator_t *this, worm_reten_state_t *reten_state,
         gf_log(this->name, GF_LOG_ERROR, "Error creating the dict");
         goto out;
     }
-    ret = dict_set_str(dict, "trusted.reten_state", val);
+    ret = dict_set_str(dict, "user.reten_state", val);
     if (ret) {
         gf_log(this->name, GF_LOG_ERROR, "Error in setting the dict");
         goto out;
@@ -302,16 +302,16 @@ gf_worm_state_transition(xlator_t *this, gf_boolean_t fop_with_fd,
 
     if (fop_with_fd)
         ret = syncop_fgetxattr(this, (fd_t *)file_ptr, &dict,
-                               "trusted.start_time", NULL, NULL);
+                               "user.start_time", NULL, NULL);
     else
         ret = syncop_getxattr(this, (loc_t *)file_ptr, &dict,
-                              "trusted.start_time", NULL, NULL);
+                              "user.start_time", NULL, NULL);
     if (ret < 0 || !dict) {
         op_errno = ret;
         gf_msg(this->name, GF_LOG_ERROR, -ret, 0, "Error getting xattr");
         goto out;
     }
-    ret = dict_get_uint64(dict, "trusted.start_time", &start_time);
+    ret = dict_get_uint64(dict, "user.start_time", &start_time);
     if (ret) {
         op_errno = ret;
         gf_msg(this->name, GF_LOG_ERROR, -ret, 0, "Error getting start time");
@@ -380,10 +380,10 @@ is_wormfile(xlator_t *this, gf_boolean_t fop_with_fd, void *file_ptr)
 
     if (fop_with_fd)
         ret = syncop_fgetxattr(this, (fd_t *)file_ptr, &dict,
-                               "trusted.worm_file", NULL, NULL);
+                               "user.worm_file", NULL, NULL);
     else
         ret = syncop_getxattr(this, (loc_t *)file_ptr, &dict,
-                              "trusted.worm_file", NULL, NULL);
+                              "user.worm_file", NULL, NULL);
     if (dict) {
         ret = 0;
         dict_unref(dict);

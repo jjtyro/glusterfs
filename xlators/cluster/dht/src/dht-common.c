@@ -1208,7 +1208,7 @@ dht_do_discover(call_frame_t *frame, xlator_t *this, loc_t *loc)
     }
 
     if (loc_is_root(loc)) {
-        /* Request the DHT commit hash xattr (trusted.glusterfs.dht.commithash)
+        /* Request the DHT commit hash xattr (user.glusterfs.dht.commithash)
          * set on the brick root.
          */
         ret = dict_set_uint32(local->xattr_req, conf->commithash_xattr_name,
@@ -3220,8 +3220,8 @@ dht_check_and_set_acl_xattr_req(xlator_t *this, dict_t *xattr_req)
 }
 
 /* for directories, we need the following info:
- * the layout : trusted.glusterfs.dht
- * the mds information : trusted.glusterfs.dht.mds
+ * the layout : user.glusterfs.dht
+ * the mds information : user.glusterfs.dht.mds
  * the acl info: See above
  */
 static int
@@ -3550,7 +3550,7 @@ dht_lookup(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *xattr_req)
     }
 
     if (loc_is_root(loc)) {
-        /* Request the DHT commit hash xattr (trusted.glusterfs.dht.commithash)
+        /* Request the DHT commit hash xattr (user.glusterfs.dht.commithash)
          * set on the brick root.
          */
         ret = dict_set_uint32(local->xattr_req, conf->commithash_xattr_name,
@@ -4598,8 +4598,8 @@ dht_getxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this, int op_ret,
 
         /* filter out following two xattrs that need not
          * be visible on the mount point for geo-rep -
-         * trusted.tier.fix.layout.complete and
-         * trusted.tier.tier-dht.commithash
+         * user.tier.fix.layout.complete and
+         * user.tier.tier-dht.commithash
          */
 
         dict_del(xattr, conf->commithash_xattr_name);
@@ -4609,8 +4609,8 @@ dht_getxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this, int op_ret,
         }
 
         if (frame->root->pid >= 0) {
-            GF_REMOVE_INTERNAL_XATTR("trusted.glusterfs.quota*", xattr);
-            GF_REMOVE_INTERNAL_XATTR("trusted.pgfid*", xattr);
+            GF_REMOVE_INTERNAL_XATTR("user.glusterfs.quota*", xattr);
+            GF_REMOVE_INTERNAL_XATTR("user.pgfid*", xattr);
         }
 
         local->op_ret = 0;
@@ -5269,7 +5269,7 @@ dht_fgetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, const char *key,
 
         if (!ret && key && local->mds_subvol && dht_match_xattr(key)) {
             STACK_WIND(frame, dht_mds_getxattr_cbk, local->mds_subvol,
-                       local->mds_subvol->fops->fgetxattr, fd, key, xdata);
+                       local->mds_subvol->fops->fgetxattr, fd, key, NULL);
 
             return 0;
         }
@@ -5281,7 +5281,7 @@ dht_fgetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, const char *key,
     for (i = 0; i < cnt; i++) {
         subvol = layout->list[i].xlator;
         STACK_WIND(frame, dht_getxattr_cbk, subvol, subvol->fops->fgetxattr, fd,
-                   key, xdata);
+                   key, NULL);
     }
     return 0;
 
@@ -5883,6 +5883,23 @@ dht_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *xattr,
         if (local->rebalance.target_node) {
             local->flags = forced_rebalance;
 
+            /* Flag to suggest its a tiering migration
+             * The reason for this dic key-value is that
+             * promotions and demotions are multithreaded
+             * so the original frame from gf_defrag_start()
+             * is not carried. A new frame will be created when
+             * we do syncop_setxattr(). This does not have the
+             * frame->root->pid of the original frame. So we pass
+             * this dic key-value when we do syncop_setxattr() to do
+             * data migration and set the frame->root->pid to
+             * GF_CLIENT_PID_TIER_DEFRAG in dht_setxattr() just before
+             * calling dht_start_rebalance_task() */
+            tmp = dict_get(xattr, TIERING_MIGRATION_KEY);
+            if (tmp)
+                frame->root->pid = GF_CLIENT_PID_TIER_DEFRAG;
+            else
+                frame->root->pid = GF_CLIENT_PID_DEFRAG;
+
             ret = dht_start_rebalance_task(this, frame);
             if (!ret)
                 return 0;
@@ -5918,10 +5935,6 @@ dht_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *xattr,
 
     tmp = dict_get(xattr, GF_XATTR_FIX_LAYOUT_KEY);
     if (tmp) {
-        if (!IA_ISDIR(loc->inode->ia_type)) {
-            op_errno = ENOTSUP;
-            goto err;
-        }
         ret = dict_get_uint32(xattr, "new-commit-hash", &new_hash);
         if (ret == 0) {
             gf_msg_debug(this->name, 0,
@@ -5971,7 +5984,7 @@ dht_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *xattr,
         goto err;
     }
 
-    tmp = dict_get(xattr, "glusterfs.dht.nuke");
+    tmp = dict_get(xattr, "user.glusterfs.dht.nuke");
     if (tmp) {
         return dht_nuke_dir(frame, this, loc, tmp);
     }
@@ -11380,8 +11393,8 @@ dht_pt_getxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
     dict_del(xattr, conf->commithash_xattr_name);
 
     if (frame->root->pid >= 0) {
-        GF_REMOVE_INTERNAL_XATTR("trusted.glusterfs.quota*", xattr);
-        GF_REMOVE_INTERNAL_XATTR("trusted.pgfid*", xattr);
+        GF_REMOVE_INTERNAL_XATTR("user.glusterfs.quota*", xattr);
+        GF_REMOVE_INTERNAL_XATTR("user.pgfid*", xattr);
     }
 
     DHT_STACK_UNWIND(getxattr, frame, op_ret, op_errno, xattr, xdata);
@@ -11392,32 +11405,8 @@ int
 dht_pt_getxattr(call_frame_t *frame, xlator_t *this, loc_t *loc,
                 const char *key, dict_t *xdata)
 {
-    int op_errno = -1;
-    dht_local_t *local = NULL;
-
-    VALIDATE_OR_GOTO(frame, err);
-    VALIDATE_OR_GOTO(this, err);
-    VALIDATE_OR_GOTO(loc, err);
-    VALIDATE_OR_GOTO(loc->inode, err);
-    VALIDATE_OR_GOTO(this->private, err);
-
-    local = dht_local_init(frame, loc, NULL, GF_FOP_GETXATTR);
-    if (!local) {
-        op_errno = ENOMEM;
-        goto err;
-    }
-
-    if (key &&
-        strncmp(key, DHT_SUBVOL_STATUS_KEY, SLEN(DHT_SUBVOL_STATUS_KEY)) == 0) {
-        dht_vgetxattr_subvol_status(frame, this, key);
-        return 0;
-    }
-
     STACK_WIND(frame, dht_pt_getxattr_cbk, FIRST_CHILD(this),
                FIRST_CHILD(this)->fops->getxattr, loc, key, xdata);
-    return 0;
-err:
-    DHT_STACK_UNWIND(getxattr, frame, -1, op_errno, NULL, NULL);
     return 0;
 }
 
@@ -11431,8 +11420,8 @@ dht_pt_fgetxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
     dict_del(xattr, conf->xattr_name);
 
     if (frame->root->pid >= 0) {
-        GF_REMOVE_INTERNAL_XATTR("trusted.glusterfs.quota*", xattr);
-        GF_REMOVE_INTERNAL_XATTR("trusted.pgfid*", xattr);
+        GF_REMOVE_INTERNAL_XATTR("user.glusterfs.quota*", xattr);
+        GF_REMOVE_INTERNAL_XATTR("user.pgfid*", xattr);
     }
 
     DHT_STACK_UNWIND(fgetxattr, frame, op_ret, op_errno, xattr, xdata);

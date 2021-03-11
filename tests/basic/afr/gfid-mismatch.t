@@ -21,7 +21,7 @@ TEST $GFS --volfile-id=$V0 -s $H0 $M0;
 
 #Test
 TEST touch $M0/file
-TEST setfattr -n trusted.gfid -v 0sBfz5vAdHTEK1GZ99qjqTIg== $B0/brick0/file
+TEST setfattr -n user.gfid -v 0sBfz5vAdHTEK1GZ99qjqTIg== $B0/brick0/file
 TEST ! "find $M0/file"
 TEST ! "stat $M0/file"
 

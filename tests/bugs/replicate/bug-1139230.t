@@ -37,22 +37,22 @@ EXPECT_WITHIN $HEAL_TIMEOUT "Y" is_file_heal_done $B0/${V0}-0 $B0/${V0}-1 one/tw
 
 # Pending xattrs should be set for all the bricks once self-heal is done
 # Check pending xattrs
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one trusted.afr.$V0-client-0
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one trusted.afr.$V0-client-1
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one trusted.afr.$V0-client-0
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one trusted.afr.$V0-client-1
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one trusted.afr.dirty
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one trusted.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one user.afr.$V0-client-0
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one user.afr.$V0-client-1
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one user.afr.$V0-client-0
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one user.afr.$V0-client-1
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one user.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one user.afr.dirty
 
 TEST `echo "time ago" > $M0/one/three`
 
 # Pending xattrs should be set for all the bricks once transaction is done
 # Check pending xattrs
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three trusted.afr.$V0-client-0
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three trusted.afr.$V0-client-1
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three trusted.afr.$V0-client-0
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three trusted.afr.$V0-client-1
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three trusted.afr.dirty
-EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three trusted.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three user.afr.$V0-client-0
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three user.afr.$V0-client-1
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three user.afr.$V0-client-0
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three user.afr.$V0-client-1
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-0/one/three user.afr.dirty
+EXPECT "0x000000000000000000000000" afr_get_changelog_xattr $B0/${V0}-1/one/three user.afr.dirty
 
 cleanup;

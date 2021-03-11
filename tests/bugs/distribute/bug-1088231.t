@@ -29,7 +29,7 @@ TEST mkdir $M0/a
 gfid_with_hyphen=`getfattr -n glusterfs.gfid.string $M0/a 2>/dev/null \
                   | grep glusterfs.gfid.string | cut -d '"' -f 2`
 
-TEST setfattr -x trusted.glusterfs.dht $B0/$V0"0"/a
+TEST setfattr -x user.glusterfs.dht $B0/$V0"0"/a
 
 ## new healing code don't attempt healing if inode is already
 ## populated. So, unmount and remount before we do stat.
@@ -117,8 +117,8 @@ TEST mkdir $M0/a
 gfid_with_hyphen=`getfattr -n glusterfs.gfid.string $M0/a 2>/dev/null \
                   | grep glusterfs.gfid.string | cut -d '"' -f 2`
 
-TEST setfattr -x trusted.glusterfs.dht $B0/$V0"0"/a
-TEST setfattr -x trusted.glusterfs.dht $B0/$V0"1"/a
+TEST setfattr -x user.glusterfs.dht $B0/$V0"0"/a
+TEST setfattr -x user.glusterfs.dht $B0/$V0"1"/a
 
 ## new healing code don't attempt healing if inode is already
 ## populated. So, unmount and remount before we do stat.

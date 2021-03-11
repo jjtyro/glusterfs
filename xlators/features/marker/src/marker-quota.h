@@ -16,8 +16,8 @@
 #include <glusterfs/quota-common-utils.h>
 #include <glusterfs/call-stub.h>
 
-#define QUOTA_XATTR_PREFIX "trusted.glusterfs"
-#define QUOTA_DIRTY_KEY "trusted.glusterfs.quota.dirty"
+#define QUOTA_XATTR_PREFIX "user.glusterfs"
+#define QUOTA_DIRTY_KEY "user.glusterfs.quota.dirty"
 
 #define CONTRIBUTION "contri"
 #define QUOTA_KEY_MAX 512

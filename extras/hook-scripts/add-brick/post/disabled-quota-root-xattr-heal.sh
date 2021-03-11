@@ -11,8 +11,8 @@
 ## 4. Disable itself
 ##---------------------------------------------------------------------------
 
-QUOTA_LIMIT_XATTR="trusted.glusterfs.quota.limit-set"
-QUOTA_OBJECT_LIMIT_XATTR="trusted.glusterfs.quota.limit-objects"
+QUOTA_LIMIT_XATTR="user.glusterfs.quota.limit-set"
+QUOTA_OBJECT_LIMIT_XATTR="user.glusterfs.quota.limit-objects"
 MOUNT_DIR=$(mktemp -d -t "${0##*/}.XXXXXX");
 OPTSPEC="volname:,version:,gd-workdir:,volume-op:"
 PROGNAME="Quota-xattr-heal-add-brick"

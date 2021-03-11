@@ -47,8 +47,8 @@ EXPECT "$xatt1_cnt" echo $xatt2_cnt
 EXPECT "$xatt1_cnt" echo $xatt3_cnt
 
 #changelogs must be zero
-xattr1=$(get_hex_xattr trusted.afr.$V0-client-2 $B0/brick0/file)
-xattr2=$(get_hex_xattr trusted.afr.$V0-client-2 $B0/brick1/file)
+xattr1=$(get_hex_xattr user.afr.$V0-client-2 $B0/brick0/file)
+xattr2=$(get_hex_xattr user.afr.$V0-client-2 $B0/brick1/file)
 EXPECT "000000000000000000000000" echo $xattr1
 EXPECT "000000000000000000000000" echo $xattr2
 

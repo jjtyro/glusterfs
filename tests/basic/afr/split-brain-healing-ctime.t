@@ -151,7 +151,7 @@ fi
 EXPECT "0" echo $?
 EXPECT $SMALLER_FILE_SIZE stat -c %s file4
 
-# With ctime enabled, the ctime xattr ("trusted.glusterfs.mdata") gets healed
+# With ctime enabled, the ctime xattr ("user.glusterfs.mdata") gets healed
 # as part of metadata heal. So mtime would be same, hence it can't be healed
 # using 'latest-mtime' policy, use 'source-brick' option instead.
 ################ Heal file5 using the source-brick option  ##############

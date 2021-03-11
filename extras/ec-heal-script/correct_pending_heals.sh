@@ -12,7 +12,7 @@
 # gfid_needing_heal_parallel.sh will produce two files, potential_heal and can_not_heal.
 # This script takes potential_heal as input and resets xattrs of all the fragments
 # of those files present in this file and which could be healed as per
-# trusted.ec.size xattar of the file else it will place the entry in can_not_heal
+# user.ec.size xattar of the file else it will place the entry in can_not_heal
 # file.  Those entries which must be healed will be place in must_heal file
 # after setting xattrs so that user can track those files.
 
@@ -36,7 +36,7 @@ which can be healed as per gfid_needing_heal_parallel.sh.
 gfid_needing_heal_parallel.sh will produce two files, potential_heal and can_not_heal.
 This script takes potential_heal as input and resets xattrs of all the fragments
 of those files present in this file and which could be healed as per
-trusted.ec.size xattar of the file else it will place the entry in can_not_heal
+user.ec.size xattar of the file else it will place the entry in can_not_heal
 file.  Those entries which must be healed will be place in must_heal file
 after setting xattrs so that user can track those files."
 }
@@ -109,8 +109,8 @@ function set_frag_xattr ()
             version="0x00000000000000000000000000000000"
     fi
 
-    cmd1=" setfattr -n trusted.ec.version -v ${version} ${file_entry} &&"
-    cmd2=" setfattr -n trusted.ec.dirty -v ${dirty} ${file_entry}"
+    cmd1=" setfattr -n user.ec.version -v ${version} ${file_entry} &&"
+    cmd2=" setfattr -n user.ec.dirty -v ${dirty} ${file_entry}"
     cmd=${cmd1}${cmd2}
     ssh -n "${file_host}" "${cmd}"
 }
@@ -151,7 +151,7 @@ function match_size_xattr_quorum ()
         file_entry=$(echo "$bpath" | cut -d ":" -f 2)
         file_entry=${file_entry//#}
 
-        cmd="getfattr -n trusted.ec.size -d -e hex ${file_entry} 2>/dev/null | grep -w "trusted.ec.size" | cut -d '=' -f 2"
+        cmd="getfattr -n user.ec.size -d -e hex ${file_entry} 2>/dev/null | grep -w "user.ec.size" | cut -d '=' -f 2"
         size_xattr=$(ssh -n "${file_host}" "${cmd}")
         if [[ -n $size_xattr ]]
         then
@@ -184,7 +184,7 @@ function match_version_xattr ()
         file_entry=$(echo "$bpath" | cut -d ":" -f 2)
         file_entry=${file_entry//#}
 
-        cmd="getfattr -n trusted.ec.version -d -e hex ${file_entry} 2>/dev/null | grep -w "trusted.ec.version" | cut -d '=' -f 2"
+        cmd="getfattr -n user.ec.version -d -e hex ${file_entry} 2>/dev/null | grep -w "user.ec.version" | cut -d '=' -f 2"
         version=$(ssh -n "${file_host}" "${cmd}")
         ver_count["$version"]=$((ver_count["$version"] + 1))
     done
@@ -223,7 +223,7 @@ function match_stat_size_with_xattr ()
 
     if [[ $? -eq 0 ]]
     then
-        cmd="getfattr -n trusted.ec.size -d -e hex ${file_entry} 2>/dev/null | grep -w "trusted.ec.size" | cut -d '=' -f 2"
+        cmd="getfattr -n user.ec.size -d -e hex ${file_entry} 2>/dev/null | grep -w "user.ec.size" | cut -d '=' -f 2"
         hex_size=$(ssh -n "${file_host}" "${cmd}")
 
         if [[ -z $hex_size || "$hex_size" != "$xattr" ]]

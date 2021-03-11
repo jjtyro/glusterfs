@@ -33,21 +33,21 @@ TEST "echo "test" >> $M0/file"
 TEST "truncate -s 0 $M0/file"
 
 #enforce lock on the file
-TEST setfattr -n trusted.glusterfs.enforce-mandatory-lock -v 1 $M0/file
+TEST setfattr -n user.glusterfs.enforce-mandatory-lock -v 1 $M0/file
 
 #write should fail
 TEST ! "echo "test" >> $M0/file"
 TEST ! "truncate -s 0 $M0/file"
 
 #remove lock enforcement flag
-TEST setfattr -x trusted.glusterfs.enforce-mandatory-lock $M0/file
+TEST setfattr -x user.glusterfs.enforce-mandatory-lock $M0/file
 
 #write should pass
 TEST "echo "test" >> $M0/file"
 TEST "truncate -s 0 $M0/file"
 
 #enforce lock on the file
-TEST setfattr -n trusted.glusterfs.enforce-mandatory-lock -v 1 $M0/file
+TEST setfattr -n user.glusterfs.enforce-mandatory-lock -v 1 $M0/file
 #kill brick
 TEST kill_brick $V0 $H0 $B0/${V0}1
 

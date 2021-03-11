@@ -386,7 +386,7 @@ _is_quota_internal_xattr(dict_t *d, char *k, data_t *v, void *data)
             return _gf_false;
     }
 
-    if (fnmatch("trusted.glusterfs.quota*", k, 0) == 0)
+    if (fnmatch("user.glusterfs.quota*", k, 0) == 0)
         return _gf_true;
 
     /* It would be nice if posix filters pgfid xattrs. But since marker
@@ -450,12 +450,12 @@ marker_getxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
 
         /* If the getxattr is from a non special client, then do not
            copy the quota related xattrs (except the quota limit key
-           i.e trusted.glusterfs.quota.limit-set which has been set by
+           i.e user.glusterfs.quota.limit-set which has been set by
            glusterd on the directory on which quota limit is set.) for
            directories. Let the healing of xattrs happen upon lookup.
-           NOTE: setting of trusted.glusterfs.quota.limit-set as of now
+           NOTE: setting of user.glusterfs.quota.limit-set as of now
            happens from glusterd. It should be moved to quotad. Also
-           trusted.glusterfs.quota.limit-set is set on directory which
+           user.glusterfs.quota.limit-set is set on directory which
            is permanent till quota is removed on that directory or limit
            is changed. So let that xattr be healed by other xlators
            properly whenever directory healing is done.
@@ -2317,7 +2317,7 @@ err:
 }
 
 /* when a call from the special client is received on
- * key trusted.glusterfs.volume-mark with value "RESET"
+ * key user.glusterfs.volume-mark with value "RESET"
  * or if the value is 0length, update the change the
  * access time and modification time via touching the
  * timestamp file.
@@ -2337,7 +2337,7 @@ call_from_sp_client_to_reset_tmfile(call_frame_t *frame, xlator_t *this,
 
     priv = this->private;
 
-    data = dict_get(dict, "trusted.glusterfs.volume-mark");
+    data = dict_get(dict, "user.glusterfs.volume-mark");
     if (data == NULL)
         return -1;
 
@@ -2486,7 +2486,7 @@ quota_xattr_cleaner(void *args)
         goto out;
     }
 
-    ret = dict_foreach_fnmatch(xdata, "trusted.glusterfs.quota.*",
+    ret = dict_foreach_fnmatch(xdata, "user.glusterfs.quota.*",
                                remove_quota_keys, frame);
     if (ret == -1) {
         ret = -errno;

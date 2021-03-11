@@ -74,7 +74,7 @@ TEST $CLI volume stop $V0;
 # we need to preserve and restore the volume ID or else the brick (and thus the
 # entire not-very-HA-any-more volume) won't start. When that bug is fixed, we can
 # remove the [gs]etxattr calls.
-volid=$(getfattr -e hex -n trusted.glusterfs.volume-id $B0/${V0}-0 2> /dev/null \
+volid=$(getfattr -e hex -n user.glusterfs.volume-id $B0/${V0}-0 2> /dev/null \
 	| grep = | cut -d= -f2)
 rm -rf $B0/${V0}-0;
 mkdir $B0/${V0}-0;
@@ -82,7 +82,7 @@ mkdir $B0/${V0}-0;
 #which will create .glusterfs folder.
 mkdir $B0/${V0}-0/.glusterfs && chmod 600 $B0/${V0}-0/.glusterfs
 
-setfattr -n trusted.glusterfs.volume-id -v $volid $B0/${V0}-0
+setfattr -n user.glusterfs.volume-id -v $volid $B0/${V0}-0
 
 ## Restart and remount. Note that we use actimeo=0 so that the stat calls
 ## we need for self-heal don't get blocked by the NFS client.

@@ -41,7 +41,7 @@ gluster_log_file = /var/log/glusterfs/geo-replication-slaves/${session_owner}:${
 
 [peers master slave]
 session_owner = 0732cbd1-3ec5-4920-ab0d-aa5a896d5214
-master.stime_xattr_name = trusted.glusterfs.0732cbd1-3ec5-4920-ab0d-aa5a896d5214.07a9005c-ace4-4f67-b3c0-73938fb236c4.stime
+master.stime_xattr_name = user.glusterfs.0732cbd1-3ec5-4920-ab0d-aa5a896d5214.07a9005c-ace4-4f67-b3c0-73938fb236c4.stime
 volume_id = 0732cbd1-3ec5-4920-ab0d-aa5a896d5214
 use_tarssh = true
 

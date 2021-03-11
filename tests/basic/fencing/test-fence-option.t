@@ -20,18 +20,18 @@ TEST glusterfs -s $H0 --volfile-id $V0 $M0
 TEST touch $M0/file
 
 #setfattr for mandatory-enforcement will fail
-TEST ! setfattr -n trusted.glusterfs.enforce-mandatory-lock -v 1 $M0/file
+TEST ! setfattr -n user.glusterfs.enforce-mandatory-lock -v 1 $M0/file
 
 #enable mandatory locking
 TEST $CLI volume set $V0 locks.mandatory-locking forced
 
 #setfattr will fail
-TEST ! setfattr -n trusted.glusterfs.enforce-mandatory-lock -v 1 $M0/file
+TEST ! setfattr -n user.glusterfs.enforce-mandatory-lock -v 1 $M0/file
 
 #set lock-enforcement option
 TEST $CLI volume set $V0 enforce-mandatory-lock on
 
 #setfattr should succeed
-TEST setfattr -n trusted.glusterfs.enforce-mandatory-lock -v 1 $M0/file
+TEST setfattr -n user.glusterfs.enforce-mandatory-lock -v 1 $M0/file
 
 cleanup;

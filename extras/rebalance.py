@@ -81,9 +81,9 @@ def mount_brick (localpath, all_xlators, dht_subvol):
 # program which has only a build-time dependency.
 def get_range (brick):
         t = pipes.Template()
-        cmd = "getfattr -e hex -n trusted.glusterfs.dht %s 2> /dev/null"
+        cmd = "getfattr -e hex -n user.glusterfs.dht %s 2> /dev/null"
         t.prepend(cmd%brick, ".-")
-        t.append("grep ^trusted.glusterfs.dht=", "--")
+        t.append("grep ^user.glusterfs.dht=", "--")
         f = t.open(None, "r")
         try:
                 value = f.readline().rstrip().split('=')[1][2:]
@@ -297,7 +297,7 @@ if __name__ == "__main__":
                         value = "0x0000000200000000%08x%08x" % (
                                 b.r_start, b.r_end)
                         path = "%s/%s" % (b.path, fix_dir)
-                        cmd = "setfattr -n trusted.glusterfs.dht -v %s %s" % (
+                        cmd = "setfattr -n user.glusterfs.dht -v %s %s" % (
                                 value, path)
                         print(cmd)
 

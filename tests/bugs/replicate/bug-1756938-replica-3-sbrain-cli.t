@@ -33,21 +33,21 @@ TEST dd if=/dev/zero of=$M0/file4 bs=1M count=6 oflag=direct
 EXPECT_WITHIN $UMOUNT_TIMEOUT "Y" force_umount $M0
 
 #-------------------------------------------------------------------------------
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}0/file1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}0/file1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}1/file1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}1/file1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}2/file1
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}2/file1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}0/file1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}0/file1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}1/file1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}1/file1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}2/file1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}2/file1
 
 #-------------------------------------------------------------------------------
 gfid_f2=$(gf_gfid_xattr_to_str $(gf_get_gfid_xattr $B0/${V0}0/file2))
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}0/.shard/$gfid_f2.1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}0/.shard/$gfid_f2.1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}1/.shard/$gfid_f2.1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}1/.shard/$gfid_f2.1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}2/.shard/$gfid_f2.1
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}2/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}0/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}0/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}1/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/${V0}1/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/${V0}2/.shard/$gfid_f2.1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/${V0}2/.shard/$gfid_f2.1
 
 #-------------------------------------------------------------------------------
 TESTS_EXPECTED_IN_LOOP=5
@@ -58,10 +58,10 @@ function assign_new_gfid {
     gfid_shard=$(gf_gfid_xattr_to_str $(gf_get_gfid_xattr $brickpath/.shard/$gfid.1))
 
     TEST rm $brickpath/.glusterfs/${gfid_shard:0:2}/${gfid_shard:2:2}/$gfid_shard
-    TEST setfattr -x trusted.gfid $brickpath/.shard/$gfid.1
+    TEST setfattr -x user.gfid $brickpath/.shard/$gfid.1
     new_gfid=$(get_random_gfid)
     new_gfid_str=$(gf_gfid_xattr_to_str $new_gfid)
-    TEST setfattr -n trusted.gfid -v $new_gfid $brickpath/.shard/$gfid.1
+    TEST setfattr -n user.gfid -v $new_gfid $brickpath/.shard/$gfid.1
     TEST mkdir -p $brickpath/.glusterfs/${new_gfid_str:0:2}/${new_gfid_str:2:2}
     TEST ln $brickpath/.shard/$gfid.1 $brickpath/.glusterfs/${new_gfid_str:0:2}/${new_gfid_str:2:2}/$new_gfid_str
 }
@@ -70,12 +70,12 @@ assign_new_gfid $B0/$V0"2" file3
 
 #-------------------------------------------------------------------------------
 gfid_f4=$(gf_gfid_xattr_to_str $(gf_get_gfid_xattr $B0/${V0}0/file4))
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000100000000 $B0/${V0}0/.shard/$gfid_f4.1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000100000000 $B0/${V0}0/.shard/$gfid_f4.1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000100000000 $B0/${V0}1/.shard/$gfid_f4.1
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000100000000 $B0/${V0}1/.shard/$gfid_f4.1
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000100000000 $B0/${V0}2/.shard/$gfid_f4.1
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000100000000 $B0/${V0}2/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000100000000 $B0/${V0}0/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000100000000 $B0/${V0}0/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000100000000 $B0/${V0}1/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000010000000100000000 $B0/${V0}1/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000010000000100000000 $B0/${V0}2/.shard/$gfid_f4.1
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000100000000 $B0/${V0}2/.shard/$gfid_f4.1
 
 #-------------------------------------------------------------------------------
 #Add entry to xattrop dir on first brick and check for split-brain.

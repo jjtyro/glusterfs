@@ -281,7 +281,7 @@ index_dir_create(xlator_t *this, const char *subdir)
             len = pathlen;
         strncpy(path, fullpath, len);
         path[len] = '\0';
-        ret = sys_mkdir(path, 0600);
+        ret = sys_mkdir(path, 0700);
         if (ret && (errno != EEXIST))
             goto out;
     }
@@ -841,7 +841,7 @@ index_entry_create(xlator_t *this, inode_t *inode, char *filename)
                    pgfid_path, sizeof(pgfid_path));
 
     if (ctx->state[ENTRY_CHANGES] != IN) {
-        ret = sys_mkdir(pgfid_path, 0600);
+        ret = sys_mkdir(pgfid_path, 0700);
         if (ret != 0 && errno != EEXIST) {
             op_errno = errno;
             goto out;
@@ -2655,15 +2655,15 @@ struct volume_options options[] = {
     {.key = {"xattrop64-watchlist"},
      .type = GF_OPTION_TYPE_STR,
      .description = "Comma separated list of xattrs that are watched",
-     .default_value = "trusted.ec.dirty"},
+     .default_value = "user.ec.dirty"},
     {.key = {"xattrop-dirty-watchlist"},
      .type = GF_OPTION_TYPE_STR,
      .description = "Comma separated list of xattrs that are watched",
-     .default_value = "trusted.afr.dirty"},
+     .default_value = "user.afr.dirty"},
     {.key = {"xattrop-pending-watchlist"},
      .type = GF_OPTION_TYPE_STR,
      .description = "Comma separated list of xattrs that are watched",
-     .default_value = "trusted.afr.{{ volume.name }}"},
+     .default_value = "user.afr.{{ volume.name }}"},
     {.key = {NULL}},
 };
 

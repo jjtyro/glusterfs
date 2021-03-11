@@ -43,7 +43,7 @@ get_hosttime(uint32_t *oldtimbuf, uint32_t *newtimebuf)
     newtimebuf[1] = ntohl(oldtimbuf[1]);
 }
 
-/* Match the Incoming trusted.glusterfs.<uuid>.xtime against volume uuid */
+/* Match the Incoming user.glusterfs.<uuid>.xtime against volume uuid */
 int
 match_uuid_local(const char *name, char *uuid)
 {

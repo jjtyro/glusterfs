@@ -9,7 +9,7 @@ cleanup;
 
 function get_layout()
 {
-        layout1=`getfattr -n trusted.glusterfs.dht -e hex $1 2>&1`
+        layout1=`getfattr -n user.glusterfs.dht -e hex $1 2>&1`
 
         if [ $? -ne 0 ]
         then

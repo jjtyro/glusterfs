@@ -273,7 +273,7 @@ switch_lookup(call_frame_t *frame, xlator_t *this, loc_t *loc,
         local->call_cnt = layout->cnt;
         call_cnt = local->call_cnt;
 
-        /* NOTE: we don't require 'trusted.glusterfs.dht.linkto'
+        /* NOTE: we don't require 'user.glusterfs.dht.linkto'
          * attribute, revalidates directly go to the cached-subvolume.
          */
         ret = dict_set_uint32(local->xattr_req, conf->xattr_name, 4 * 4);

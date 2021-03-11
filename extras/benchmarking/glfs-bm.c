@@ -236,7 +236,7 @@ do_mode_posix_iface_xattr_write(struct state *state)
     for (i = 0; i < state->count; i++) {
         char key[512];
 
-        sprintf(key, "glusterfs.file.%s.%06ld", bname, i);
+        sprintf(key, "user.glusterfs.file.%s.%06ld", bname, i);
 
         ret = lsetxattr(dname, key, block, state->block_size, 0);
 
@@ -271,7 +271,7 @@ do_mode_posix_iface_xattr_read(struct state *state)
     for (i = 0; i < state->count; i++) {
         char key[512];
 
-        sprintf(key, "glusterfs.file.%s.%06ld", bname, i);
+        sprintf(key, "user.glusterfs.file.%s.%06ld", bname, i);
 
         ret = lgetxattr(dname, key, block, state->block_size);
 

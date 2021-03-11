@@ -28,12 +28,12 @@ function heal_status {
         else
                 insync="N"
         fi
-        local xattr11=$(get_hex_xattr trusted.afr.$V0-client-0 $f1_path)
-        local xattr12=$(get_hex_xattr trusted.afr.$V0-client-1 $f1_path)
-        local xattr21=$(get_hex_xattr trusted.afr.$V0-client-0 $f2_path)
-        local xattr22=$(get_hex_xattr trusted.afr.$V0-client-1 $f2_path)
-        local dirty1=$(get_hex_xattr trusted.afr.dirty $f1_path)
-        local dirty2=$(get_hex_xattr trusted.afr.dirty $f2_path)
+        local xattr11=$(get_hex_xattr user.afr.$V0-client-0 $f1_path)
+        local xattr12=$(get_hex_xattr user.afr.$V0-client-1 $f1_path)
+        local xattr21=$(get_hex_xattr user.afr.$V0-client-0 $f2_path)
+        local xattr22=$(get_hex_xattr user.afr.$V0-client-1 $f2_path)
+        local dirty1=$(get_hex_xattr user.afr.dirty $f1_path)
+        local dirty2=$(get_hex_xattr user.afr.dirty $f2_path)
         if [ -z $xattr11 ]; then xattr11="000000000000000000000000"; fi
         if [ -z $xattr12 ]; then xattr12="000000000000000000000000"; fi
         if [ -z $xattr21 ]; then xattr21="000000000000000000000000"; fi
@@ -165,13 +165,13 @@ TEST mkdir  source_creations_me/dir1/dir2
 $CLI volume stop $V0
 
 #simulate fool fool scenario for fool_* dirs
-setfattr -x trusted.afr.$V0-client-0 $B0/${V0}1/{fool_heal,fool_me}
-setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/{fool_heal,fool_me}
-setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}1/{v1_fool_heal,v1_fool_me}
+setfattr -x user.afr.$V0-client-0 $B0/${V0}1/{fool_heal,fool_me}
+setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/{fool_heal,fool_me}
+setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}1/{v1_fool_heal,v1_fool_me}
 
 #Simulate v1-dirty(self-accusing but no pending ops on others) scenario for v1-dirty
-setfattr -x trusted.afr.$V0-client-0 $B0/${V0}1/v1_dirty_{heal,me}
-setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}1/v1_dirty_{heal,me}
+setfattr -x user.afr.$V0-client-0 $B0/${V0}1/v1_dirty_{heal,me}
+setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}1/v1_dirty_{heal,me}
 
 $CLI volume start $V0 force
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 0
@@ -183,12 +183,12 @@ TEST touch spb_heal/1 spb/0 spb_me_heal/1 spb_me/0 fool_heal/1 fool_me/1 v1_fool
 $CLI volume stop $V0
 
 #simulate fool fool scenario for fool_* dirs
-setfattr -x trusted.afr.$V0-client-1 $B0/${V0}0/{fool_heal,fool_me}
-setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/{fool_heal,fool_me}
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/{v1_fool_heal,v1_fool_me}
+setfattr -x user.afr.$V0-client-1 $B0/${V0}0/{fool_heal,fool_me}
+setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/{fool_heal,fool_me}
+setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/{v1_fool_heal,v1_fool_me}
 
 #simulate self-accusing for source_self_accusing
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000006 $B0/${V0}0/source_self_accusing
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000006 $B0/${V0}0/source_self_accusing
 
 $CLI volume start $V0 force
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 1

@@ -24,19 +24,19 @@ TEST $GFS --volfile-server=$H0 --volfile-id=$V0 $M0;
 
 echo "123" >> $M0/file;
 
-TEST ! setfattr -n "trusted.glusterfs.set-signature" -v "123" $M0/file;
-TEST ! setfattr -n "trusted.glusterfs.get-signature" -v "123" $M0/file;
+TEST ! setfattr -n "user.glusterfs.set-signature" -v "123" $M0/file;
+TEST ! setfattr -n "user.glusterfs.get-signature" -v "123" $M0/file;
 
 # sign xattr
-TEST ! setfattr -n "trusted.bit-rot.signature" -v "123" $M0/file;
-TEST ! setfattr -x "trusted.bit-rot.signature" $M0/file;
+TEST ! setfattr -n "user.bit-rot.signature" -v "123" $M0/file;
+TEST ! setfattr -x "user.bit-rot.signature" $M0/file;
 
 # versioning xattr
-TEST ! setfattr -n "trusted.bit-rot.version" -v "123" $M0/file;
-TEST ! setfattr -x "trusted.bit-rot.version" $M0/file;
+TEST ! setfattr -n "user.bit-rot.version" -v "123" $M0/file;
+TEST ! setfattr -x "user.bit-rot.version" $M0/file;
 
 # bad file xattr
-TEST ! setfattr -n "trusted.bit-rot.bad-file" -v "123" $M0/file;
-TEST ! setfattr -x "trusted.bit-rot.bad-file" $M0/file;
+TEST ! setfattr -n "user.bit-rot.bad-file" -v "123" $M0/file;
+TEST ! setfattr -x "user.bit-rot.bad-file" $M0/file;
 
 cleanup;

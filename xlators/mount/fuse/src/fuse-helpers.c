@@ -624,8 +624,8 @@ fuse_ignore_xattr_set(fuse_private_t *priv, char *key)
     if (!((fnmatch("*.glusterfs.*.xtime", key, FNM_PERIOD) == 0) ||
           (fnmatch("*.glusterfs.volume-mark", key, FNM_PERIOD) == 0) ||
           (fnmatch("*.glusterfs.volume-mark.*", key, FNM_PERIOD) == 0) ||
-          (fnmatch("system.posix_acl_access", key, FNM_PERIOD) == 0) ||
-          (fnmatch("glusterfs.gfid.newfile", key, FNM_PERIOD) == 0) ||
+          (fnmatch("user.posix_acl_access", key, FNM_PERIOD) == 0) ||
+          (fnmatch("user.glusterfs.gfid.newfile", key, FNM_PERIOD) == 0) ||
           (fnmatch("*.glusterfs.shard.block-size", key, FNM_PERIOD) == 0) ||
           (fnmatch("*.glusterfs.shard.file-size", key, FNM_PERIOD) == 0)))
         ret = -1;

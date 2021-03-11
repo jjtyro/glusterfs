@@ -13,7 +13,7 @@
 
 #include "ec-method.h"
 
-#define EC_XATTR_PREFIX "trusted.ec."
+#define EC_XATTR_PREFIX "user.ec."
 #define EC_XATTR_CONFIG EC_XATTR_PREFIX "config"
 #define EC_XATTR_SIZE EC_XATTR_PREFIX "size"
 #define EC_XATTR_VERSION EC_XATTR_PREFIX "version"

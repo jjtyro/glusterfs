@@ -75,10 +75,6 @@ function rebalance_status_field {
         $CLI volume rebalance $1 status | awk '{print $7}' | sed -n 3p
 }
 
-function rebalanced_files_field {
-        $CLI volume rebalance $1 status | awk '{print $2}' | sed -n 3p
-}
-
 function fix-layout_status_field {
         #The fix-layout status can be up to 3 words, (ex:'fix-layout in progress'), hence the awk-print $2 thru $4.
         #But if the status is less than 3 words, it also prints the next field i.e the run_time_in_secs.(ex:'completed 3.00').
@@ -188,7 +184,7 @@ function _afr_child_up_status {
         local brick_id=$2
         local gen_state_dump=$3
         local fpath=$($gen_state_dump $vol)
-        up=$(grep -a -B1 trusted.afr.$vol-client-$brick_id $fpath | head -1 | cut -f2 -d'=')
+        up=$(grep -a -B1 user.afr.$vol-client-$brick_id $fpath | head -1 | cut -f2 -d'=')
         rm -f $fpath
         echo "$up"
 }
@@ -372,7 +368,7 @@ function afr_get_num_indices_in_brick {
 
 function gf_get_gfid_xattr {
         file=$1
-        getfattr -n trusted.gfid -e hex $file 2>/dev/null | grep "trusted.gfid" | cut -f2 -d'='
+        getfattr -n user.gfid -e hex $file 2>/dev/null | grep "user.gfid" | cut -f2 -d'='
 }
 
 function gf_gfid_xattr_to_str {
@@ -393,7 +389,7 @@ function get_gfid2path {
 
 function get_mdata {
         local path=$1
-        getfattr -h -e hex -n trusted.glusterfs.mdata $path 2>/dev/null | grep "trusted.glusterfs.mdata" | cut -f2 -d'='
+        getfattr -h -e hex -n user.glusterfs.mdata $path 2>/dev/null | grep "user.glusterfs.mdata" | cut -f2 -d'='
 }
 
 function get_mdata_count {
@@ -453,7 +449,7 @@ function gd_is_replace_brick_completed {
 }
 
 function dht_get_layout {
-        local my_xa=trusted.glusterfs.dht
+        local my_xa=user.glusterfs.dht
         getfattr -d -e hex -n $my_xa $1 2> /dev/null | grep "$my_xa=" | cut -d= -f2
 }
 
@@ -483,7 +479,7 @@ function afr_get_specific_changelog_xattr ()
 function get_backend_paths {
        local path=$1
 
-       getfattr -m . -n trusted.glusterfs.pathinfo $path | tr ' ' '\n' | sed -n 's/<POSIX.*:.*:\(.*\)>.*/\1/p'
+       getfattr -m . -n user.glusterfs.pathinfo $path | tr ' ' '\n' | sed -n 's/<POSIX.*:.*:\(.*\)>.*/\1/p'
 }
 
 #Gets the xattr value in hex, also removed 0x in front of the value
@@ -605,7 +601,7 @@ function force_umount {
 function assign_gfid {
         local gfid=$1
         local file=$2
-        setfattr -n trusted.gfid -v $1 $2
+        setfattr -n user.gfid -v $1 $2
 }
 
 function get_random_gfid {
@@ -644,7 +640,7 @@ function mount_get_option_value {
 }
 
 function get_volume_mark {
-        getfattr -n trusted.glusterfs.volume-mark -ehex $1 | sed -n 's/^trusted.glusterfs.volume-mark=0x//p' | cut -b5-36 | sed 's/\([a-f0-9]\{8\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)/\1-\2-\3-\4-/'
+        getfattr -n user.glusterfs.volume-mark -ehex $1 | sed -n 's/^user.glusterfs.volume-mark=0x//p' | cut -b5-36 | sed 's/\([a-f0-9]\{8\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)\([a-f0-9]\{4\}\)/\1-\2-\3-\4-/'
 }
 
 # setup geo-rep in a single a node.

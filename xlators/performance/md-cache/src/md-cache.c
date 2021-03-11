@@ -2465,7 +2465,7 @@ mdc_getxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
         goto out;
     }
 
-    if (dict_get(xattr, "glusterfs.skip-cache")) {
+    if (dict_get(xattr, "user.glusterfs.skip-cache")) {
         gf_msg(this->name, GF_LOG_DEBUG, 0, 0,
                "Skipping xattr update due to empty value");
         goto out;
@@ -2554,7 +2554,7 @@ mdc_fgetxattr_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
         goto out;
     }
 
-    if (dict_get(xattr, "glusterfs.skip-cache")) {
+    if (dict_get(xattr, "user.glusterfs.skip-cache")) {
         gf_msg(this->name, GF_LOG_DEBUG, 0, 0,
                "Skipping xattr update due to empty value");
         goto out;
@@ -3921,7 +3921,7 @@ struct volume_options mdc_options[] = {
         .op_version = {2},
         .flags = OPT_FLAG_SETTABLE | OPT_FLAG_CLIENT_OPT | OPT_FLAG_DOC,
         .description = "Cache posix ACL xattrs (system.posix_acl_access, "
-                       "system.posix_acl_default) on client side",
+                       "user.posix_acl_default) on client side",
     },
     {
         .key = {"cache-glusterfs-acl"},

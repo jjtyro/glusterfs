@@ -46,7 +46,7 @@ TEST rm -f $M1/b
 echo jkl > $M1/b
 #Clear the extended attributes on the directory to create a scenario where
 #gfid-mismatch happened. This should result in EIO
-TEST setfattr -x trusted.afr.$V0-client-0 $B0/${V0}1
+TEST setfattr -x user.afr.$V0-client-0 $B0/${V0}1
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status_meta $M0 $V0-replicate-0 0
 # The kernel knows nothing about the tricks done to the volume, and the file

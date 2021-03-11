@@ -9,7 +9,7 @@ TESTS_EXPECTED_IN_LOOP=11
 cleanup
 function get_ec_xattrs
 {
-        getfattr -d -m. -e hex $1 | grep trusted.ec
+        getfattr -d -m. -e hex $1 | grep user.ec
 }
 
 function get_xattr_count
@@ -17,7 +17,7 @@ function get_xattr_count
         getfattr -d -m. -e hex $1 | grep "trusted" | wc -l
 }
 
-declare -a xattrs=("trusted.ec.config" "trusted.ec.size" "trusted.ec.version" "trusted.ec.heal")
+declare -a xattrs=("user.ec.config" "user.ec.size" "user.ec.version" "user.ec.heal")
 
 TEST glusterd
 TEST pidof glusterd
@@ -32,14 +32,14 @@ TEST touch $M0/a
 for x in "${xattrs[@]}"; do
         TEST_IN_LOOP ! setfattr -n $x "abc" $M0/a
         TEST_IN_LOOP ! setfattr -x $x "abc" $M0/a
-        if [ $x != "trusted.ec.heal" ];
+        if [ $x != "user.ec.heal" ];
         then
                 TEST_IN_LOOP ! getfattr -n $x $M0/a
         fi
 done
 
 TEST ! get_ec_xattrs $M0/a
-TEST setfattr -n trusted.abc -v 0x616263 $M0/a
-EXPECT "616263" get_hex_xattr trusted.abc $M0/a
+TEST setfattr -n user.abc -v 0x616263 $M0/a
+EXPECT "616263" get_hex_xattr user.abc $M0/a
 EXPECT "1" get_xattr_count $M0/a
 cleanup

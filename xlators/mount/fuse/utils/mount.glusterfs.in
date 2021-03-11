@@ -416,7 +416,7 @@ check_recursive_mount ()
     mnt_dir=${1%/};
 
     if [ -n "${getfattr}" ]; then
-        ${getfattr} -n trusted.gfid $mnt_dir 2>/dev/null | grep -iq "trusted.gfid=";
+        ${getfattr} -n user.gfid $mnt_dir 2>/dev/null | grep -iq "user.gfid=";
         if [ $? -eq 0 ]; then
             warn "ERROR: $mnt_dir is in use as a brick of a gluster volume";
             exit 2;
@@ -444,7 +444,7 @@ check_recursive_mount ()
         fi
 
         if [ -n "${getfattr}" ]; then
-            ${getfattr} -n trusted.gfid "$brick" 2>/dev/null | grep -iq "trusted.gfid=";
+            ${getfattr} -n user.gfid "$brick" 2>/dev/null | grep -iq "user.gfid=";
             if [ $? -eq 0 ]; then
                 # brick is local
                 while [ 1 ]; do

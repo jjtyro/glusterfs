@@ -63,28 +63,28 @@ dd if=$M0/a/file of=/dev/null bs=1024k
 TEST [ $? -ne 0 ]
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000"  \
-afr_get_specific_changelog_xattr $B0/$V0"1"/a/file trusted.afr.$V0-client-0 "data"
+afr_get_specific_changelog_xattr $B0/$V0"1"/a/file user.afr.$V0-client-0 "data"
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"1"/a/file trusted.afr.$V0-client-1 "data"
+afr_get_specific_changelog_xattr $B0/$V0"1"/a/file user.afr.$V0-client-1 "data"
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"2"/a/file trusted.afr.$V0-client-0 "data"
+afr_get_specific_changelog_xattr $B0/$V0"2"/a/file user.afr.$V0-client-0 "data"
 
 EXPECT_WITHIN $HEAL_TIMEOUT  "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"2"/a/file trusted.afr.$V0-client-1 "data"
+afr_get_specific_changelog_xattr $B0/$V0"2"/a/file user.afr.$V0-client-1 "data"
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"1"/a trusted.afr.$V0-client-0 "entry"
+afr_get_specific_changelog_xattr $B0/$V0"1"/a user.afr.$V0-client-0 "entry"
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"1"/a trusted.afr.$V0-client-1 "entry"
+afr_get_specific_changelog_xattr $B0/$V0"1"/a user.afr.$V0-client-1 "entry"
 
 EXPECT_WITHIN $HEAL_TIMEOUT "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"2"/a trusted.afr.$V0-client-0 "entry"
+afr_get_specific_changelog_xattr $B0/$V0"2"/a user.afr.$V0-client-0 "entry"
 
 EXPECT_WITHIN $HEAL_TIMEOUT  "00000000" \
-afr_get_specific_changelog_xattr $B0/$V0"2"/a trusted.afr.$V0-client-1 "entry"
+afr_get_specific_changelog_xattr $B0/$V0"2"/a user.afr.$V0-client-1 "entry"
 
 ## Finish up
 TEST $CLI volume stop $V0;

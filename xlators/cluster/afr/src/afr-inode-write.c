@@ -1571,9 +1571,9 @@ afr_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *dict,
     int ret = -1;
     int op_errno = EINVAL;
 
-    GF_IF_INTERNAL_XATTR_GOTO("trusted.afr.*", dict, op_errno, out);
+    GF_IF_INTERNAL_XATTR_GOTO("user.afr.*", dict, op_errno, out);
 
-    GF_IF_INTERNAL_XATTR_GOTO("trusted.glusterfs.afr.*", dict, op_errno, out);
+    GF_IF_INTERNAL_XATTR_GOTO("user.glusterfs.afr.*", dict, op_errno, out);
 
     ret = afr_handle_special_xattr(this, frame, loc, dict);
     if (ret == 0)
@@ -1680,9 +1680,9 @@ afr_fsetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, dict_t *dict,
     int ret = -1;
     int op_errno = ENOMEM;
 
-    GF_IF_INTERNAL_XATTR_GOTO("trusted.afr.*", dict, op_errno, out);
+    GF_IF_INTERNAL_XATTR_GOTO("user.afr.*", dict, op_errno, out);
 
-    GF_IF_INTERNAL_XATTR_GOTO("trusted.glusterfs.afr.*", dict, op_errno, out);
+    GF_IF_INTERNAL_XATTR_GOTO("user.glusterfs.afr.*", dict, op_errno, out);
 
     AFR_ERROR_OUT_IF_FDCTX_INVALID(fd, this, op_errno, out);
     transaction_frame = copy_frame(frame);
@@ -1787,9 +1787,9 @@ afr_removexattr(call_frame_t *frame, xlator_t *this, loc_t *loc,
     int ret = -1;
     int op_errno = ENOMEM;
 
-    GF_IF_NATIVE_XATTR_GOTO("trusted.afr.*", name, op_errno, out);
+    GF_IF_NATIVE_XATTR_GOTO("user.afr.*", name, op_errno, out);
 
-    GF_IF_NATIVE_XATTR_GOTO("trusted.glusterfs.afr.*", name, op_errno, out);
+    GF_IF_NATIVE_XATTR_GOTO("user.glusterfs.afr.*", name, op_errno, out);
 
     transaction_frame = copy_frame(frame);
     if (!transaction_frame)
@@ -1889,9 +1889,9 @@ afr_fremovexattr(call_frame_t *frame, xlator_t *this, fd_t *fd,
     int ret = -1;
     int op_errno = ENOMEM;
 
-    GF_IF_NATIVE_XATTR_GOTO("trusted.afr.*", name, op_errno, out);
+    GF_IF_NATIVE_XATTR_GOTO("user.afr.*", name, op_errno, out);
 
-    GF_IF_NATIVE_XATTR_GOTO("trusted.glusterfs.afr.*", name, op_errno, out);
+    GF_IF_NATIVE_XATTR_GOTO("user.glusterfs.afr.*", name, op_errno, out);
 
     AFR_ERROR_OUT_IF_FDCTX_INVALID(fd, this, op_errno, out);
     transaction_frame = copy_frame(frame);

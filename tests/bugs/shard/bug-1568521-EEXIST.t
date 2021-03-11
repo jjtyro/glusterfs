@@ -37,11 +37,11 @@ touch $B0/${V0}1/.shard/.remove_me/$gfid_file
 # Set block and file size to incorrect values of 64MB and 5MB to simulate "stale xattrs" case
 # and confirm that the correct values are set when the actual unlink takes place
 
-TEST setfattr -n trusted.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}0/.shard/.remove_me/$gfid_file
-TEST setfattr -n trusted.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}1/.shard/.remove_me/$gfid_file
+TEST setfattr -n user.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}0/.shard/.remove_me/$gfid_file
+TEST setfattr -n user.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}1/.shard/.remove_me/$gfid_file
 
-TEST setfattr -n trusted.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}0/.shard/.remove_me/$gfid_file
-TEST setfattr -n trusted.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}1/.shard/.remove_me/$gfid_file
+TEST setfattr -n user.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}0/.shard/.remove_me/$gfid_file
+TEST setfattr -n user.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}1/.shard/.remove_me/$gfid_file
 
 # Sleep for 2 seconds to prevent posix_gfid_heal() from believing marker file is "fresh" and failing lookup with ENOENT
 sleep 2
@@ -70,11 +70,11 @@ touch $B0/${V0}1/.shard/.remove_me/$gfid_dst
 # Set block and file size to incorrect values of 64MB and 5MB to simulate "stale xattrs" case
 # and confirm that the correct values are set when the actual unlink takes place
 
-TEST setfattr -n trusted.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}0/.shard/.remove_me/$gfid_dst
-TEST setfattr -n trusted.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}1/.shard/.remove_me/$gfid_dst
+TEST setfattr -n user.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}0/.shard/.remove_me/$gfid_dst
+TEST setfattr -n user.glusterfs.shard.block-size -v 0x0000000004000000 $B0/${V0}1/.shard/.remove_me/$gfid_dst
 
-TEST setfattr -n trusted.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}0/.shard/.remove_me/$gfid_dst
-TEST setfattr -n trusted.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}1/.shard/.remove_me/$gfid_dst
+TEST setfattr -n user.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}0/.shard/.remove_me/$gfid_dst
+TEST setfattr -n user.glusterfs.shard.file-size -v 0x0000000000500000000000000000000000000000000000000000000000000000 $B0/${V0}1/.shard/.remove_me/$gfid_dst
 
 # Sleep for 2 seconds to prevent posix_gfid_heal() from believing marker file is "fresh" and failing lookup with ENOENT
 sleep 2

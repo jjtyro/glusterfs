@@ -46,7 +46,7 @@ function cleanup_brick()
     # TODO: write a C program to receive a list of files and does cleanup on
     # them instead of spawning a new setfattr process for each file if
     # performance is bad.
-    SSH -i $SSHKEY $HOST  "rm -rf $BRICK/.glusterfs/* && find $BRICK -exec setfattr -x trusted.gfid {} \;"
+    SSH -i $SSHKEY $HOST  "rm -rf $BRICK/.glusterfs/* && find $BRICK -exec setfattr -x user.gfid {} \;"
 }
 
 function cleanup_slave()

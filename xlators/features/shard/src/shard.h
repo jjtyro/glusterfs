@@ -20,8 +20,8 @@
 #define GF_SHARD_REMOVE_ME_DIR ".remove_me"
 #define SHARD_MIN_BLOCK_SIZE (4 * GF_UNIT_MB)
 #define SHARD_MAX_BLOCK_SIZE (4 * GF_UNIT_TB)
-#define SHARD_XATTR_PREFIX "trusted.glusterfs.shard."
-#define GF_XATTR_SHARD_BLOCK_SIZE "trusted.glusterfs.shard.block-size"
+#define SHARD_XATTR_PREFIX "user.glusterfs.shard."
+#define GF_XATTR_SHARD_BLOCK_SIZE "user.glusterfs.shard.block-size"
 /**
  *  Bit masks for the valid flag, which is used while updating ctx
  **/

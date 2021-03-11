@@ -25,13 +25,13 @@ TEST mkdir $M0/dir
 # B0 and B2 must blame B1
 TEST kill_brick $V0 $H0 $B0/$V0"1"
 TEST setfattr -n user.metadata -v 1 $M0/dir
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/dir trusted.afr.$V0-client-1 metadata
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/dir trusted.afr.$V0-client-1 metadata
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/dir user.afr.$V0-client-1 metadata
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/dir user.afr.$V0-client-1 metadata
 CLIENT_XATTR=$(getfattr -n 'user.metadata' --absolute-names --only-values $M0/dir)
 
 # B1 must blame B0 and B2
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"1"/dir
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir
+setfattr -n user.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"1"/dir
+setfattr -n user.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir
 
 # Launch heal
 TEST $CLI volume start $V0 force
@@ -59,9 +59,9 @@ TEST setfattr -x user.metadata $M0/dir
 TEST $CLI volume heal $V0 disable
 TEST `echo "hello" >> $M0/dir/file`
 # Mark cyclic xattrs and modify metadata directly on the bricks.
-setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000100000000 $B0/$V0"0"/dir/file
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"2"/dir/file
+setfattr -n user.afr.$V0-client-1 -v 0x000000000000000100000000 $B0/$V0"0"/dir/file
+setfattr -n user.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
+setfattr -n user.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"2"/dir/file
 
 setfattr -n user.metadata -v 1 $B0/$V0"0"/dir/file
 setfattr -n user.metadata -v 2 $B0/$V0"1"/dir/file
@@ -99,15 +99,15 @@ TEST `echo "hello" >> $M0/dir/file`
 # B0 and B2 must blame B1
 TEST kill_brick $V0 $H0 $B0/$V0"1"
 TEST setfattr -n user.metadata -v 1 $M0/dir/file
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/dir/file trusted.afr.$V0-client-1 metadata
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/dir/file trusted.afr.$V0-client-1 metadata
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/dir/file user.afr.$V0-client-1 metadata
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/dir/file user.afr.$V0-client-1 metadata
 
 # B1 must blame B0 and B2
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
+setfattr -n user.afr.$V0-client-0 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
+setfattr -n user.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"1"/dir/file
 
 # B0 must blame B2
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"0"/dir/file
+setfattr -n user.afr.$V0-client-2 -v 0x000000000000000100000000 $B0/$V0"0"/dir/file
 
 # Modify the metadata directly on the bricks B1 & B2.
 setfattr -n user.metadata -v 2 $B0/$V0"1"/dir/file

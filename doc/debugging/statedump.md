@@ -203,9 +203,9 @@ message=[0] fuse_getattr_resume: 4591, STAT, path: (/iozone.tmp), gfid: (3afb496
 child_count=2 #Number of children to the xlator
 #Xlator specific configuration below
 child_up[0]=1
-pending_key[0]=trusted.afr.r2-client-0
+pending_key[0]=user.afr.r2-client-0
 child_up[1]=1
-pending_key[1]=trusted.afr.r2-client-1
+pending_key[1]=user.afr.r2-client-1
 data_self_heal=on
 metadata_self_heal=1
 entry_self_heal=1

@@ -1834,7 +1834,7 @@ out:
 }
 
 /*
- * glusterd_get_gfid_from_brick() fetches the 'trusted.gfid' attribute of @path
+ * glusterd_get_gfid_from_brick() fetches the 'user.gfid' attribute of @path
  * from each brick in the backend and places the same in the rsp_dict with the
  * keys being gfid0, gfid1, gfid2 and so on. The absence of @path in the backend
  * is not treated as error.

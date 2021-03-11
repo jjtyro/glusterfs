@@ -107,7 +107,7 @@ def populate_pgfid_and_inodegfid(brick, changelog_data):
                 file_xattrs = xattr.list(p)
                 for x in file_xattrs:
                     x_str = bytearray_to_str(x)
-                    if x_str.startswith("trusted.pgfid."):
+                    if x_str.startswith("user.pgfid."):
                         # PGFID in pgfid table
                         changelog_data.pgfid_add(x_str.split(".")[-1])
             except (IOError, OSError):
@@ -125,7 +125,7 @@ def enum_hard_links_using_gfid2path(brick, gfid, args):
             file_xattrs = xattr.list(p)
             for x in file_xattrs:
                 x_str = bytearray_to_str(x)
-                if x_str.startswith("trusted.gfid2path."):
+                if x_str.startswith("user.gfid2path."):
                     # get the value for the xattr i.e. <PGFID>/<BN>
                     v = xattr.getxattr(p, x_str)
                     v_str = bytearray_to_str(v)

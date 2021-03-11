@@ -13,7 +13,7 @@ function get_bitd_count_2 {
 }
 
 function get_node_uuid {
-        getfattr -n trusted.glusterfs.node-uuid --only-values $M0/FILE1 2>/dev/null
+        getfattr -n user.glusterfs.node-uuid --only-values $M0/FILE1 2>/dev/null
 }
 
 cleanup;
@@ -54,8 +54,8 @@ TEST stat $B1/FILE2
 echo "Corrupted data" >> $B1/FILE1
 echo "Corrupted data" >> $B1/FILE2
 #Manually set bad-file xattr since we can't wait for an hour for scrubber.
-TEST setfattr -n trusted.bit-rot.bad-file -v 0x3100 $B1/FILE1
-TEST setfattr -n trusted.bit-rot.bad-file -v 0x3100 $B1/FILE2
+TEST setfattr -n user.bit-rot.bad-file -v 0x3100 $B1/FILE1
+TEST setfattr -n user.bit-rot.bad-file -v 0x3100 $B1/FILE2
 TEST touch "$B1/.glusterfs/quarantine/$gfid1"
 TEST chmod 000 "$B1/.glusterfs/quarantine/$gfid1"
 TEST touch "$B1/.glusterfs/quarantine/$gfid2"

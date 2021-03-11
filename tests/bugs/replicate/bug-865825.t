@@ -54,8 +54,8 @@ EXPECT_WITHIN $UMOUNT_TIMEOUT "Y" force_umount $M0
 ## Mess with the flags as though brick-0 accuses brick-2 while brick-1 is
 ## missing its brick-2 changelog altogether.
 value=0x000000010000000000000000
-setfattr -n trusted.afr.${V0}-client-2 -v $value $B0/${V0}-0/a_file
-setfattr -x trusted.afr.${V0}-client-2 $B0/${V0}-1/a_file
+setfattr -n user.afr.${V0}-client-2 -v $value $B0/${V0}-0/a_file
+setfattr -x user.afr.${V0}-client-2 $B0/${V0}-1/a_file
 echo "wrong_data" > $B0/${V0}-2/a_file
 
 gluster volume set $V0 cluster.self-heal-daemon on

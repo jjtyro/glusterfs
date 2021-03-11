@@ -12,10 +12,10 @@ function get_md5sum {
         md5sum $1 | awk '{print $1}'
 }
 
-#after replace-brick immediately trusted.ec.version will be absent, so if it
+#after replace-brick immediately user.ec.version will be absent, so if it
 #is present we can assume that heal attempted on root
 function root_heal_attempted {
-        if [ -z $(get_hex_xattr trusted.ec.version $1) ];
+        if [ -z $(get_hex_xattr user.ec.version $1) ];
         then
                 echo "N";
         else
@@ -44,12 +44,12 @@ EXPECT_WITHIN $HEAL_TIMEOUT "^0$" get_pending_heal_count $V0
 EXPECT "^14$" num_entries $B0/${V0}6
 EXPECT "^1 5$" stat -c "%t %T" $B0/${V0}6/char
 EXPECT "^4 5$" stat -c "%t %T" $B0/${V0}6/block
-ec_version=$(get_hex_xattr trusted.ec.version $B0/${V0}0)
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}1
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}2
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}3
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}4
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}6
+ec_version=$(get_hex_xattr user.ec.version $B0/${V0}0)
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}1
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}2
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}3
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}4
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}6
 file_md5sum=$(get_md5sum $M0/1)
 empty_md5sum=$(get_md5sum $M0/11)
 TEST kill_brick $V0 $H0 $B0/${V0}0

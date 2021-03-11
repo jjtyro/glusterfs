@@ -43,6 +43,6 @@ echo "ZZZ" > $fname
 sleep `expr $SLEEP_TIME \* 2`
 
 backpath=$(get_backend_paths $fname)
-TEST getfattr -m . -n trusted.bit-rot.signature $backpath
+TEST getfattr -m . -n user.bit-rot.signature $backpath
 
 cleanup;

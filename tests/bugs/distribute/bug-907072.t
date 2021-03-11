@@ -29,7 +29,7 @@ TEST killall glusterfsd;
 TEST rm -rf $B0/${V}1/test;
 
 # And only layout xattr on another brick
-TEST setfattr -x trusted.glusterfs.dht $B0/${V0}2/test;
+TEST setfattr -x user.glusterfs.dht $B0/${V0}2/test;
 
 TEST $CLI volume start $V0 force;
 

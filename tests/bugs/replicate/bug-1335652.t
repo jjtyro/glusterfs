@@ -21,8 +21,8 @@ TEST kill_brick $V0 $H0 $B0/${V0}0
 TEST dd if=/dev/urandom of=$M0/file bs=10MB count=20
 
 #At any point value of dirty should not be greater than 0 on source bricks
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.dirty $B0/${V0}1/.shard
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.dirty $B0/${V0}2/.shard
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.dirty $B0/${V0}1/.shard
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.dirty $B0/${V0}2/.shard
 
 rm -rf $M0/file;
 

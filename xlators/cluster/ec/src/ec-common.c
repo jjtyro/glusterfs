@@ -284,7 +284,7 @@ ec_fop_needs_heal(ec_fop_data_t *fop)
     if (fop->lock_count == 0) {
         /*
          * if fop->lock_count is zero that means it saw version mismatch
-         * without any locks so it can't be trusted. If we launch a heal
+         * without any locks so it can't be user. If we launch a heal
          * based on this it will lead to INODELKs which will affect I/O
          * performance. Considering self-heal-daemon and operations on
          * the inode from client which take locks can still trigger the
@@ -1695,7 +1695,7 @@ ec_get_real_size_cbk(call_frame_t *frame, void *cookie, xlator_t *this,
     return 0;
 }
 
-/* This function is used to get the trusted.ec.size xattr from a file when
+/* This function is used to get the user.ec.size xattr from a file when
  * no lock is needed on the inode. This is only required to maintain iatt
  * structs on fops that manipulate directory entries but do not operate
  * directly on the inode, like link, rename, ...

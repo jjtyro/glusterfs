@@ -250,15 +250,11 @@ posix_do_chmod(xlator_t *this, const char *path, struct iatt *stbuf)
         mode_bit = (mode & priv->create_mask) | priv->force_create_mode;
         mode = posix_override_umask(mode, mode_bit);
     }
-    ret = sys_lchmod(path, mode);
-    /* Before glibc 2.32, lchmod() was not implemented and calling it
-     * always returned ENOSYS. Starting with glibc 2.32 this request
-     * is using fchmodat() system call to implement it. However, linux
-     * doesn't support setting the mode for symlinks, so the system
-     * call returns EOPNOTSUPP (or ENOTSUP based on man page). We need
-     * to handle all cases. */
-    if ((ret < 0) &&
-        ((errno == ENOSYS) || (errno == EOPNOTSUPP) || (errno == ENOTSUP))) {
+    ret = lchmod(path, mode);
+    if ((ret == -1) && (errno == ENOSYS)) {
+        /* in Linux symlinks are always in mode 0777 and no
+           such call as lchmod exists.
+        */
         gf_msg_debug(this->name, 0, "%s (%s)", path, strerror(errno));
         if (is_symlink) {
             ret = 0;
@@ -2753,7 +2749,7 @@ posix_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *dict,
     ret = dict_get_mdata(dict, CTIME_MDATA_XDATA_KEY, &mdata_iatt);
     if (ret == 0) {
         /* This is initiated by lookup when ctime feature is enabled to create
-         * "trusted.glusterfs.mdata" xattr if not present. These are the files
+         * "user.glusterfs.mdata" xattr if not present. These are the files
          * which were created when ctime feature is disabled.
          */
         ret = posix_set_mdata_xattr_legacy_files(this, loc->inode, real_path,
@@ -3326,7 +3322,7 @@ posix_get_ancestry_non_directory(xlator_t *this, inode_t *leaf_inode,
         goto out;
     }
 
-    list = GF_MALLOC(size, gf_posix_mt_char);
+    list = alloca(size);
     if (!list) {
         *op_errno = errno;
         goto out;
@@ -3405,7 +3401,6 @@ posix_get_ancestry_non_directory(xlator_t *this, inode_t *leaf_inode,
     op_ret = 0;
 
 out:
-    GF_FREE(list);
     return op_ret;
 }
 
@@ -3835,8 +3830,7 @@ posix_getxattr(call_frame_t *frame, xlator_t *this, loc_t *loc,
         if (size == 0)
             goto done;
     }
-
-    list = GF_MALLOC(size, gf_posix_mt_char);
+    list = alloca(size);
     if (!list) {
         op_errno = errno;
         goto out;
@@ -3963,7 +3957,6 @@ out:
         dict_unref(dict);
     }
 
-    GF_FREE(list);
     return 0;
 }
 
@@ -4163,8 +4156,7 @@ posix_fgetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, const char *name,
         if (size == 0)
             goto done;
     }
-
-    list = GF_MALLOC(size, gf_posix_mt_char);
+    list = alloca(size + 1);
     if (!list) {
         op_ret = -1;
         op_errno = ENOMEM;
@@ -4265,8 +4257,6 @@ out:
 
     if (dict)
         dict_unref(dict);
-
-    GF_FREE(list);
 
     return 0;
 }

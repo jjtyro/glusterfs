@@ -874,7 +874,7 @@ svs_add_xattrs_to_dict(xlator_t *this, dict_t *dict, char *list, ssize_t size)
 
     /* Add an additional key to indicate that we don't need to cache these
      * xattrs(with value "") */
-    ret = dict_set_str(dict, "glusterfs.skip-cache", "");
+    ret = dict_set_str(dict, "user.glusterfs.skip-cache", "");
     if (ret < 0) {
         gf_msg(this->name, GF_LOG_ERROR, 0, SVS_MSG_DICT_SET_FAILED,
                "dict set operation for the key glusterfs.skip-cache failed.");

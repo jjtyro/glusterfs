@@ -20,7 +20,7 @@
 #include "ec-messages.h"
 #include <glusterfs/quota-common-utils.h>
 
-#define EC_QUOTA_PREFIX "trusted.glusterfs.quota."
+#define EC_QUOTA_PREFIX "user.glusterfs.quota."
 
 #define EC_MISSING_DATA ((data_t *)1ULL)
 
@@ -120,7 +120,7 @@ ec_iatt_is_trusted(ec_fop_data_t *fop, struct iatt *iatt)
      * require to be able to identify differences between bricks. Special
      * handling of these differences is already done in lookup specific code
      * so we shouldn't ignore any difference here and consider all iatt
-     * structures as trusted. */
+     * structures as user. */
     if (fop->id == GF_FOP_LOOKUP) {
         return _gf_true;
     }

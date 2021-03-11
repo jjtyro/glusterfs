@@ -24,7 +24,7 @@ gfid_str_f1=$(gf_gfid_xattr_to_str $gfid_f1)
 
 # Remove gfid xattr and .glusterfs hard link from 2nd brick. This simulates a
 # brick crash at the point where file got created but no xattrs were set.
-TEST setfattr -x trusted.gfid $B0/${V0}1/f1
+TEST setfattr -x user.gfid $B0/${V0}1/f1
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_f1:0:2}/${gfid_str_f1:2:2}/$gfid_str_f1
 
 # storage/posix considers that a file without gfid changed less than a second
@@ -50,11 +50,11 @@ gfid_str_f2=$(gf_gfid_xattr_to_str $gfid_f2)
 
 # Remove gfid xattr and .glusterfs hard link from 2nd brick. This simulates a
 # brick crash at the point where file got created but no xattrs were set.
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir/f2
+TEST setfattr -x user.gfid $B0/${V0}1/dir/f2
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_f2:0:2}/${gfid_str_f2:2:2}/$gfid_str_f2
 
 #Now simulate setting of pending entry xattr on parent dir of 1st brick.
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/dir
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/dir
 create_brick_xattrop_entry $B0/${V0}0 dir
 
 # storage/posix considers that a file without gfid changed less than a second

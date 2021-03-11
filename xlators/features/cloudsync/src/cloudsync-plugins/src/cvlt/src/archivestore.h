@@ -17,9 +17,9 @@
 #include <dlfcn.h>
 #include <uuid/uuid.h>
 
-#define CS_XATTR_ARCHIVE_UUID "trusted.cloudsync.uuid"
-#define CS_XATTR_PRODUCT_ID "trusted.cloudsync.product-id"
-#define CS_XATTR_STORE_ID "trusted.cloudsync.store-id"
+#define CS_XATTR_ARCHIVE_UUID "user.cloudsync.uuid"
+#define CS_XATTR_PRODUCT_ID "user.cloudsync.product-id"
+#define CS_XATTR_STORE_ID "user.cloudsync.store-id"
 
 struct _archstore_methods;
 typedef struct _archstore_methods archstore_methods_t;

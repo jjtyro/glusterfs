@@ -25,8 +25,8 @@ TEST glusterfs --volfile-id=/$V0 --volfile-server=$H0 $M0 --attribute-timeout=0 
 TEST touch $M0/FILE
 TEST kill_brick $V0 $H0 $B0/${V0}2
 chown $NEW_UID:$NEW_GID $M0/FILE
-EXPECT "000000000000000100000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0/FILE
-EXPECT "000000000000000100000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1/FILE
+EXPECT "000000000000000100000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0/FILE
+EXPECT "000000000000000100000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1/FILE
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 2
 
@@ -34,10 +34,10 @@ EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 2
 # the first 2 and hence on the mount.
 su -m bug1438255 -c "setfattr -n user.myattr -v myvalue  $M0/FILE"
 TEST [ $? -eq 0 ]
-EXPECT "000000000000000200000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0/FILE
-EXPECT "000000000000000200000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1/FILE
+EXPECT "000000000000000200000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0/FILE
+EXPECT "000000000000000200000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1/FILE
 # Brick 3 does not have any self-blaming pending xattr.
-TEST ! getfattr -n trusted.afr.$V0-client-2 $B0/${V0}2/FILE
+TEST ! getfattr -n user.afr.$V0-client-2 $B0/${V0}2/FILE
 
 TEST userdel --force ${NEW_USER}
 TEST groupdel ${NEW_USER}-${NEW_GID}

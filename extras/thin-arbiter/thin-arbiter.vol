@@ -27,8 +27,8 @@ end-volume
 
 volume ta-index
     type features/index
-    option xattrop-pending-watchlist trusted.afr.ta-
-    option xattrop-dirty-watchlist trusted.afr.dirty
+    option xattrop-pending-watchlist user.afr.ta-
+    option xattrop-dirty-watchlist user.afr.dirty
     option index-base /mnt/thin-arbiter/.glusterfs/indices
     subvolumes ta-io-threads
 end-volume

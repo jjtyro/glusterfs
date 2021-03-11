@@ -34,13 +34,13 @@ TEST $CLI volume add-brick $V0 replica 3 $H0:$B0/${V0}2
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" brick_up_status $V0 $H0 $B0/${V0}2
 
 # New-brick should accuse the old-bricks (Simulating case for data-loss)
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}2/
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}2/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}2/
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}2/
 
 # Check if pending xattr and dirty-xattr are set for newly-added-brick
-EXPECT "000000000000000100000001" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0
-EXPECT "000000000000000100000001" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.dirty $B0/${V0}2
+EXPECT "000000000000000100000001" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0
+EXPECT "000000000000000100000001" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.dirty $B0/${V0}2
 
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 0
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 1
@@ -67,8 +67,8 @@ TEST diff $B0/${V0}0/file1.txt $B0/${V0}2/file1.txt
 EXPECT "qwerty" get_text_xattr user.test $B0/${V0}2/file5.txt
 EXPECT "qwerty" get_text_xattr user.test $B0/${V0}0/file5.txt
 
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.dirty $B0/${V0}2
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.dirty $B0/${V0}2
 
 cleanup;

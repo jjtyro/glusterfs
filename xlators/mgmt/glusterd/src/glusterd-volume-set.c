@@ -2965,7 +2965,7 @@ struct volopt_map_entry glusterd_volopt_map[] = {
      .value = "on",
      .op_version = GD_OP_VERSION_3_11_0,
      .description = "Convert security.selinux xattrs to "
-                    "trusted.gluster.selinux on the bricks. Recommended "
+                    "user.gluster.selinux on the bricks. Recommended "
                     "to have enabled when clients and/or bricks support "
                     "SELinux."},
     {.key = GLUSTERD_LOCALTIME_LOGGING_KEY,

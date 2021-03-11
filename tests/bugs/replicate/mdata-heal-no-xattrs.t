@@ -38,17 +38,17 @@ EXPECT_WITHIN $HEAL_TIMEOUT "^0$" get_pending_heal_count $V0
 
 # Brick-0 should contain xattrs blaming other 2 bricks.
 # The values will be zero because heal is over.
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0/FILE
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-0 $B0/${V0}0/FILE
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0/FILE
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0/FILE
+TEST ! getfattr -n user.afr.$V0-client-0 $B0/${V0}0/FILE
 
 # Brick-1 and Brick-2 must not contain any afr xattrs.
-TEST ! getfattr -n trusted.afr.$V0-client-0 $B0/${V0}1/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-1 $B0/${V0}1/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-2 $B0/${V0}1/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-0 $B0/${V0}2/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-1 $B0/${V0}2/FILE
-TEST ! getfattr -n trusted.afr.$V0-client-2 $B0/${V0}2/FILE
+TEST ! getfattr -n user.afr.$V0-client-0 $B0/${V0}1/FILE
+TEST ! getfattr -n user.afr.$V0-client-1 $B0/${V0}1/FILE
+TEST ! getfattr -n user.afr.$V0-client-2 $B0/${V0}1/FILE
+TEST ! getfattr -n user.afr.$V0-client-0 $B0/${V0}2/FILE
+TEST ! getfattr -n user.afr.$V0-client-1 $B0/${V0}2/FILE
+TEST ! getfattr -n user.afr.$V0-client-2 $B0/${V0}2/FILE
 
 # check permission bits.
 EXPECT '755' stat -c %a $B0/${V0}0/FILE

@@ -5070,7 +5070,7 @@ gf_zero_fill_stat(struct iatt *buf)
 gf_boolean_t
 gf_is_valid_xattr_namespace(char *key)
 {
-    static char *xattr_namespaces[] = {"trusted.", "system.", "user.",
+    static char *xattr_namespaces[] = {"user.", "system.", "user.",
                                        "security.", NULL};
     int i = 0;
 

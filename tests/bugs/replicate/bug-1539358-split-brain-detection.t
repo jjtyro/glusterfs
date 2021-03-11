@@ -25,13 +25,13 @@ TEST `echo "hello" >> $M0/file`
 # B0 and B2 must blame B1
 TEST kill_brick $V0 $H0 $B0/$V0"1"
 TEST `echo "append" >> $M0/file`
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/file trusted.afr.$V0-client-1 data
-EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/file trusted.afr.$V0-client-1 data
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}0/file user.afr.$V0-client-1 data
+EXPECT "00000001" afr_get_specific_changelog_xattr $B0/${V0}2/file user.afr.$V0-client-1 data
 CLIENT_MD5=$(md5sum $M0/file | cut -d\  -f1)
 
 # B1 must blame B0 and B2
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/$V0"1"/file
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/$V0"1"/file
+setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/$V0"1"/file
+setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/$V0"1"/file
 
 # Launch heal
 TEST $CLI volume start $V0 force
@@ -58,12 +58,12 @@ TEST rm $M0/file
 TEST `echo "hello" >> $M0/file`
 # Mark cyclic xattrs and modify file content directly on the bricks.
 TEST $CLI volume set $V0 self-heal-daemon off
-setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/$V0"0"/file
-setfattr -n trusted.afr.dirty -v 0x000000010000000000000000 $B0/$V0"0"/file
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/$V0"1"/file
-setfattr -n trusted.afr.dirty -v 0x000000010000000000000000 $B0/$V0"1"/file
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/$V0"2"/file
-setfattr -n trusted.afr.dirty -v 0x000000010000000000000000 $B0/$V0"2"/file
+setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/$V0"0"/file
+setfattr -n user.afr.dirty -v 0x000000010000000000000000 $B0/$V0"0"/file
+setfattr -n user.afr.$V0-client-2 -v 0x000000010000000000000000 $B0/$V0"1"/file
+setfattr -n user.afr.dirty -v 0x000000010000000000000000 $B0/$V0"1"/file
+setfattr -n user.afr.$V0-client-0 -v 0x000000010000000000000000 $B0/$V0"2"/file
+setfattr -n user.afr.dirty -v 0x000000010000000000000000 $B0/$V0"2"/file
 
 TEST `echo "ab" >> $B0/$V0"0"/file`
 TEST `echo "cdef" >> $B0/$V0"1"/file`

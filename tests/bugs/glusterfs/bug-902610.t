@@ -8,11 +8,11 @@ cleanup;
 ## Layout-spread set to 3, but subvols up are 2. So layout should split 50-50
 function get_layout()
 {
-        layout1=`getfattr -n trusted.glusterfs.dht -e hex $1 2>&1|grep dht |cut -d = -f2`
+        layout1=`getfattr -n user.glusterfs.dht -e hex $1 2>&1|grep dht |cut -d = -f2`
 	layout1_s=$(echo $layout1 | cut -c 19-26)
 	layout1_e=$(echo $layout1 | cut -c 27-34)
 	#echo "layout1 from $layout1_s to $layout1_e" > /dev/tty
-        layout2=`getfattr -n trusted.glusterfs.dht -e hex $2 2>&1|grep dht |cut -d = -f2`
+        layout2=`getfattr -n user.glusterfs.dht -e hex $2 2>&1|grep dht |cut -d = -f2`
 	layout2_s=$(echo $layout2 | cut -c 19-26)
 	layout2_e=$(echo $layout2 | cut -c 27-34)
 	#echo "layout2 from $layout2_s to $layout2_e" > /dev/tty

@@ -91,8 +91,8 @@ do
         rm -rf $B0/${V1}1/file$i.txt
 done
 
-setfattr -x trusted.glusterfs.volume-id $B0/${V1}1
-setfattr -x trusted.gfid $B0/${V1}1
+setfattr -x user.glusterfs.volume-id $B0/${V1}1
+setfattr -x user.gfid $B0/${V1}1
 
 # Test reset-brick commit. Using CLI_IGNORE_PARTITION since normal CLI  uses
 # the --wignore flag that essentially makes the command act like "commit force"

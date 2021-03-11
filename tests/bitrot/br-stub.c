@@ -30,7 +30,7 @@ brstub_validate_version(char *bpath, unsigned long version)
         goto err;
     }
 
-    ret = getxattr(bpath, "trusted.bit-rot.version", xv, xsize);
+    ret = getxattr(bpath, "user.bit-rot.version", xv, xsize);
     if (ret < 0) {
         if (errno == ENODATA)
             match = -2;

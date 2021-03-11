@@ -17,20 +17,20 @@ TEST glusterfs --volfile-id=$V0 --volfile-server=$H0 $M0
 TEST touch $M0/foo
 
 # Check that the shard xattrs are set in the backend.
-TEST getfattr -n trusted.glusterfs.shard.block-size $B0/${V0}0/foo
-TEST getfattr -n trusted.glusterfs.shard.file-size $B0/${V0}0/foo
+TEST getfattr -n user.glusterfs.shard.block-size $B0/${V0}0/foo
+TEST getfattr -n user.glusterfs.shard.file-size $B0/${V0}0/foo
 
 # Verify that shard xattrs are not exposed on the mount.
-TEST ! getfattr -n trusted.glusterfs.shard.block-size $M0/foo
-TEST ! getfattr -n trusted.glusterfs.shard.file-size $M0/foo
+TEST ! getfattr -n user.glusterfs.shard.block-size $M0/foo
+TEST ! getfattr -n user.glusterfs.shard.file-size $M0/foo
 
 # Verify that shard xattrs cannot be set from the mount.
-TEST ! setfattr -n trusted.glusterfs.shard.block-size -v "123" $M0/foo
-TEST ! setfattr -n trusted.glusterfs.shard.file-size  -v "123" $M0/foo
+TEST ! setfattr -n user.glusterfs.shard.block-size -v "123" $M0/foo
+TEST ! setfattr -n user.glusterfs.shard.file-size  -v "123" $M0/foo
 
 # Verify that shard xattrs cannot be removed from the mount.
-TEST ! setfattr -x trusted.glusterfs.shard.block-size $M0/foo
-TEST ! setfattr -x trusted.glusterfs.shard.file-size $M0/foo
+TEST ! setfattr -x user.glusterfs.shard.block-size $M0/foo
+TEST ! setfattr -x user.glusterfs.shard.file-size $M0/foo
 
 # Verify that shard xattrs are not listed when listxattr is triggered.
 TEST ! "getfattr -d -m . $M0/foo | grep shard"

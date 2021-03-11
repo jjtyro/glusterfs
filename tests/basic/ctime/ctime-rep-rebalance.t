@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This will test healing of ctime xattr 'trusted.glusterfs.mdata' after add-brick and rebalance
+# This will test healing of ctime xattr 'user.glusterfs.mdata' after add-brick and rebalance
 #
 ###
 
@@ -30,9 +30,9 @@ TEST $CLI volume rebalance $V0 start force
 EXPECT_WITHIN $REBALANCE_TIMEOUT "completed" rebalance_status_field $V0
 
 #Verify ctime xattr heal on directory
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.glusterfs.mdata' check_for_xattr 'trusted.glusterfs.mdata' "$B0/${V0}6/dir1"
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.glusterfs.mdata' check_for_xattr 'trusted.glusterfs.mdata' "$B0/${V0}7/dir1"
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.glusterfs.mdata' check_for_xattr 'trusted.glusterfs.mdata' "$B0/${V0}8/dir1"
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.glusterfs.mdata' check_for_xattr 'user.glusterfs.mdata' "$B0/${V0}6/dir1"
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.glusterfs.mdata' check_for_xattr 'user.glusterfs.mdata' "$B0/${V0}7/dir1"
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.glusterfs.mdata' check_for_xattr 'user.glusterfs.mdata' "$B0/${V0}8/dir1"
 
 b6_mdata=$(get_mdata "$B0/${V0}6/dir1")
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "${b6_mdata}" get_mdata $B0/${V0}7/dir1

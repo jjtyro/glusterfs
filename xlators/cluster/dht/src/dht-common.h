@@ -24,8 +24,8 @@
 #define _DHT_H
 
 #define GF_XATTR_FIX_LAYOUT_KEY "distribute.fix.layout"
-#define GF_XATTR_TIER_LAYOUT_FIXED_KEY "trusted.tier.fix.layout.complete"
-#define GF_XATTR_FILE_MIGRATE_KEY "trusted.distribute.migrate-data"
+#define GF_XATTR_TIER_LAYOUT_FIXED_KEY "user.tier.fix.layout.complete"
+#define GF_XATTR_FILE_MIGRATE_KEY "user.distribute.migrate-data"
 #define DHT_MDS_STR "mds"
 #define GF_DHT_LOOKUP_UNHASHED_OFF 0
 #define GF_DHT_LOOKUP_UNHASHED_ON 1

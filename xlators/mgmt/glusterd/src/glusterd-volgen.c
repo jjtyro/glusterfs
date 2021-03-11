@@ -2044,17 +2044,17 @@ brick_graph_add_index(volgen_graph_t *graph, glusterd_volinfo_t *volinfo,
         goto out;
     if (volinfo->type == GF_CLUSTER_TYPE_DISPERSE) {
         ret = xlator_set_fixed_option(xl, "xattrop64-watchlist",
-                                      "trusted.ec.dirty");
+                                      "user.ec.dirty");
         if (ret)
             goto out;
     }
     if ((volinfo->type == GF_CLUSTER_TYPE_REPLICATE ||
          volinfo->type == GF_CLUSTER_TYPE_NONE)) {
         ret = xlator_set_fixed_option(xl, "xattrop-dirty-watchlist",
-                                      "trusted.afr.dirty");
+                                      "user.afr.dirty");
         if (ret)
             goto out;
-        ret = gf_asprintf(&pending_xattr, "trusted.afr.%s-", volinfo->volname);
+        ret = gf_asprintf(&pending_xattr, "user.afr.%s-", volinfo->volname);
         if (ret < 0)
             goto out;
         ret = xlator_set_fixed_option(xl, "xattrop-pending-watchlist",

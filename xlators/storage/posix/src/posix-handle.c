@@ -525,7 +525,7 @@ posix_handle_init(xlator_t *this)
     switch (ret) {
         case -1:
             if (errno == ENOENT) {
-                ret = sys_mkdir(handle_pfx, 0600);
+                ret = sys_mkdir(handle_pfx, 0700);
                 if (ret != 0) {
                     gf_msg(this->name, GF_LOG_ERROR, errno, P_MSG_HANDLE_CREATE,
                            "Creating directory %s failed", handle_pfx);
@@ -607,7 +607,7 @@ posix_does_old_trash_exists(char *old_trash)
 
     ret = sys_lstat(old_trash, &stbuf);
     if ((ret == 0) && S_ISDIR(stbuf.st_mode)) {
-        ret = sys_lgetxattr(old_trash, "trusted.gfid", gfid, 16);
+        ret = sys_lgetxattr(old_trash, "user.gfid", gfid, 16);
         if ((ret < 0) && (errno == ENODATA || errno == ENOATTR))
             exists = _gf_true;
     }

@@ -1417,7 +1417,7 @@ dht_migration_complete_check_task(void *data)
     /* It's possible that we are the last user of iter_fd after each
      * iteration. In this case the fd_unref() of iter_fd at the end of
      * the loop will cause the destruction of the fd. So we need to
-     * iterate the list safely because iter_fd cannot be trusted.
+     * iterate the list safely because iter_fd cannot be user.
      */
     iter_fd = list_entry((&inode->fd_list)->next, typeof(*iter_fd), inode_list);
     while (&iter_fd->inode_list != (&inode->fd_list)) {
@@ -1683,7 +1683,7 @@ dht_rebalance_inprogress_task(void *data)
     /* It's possible that we are the last user of iter_fd after each
      * iteration. In this case the fd_unref() of iter_fd at the end of
      * the loop will cause the destruction of the fd. So we need to
-     * iterate the list safely because iter_fd cannot be trusted.
+     * iterate the list safely because iter_fd cannot be user.
      */
     iter_fd = list_entry((&inode->fd_list)->next, typeof(*iter_fd), inode_list);
     while (&iter_fd->inode_list != (&inode->fd_list)) {

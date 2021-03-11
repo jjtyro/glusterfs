@@ -25,7 +25,7 @@ TEST touch $M0
 
 vol_uuid=$(gluster vol info $V0 | grep "Volume ID" | awk '{print $3}')
 
-xtime="trusted.glusterfs.$vol_uuid.xtime"
+xtime="user.glusterfs.$vol_uuid.xtime"
 
 #TEST xtime
 TEST ! getfattr -n $xtime $M0
@@ -34,7 +34,7 @@ TEST getfattr -n $xtime $B0/${V0}-1
 
 #TEST stime
 slave_uuid=$(uuidgen)
-stime="trusted.glusterfs.$vol_uuid.$slave_uuid.stime"
+stime="user.glusterfs.$vol_uuid.$slave_uuid.stime"
 TEST setfattr -n $stime -v "0xFFFE" $B0/${V0}-0
 TEST setfattr -n $stime -v "0xFFFF" $B0/${V0}-1
 

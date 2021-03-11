@@ -20,31 +20,31 @@ TEST $CLI volume start $V0
 TEST glusterfs --volfile-id=/$V0 --volfile-server=$H0 $M0 --attribute-timeout=0 --entry-timeout=0 --direct-io-mode=enable
 
 TEST mkdir $B0/${V0}1/.landfill
-TEST setfattr -n trusted.gfid -v $gfid1 $B0/${V0}1/.landfill
+TEST setfattr -n user.gfid -v $gfid1 $B0/${V0}1/.landfill
 TEST mkdir $B0/${V0}0/.landfill
-TEST setfattr -n trusted.gfid -v $gfid1 $B0/${V0}0/.landfill
+TEST setfattr -n user.gfid -v $gfid1 $B0/${V0}0/.landfill
 
 TEST ! stat $M0/.landfill
 EXPECT "" echo $(ls -a $M0 | grep ".landfill")
 
 TEST rmdir $B0/${V0}0/.landfill
 #Force a conservative merge and it should not create .landfill
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}0/
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}0/
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/
 
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/
 
 EXPECT "" echo $(ls -a $M0 | grep ".landfill")
 TEST ! stat $B0/${V0}0/.landfill
 TEST stat $B0/${V0}1/.landfill
 
 #TEST that the dir is not deleted even when xattrs suggest to delete
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}0/
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}0/
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/
 
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}1/
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000000 $B0/${V0}1/
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/
 
 EXPECT "" echo $(ls -a $M0 | grep ".landfill")
 TEST ! stat $B0/${V0}0/.landfill

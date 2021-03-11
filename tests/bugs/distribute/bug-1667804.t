@@ -55,7 +55,7 @@ EXPECT "1" confirm_all_linkto_files $B0/${V0}2/dir0/dir1
 
 target=$(cat $M0/.meta/graphs/active/$V0-dht/subvolumes/1/name)
 
-setfattr -n trusted.glusterfs.dht.linkto -v "$target\0" $B0/${V0}2/dir0/dir1/nfile*
+setfattr -n user.glusterfs.dht.linkto -v "$target\0" $B0/${V0}2/dir0/dir1/nfile*
 
 
 TEST rm -rf $M0/dir0

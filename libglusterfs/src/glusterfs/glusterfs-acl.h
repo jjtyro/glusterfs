@@ -47,8 +47,8 @@
 
 #define POSIX_ACL_XATTR_VERSION (0x02)
 
-#define POSIX_ACL_ACCESS_XATTR "system.posix_acl_access"
-#define POSIX_ACL_DEFAULT_XATTR "system.posix_acl_default"
+#define POSIX_ACL_ACCESS_XATTR "user.posix_acl_access"
+#define POSIX_ACL_DEFAULT_XATTR "user.posix_acl_default"
 
 struct posix_acl_xattr_entry {
     uint16_t tag;
@@ -114,8 +114,8 @@ struct posix_acl_conf {
  * ACls based on the implementation of libacl (see sys/acl.h). */
 
 /* virtual xattrs passed over RPC, not stored on disk */
-#define GF_POSIX_ACL_ACCESS "glusterfs.posix.acl"
-#define GF_POSIX_ACL_DEFAULT "glusterfs.posix.default_acl"
+#define GF_POSIX_ACL_ACCESS "user.glusterfs.posix.acl"
+#define GF_POSIX_ACL_DEFAULT "user.glusterfs.posix.default_acl"
 #define GF_POSIX_ACL_REQUEST(key)                                              \
     (!strncmp(key, GF_POSIX_ACL_ACCESS, SLEN(GF_POSIX_ACL_ACCESS)) ||          \
      !strncmp(key, GF_POSIX_ACL_DEFAULT, SLEN(GF_POSIX_ACL_DEFAULT)))

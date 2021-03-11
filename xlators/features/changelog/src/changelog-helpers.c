@@ -448,7 +448,7 @@ changelog_rollover_changelog(xlator_t *this, changelog_priv_t *priv,
 
         /* Changelog file rename gets ENOENT when parent dir doesn't exist */
         if (errno == ENOENT) {
-            ret = mkdir_p(nfile_dir, 0600, _gf_true);
+            ret = mkdir_p(nfile_dir, 0700, _gf_true);
 
             if ((ret == -1) && (EEXIST != errno)) {
                 gf_smsg(this->name, GF_LOG_ERROR, errno,

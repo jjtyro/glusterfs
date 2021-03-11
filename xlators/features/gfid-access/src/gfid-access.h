@@ -19,8 +19,8 @@
 
 #define UUID_CANONICAL_FORM_LEN 36
 
-#define GF_FUSE_AUX_GFID_NEWFILE "glusterfs.gfid.newfile"
-#define GF_FUSE_AUX_GFID_HEAL "glusterfs.gfid.heal"
+#define GF_FUSE_AUX_GFID_NEWFILE "user.glusterfs.gfid.newfile"
+#define GF_FUSE_AUX_GFID_HEAL "user.glusterfs.gfid.heal"
 
 #define GF_GFID_KEY "GLUSTERFS_GFID"
 #define GF_GFID_DIR ".gfid"

@@ -2,11 +2,11 @@
 
 # Each entry in the array below is a regular expression to match stale keys
 
-xs=("trusted.glusterfs.createtime"
-    "trusted.glusterfs.version"
-    "trusted.glusterfs.afr.data-pending"
-    "trusted.glusterfs.afr.metadata-pending"
-    "trusted.glusterfs.afr.entry-pending")
+xs=("user.glusterfs.createtime"
+    "user.glusterfs.version"
+    "user.glusterfs.afr.data-pending"
+    "user.glusterfs.afr.metadata-pending"
+    "user.glusterfs.afr.entry-pending")
     
 absolute_path()
 {

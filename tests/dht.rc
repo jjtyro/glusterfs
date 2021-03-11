@@ -4,7 +4,7 @@ dhthashdebugxattr="dht.file.hashed-subvol."
 
 function get_layout()
 {
-        getfattr -n trusted.glusterfs.dht -e hex $1 2>&1 | grep dht | cut -d = -f2
+        getfattr -n user.glusterfs.dht -e hex $1 2>&1 | grep dht | cut -d = -f2
 }
 
 ## populates $BRICK1 and $BRICK2 with hashed/cached subvolume. These will be
@@ -34,7 +34,7 @@ function get_cached_brick()
         brick=$BRICK1
         while [ $i -lt 3 ]
         do
-                test=$(getfattr -n trusted.glusterfs.dht.linkto -e text $B0/${V0}$brick/$1 2>&1)
+                test=$(getfattr -n user.glusterfs.dht.linkto -e text $B0/${V0}$brick/$1 2>&1)
                 if [ $? -eq 1 ]
                 then
                         cached=$brick
@@ -53,7 +53,7 @@ function get_hashed_brick()
         brick=$BRICK1
         while [ $j -lt 3 ]
         do
-                test=$(getfattr -n trusted.glusterfs.dht.linkto -e text $B0/${V0}$brick/$1 2>&1)
+                test=$(getfattr -n user.glusterfs.dht.linkto -e text $B0/${V0}$brick/$1 2>&1)
                 if [ $? -eq 0 ]
                 then
                         hashed=$brick
@@ -119,7 +119,7 @@ function remove_brick_completed()
 function dht_get_linkto_target()
 {
         local path=$1;
-        echo $(getfattr -e text --only-values --absolute-names -n trusted.glusterfs.dht.linkto $path)
+        echo $(getfattr -e text --only-values --absolute-names -n user.glusterfs.dht.linkto $path)
 }
 
 function is_dht_linkfile()

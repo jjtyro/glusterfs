@@ -20,8 +20,8 @@ TEST $CLI volume set $V0 cluster.quorum-type none
 TEST kill_brick $V0 $H0 $B0/${V0}0
 TEST kill_brick $V0 $H0 $B0/${V0}1
 echo "file 1" >> $M0/f1
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}2
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}2
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-0 $B0/${V0}2
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}2
 
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 0
@@ -31,8 +31,8 @@ EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 1
 TEST kill_brick $V0 $H0 $B0/${V0}1
 TEST kill_brick $V0 $H0 $B0/${V0}2
 echo "file 2" >> $M0/f2
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0
 
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 1
@@ -42,8 +42,8 @@ EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 2
 TEST kill_brick $V0 $H0 $B0/${V0}2
 TEST kill_brick $V0 $H0 $B0/${V0}0
 echo "file 3" >> $M0/f3
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1
-EXPECT "000000000000000000000001" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1
+EXPECT "000000000000000000000001" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1
 
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 0
@@ -64,12 +64,12 @@ TEST cat $M0/f3
 
 EXPECT_WITHIN $HEAL_TIMEOUT "^0$" get_pending_heal_count $V0
 
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}0
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-2 $B0/${V0}1
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}2
-EXPECT "000000000000000000000000" get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}2
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}0
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-2 $B0/${V0}1
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-0 $B0/${V0}2
+EXPECT "000000000000000000000000" get_hex_xattr user.afr.$V0-client-1 $B0/${V0}2
 
 #Check whether all the bricks contains all the 3 files.
 EXPECT "3" echo $(ls $B0/${V0}0 | wc -l)

@@ -8,7 +8,7 @@ function check_ec_size
     local res
 
     for i in {0..2}; do
-        res=$(( `getfattr -n trusted.ec.size -e hex $B0/$V0$i/$1 | sed -n "s/^trusted.ec.size=//p"` ))
+        res=$(( `getfattr -n user.ec.size -e hex $B0/$V0$i/$1 | sed -n "s/^user.ec.size=//p"` ))
         if [ "x$res" == "x" -o "$res" != "$2" ]; then
             echo "N"
             return 0

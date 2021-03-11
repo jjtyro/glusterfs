@@ -28,12 +28,12 @@ function is_heal_done {
         local size1=$(stat -c "%s" $f1_path)
         local size2=$(stat -c "%s" $f2_path)
         local diff=$((size1-size2))
-        local xattr11=$(get_hex_xattr trusted.afr.$V0-client-0 $f1_path)
-        local xattr12=$(get_hex_xattr trusted.afr.$V0-client-1 $f1_path)
-        local xattr21=$(get_hex_xattr trusted.afr.$V0-client-0 $f2_path)
-        local xattr22=$(get_hex_xattr trusted.afr.$V0-client-1 $f2_path)
-        local dirty1=$(get_hex_xattr trusted.afr.dirty $f1_path)
-        local dirty2=$(get_hex_xattr trusted.afr.dirty $f2_path)
+        local xattr11=$(get_hex_xattr user.afr.$V0-client-0 $f1_path)
+        local xattr12=$(get_hex_xattr user.afr.$V0-client-1 $f1_path)
+        local xattr21=$(get_hex_xattr user.afr.$V0-client-0 $f2_path)
+        local xattr22=$(get_hex_xattr user.afr.$V0-client-1 $f2_path)
+        local dirty1=$(get_hex_xattr user.afr.dirty $f1_path)
+        local dirty2=$(get_hex_xattr user.afr.dirty $f2_path)
         if [ -z $xattr11 ]; then xattr11="000000000000000000000000"; fi
         if [ -z $xattr12 ]; then xattr12="000000000000000000000000"; fi
         if [ -z $xattr21 ]; then xattr21="000000000000000000000000"; fi
@@ -81,7 +81,7 @@ TEST $GFS --volfile-id=$V0 --volfile-server=$H0 $M0;
 cd $M0
 TEST touch pending-changelog biggest-file-source.txt biggest-file-more-prio-than-changelog.txt same-size-more-prio-to-changelog.txt size-and-witness-same.txt self-accusing-vs-source.txt self-accusing-both.txt self-accusing-vs-innocent.txt self-accusing-bigger-exists.txt size-more-prio-than-self-accused.txt v1-dirty.txt split-brain.txt split-brain-all-dirty.txt split-brain-with-dirty.txt
 
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/brick0/pending-changelog
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000010000000000000000 $B0/brick0/pending-changelog
 TEST "echo abc > $B0/brick1/pending-changelog"
 
 TEST "echo abc > $B0/brick0/biggest-file-source.txt"
@@ -89,70 +89,70 @@ TEST "echo abcd > $B0/brick1/biggest-file-source.txt"
 
 TEST "echo abc > $B0/brick0/biggest-file-more-prio-than-changelog.txt"
 TEST "echo abcd > $B0/brick1/biggest-file-more-prio-than-changelog.txt"
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick0/biggest-file-more-prio-than-changelog.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick0/biggest-file-more-prio-than-changelog.txt
 
 TEST "echo abc > $B0/brick0/same-size-more-prio-to-changelog.txt"
 TEST "echo def > $B0/brick1/same-size-more-prio-to-changelog.txt"
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick0/same-size-more-prio-to-changelog.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick0/same-size-more-prio-to-changelog.txt
 
 TEST "echo abc > $B0/brick0/size-and-witness-same.txt"
 TEST "echo def > $B0/brick1/size-and-witness-same.txt"
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick0/size-and-witness-same.txt
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick1/size-and-witness-same.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick0/size-and-witness-same.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick1/size-and-witness-same.txt
 
 TEST "echo abc > $B0/brick0/split-brain.txt"
 TEST "echo def > $B0/brick1/split-brain.txt"
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain.txt
 
 TEST "echo abc > $B0/brick0/split-brain-all-dirty.txt"
 TEST "echo def > $B0/brick1/split-brain-all-dirty.txt"
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain-all-dirty.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain-all-dirty.txt
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick0/split-brain-all-dirty.txt
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick1/split-brain-all-dirty.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain-all-dirty.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain-all-dirty.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick0/split-brain-all-dirty.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick1/split-brain-all-dirty.txt
 
 TEST "echo abc > $B0/brick0/split-brain-with-dirty.txt"
 TEST "echo def > $B0/brick1/split-brain-with-dirty.txt"
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain-with-dirty.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain-with-dirty.txt
-TEST setfattr -n trusted.afr.dirty -v 0x000000200000000000000000 $B0/brick1/split-brain-with-dirty.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/split-brain-with-dirty.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/split-brain-with-dirty.txt
+TEST setfattr -n user.afr.dirty -v 0x000000200000000000000000 $B0/brick1/split-brain-with-dirty.txt
 
 TEST "echo def > $B0/brick1/self-accusing-vs-source.txt"
 TEST "echo abc > $B0/brick0/self-accusing-vs-source.txt"
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-source.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-source.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/self-accusing-vs-source.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-source.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-source.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/self-accusing-vs-source.txt
 
 TEST "echo abc > $B0/brick0/self-accusing-both.txt"
 TEST "echo def > $B0/brick1/self-accusing-both.txt"
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/self-accusing-both.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/self-accusing-both.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-both.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-both.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/self-accusing-both.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick0/self-accusing-both.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-both.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-both.txt
 
 TEST "echo abc > $B0/brick0/self-accusing-vs-innocent.txt"
 TEST "echo def > $B0/brick1/self-accusing-vs-innocent.txt"
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-innocent.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-vs-innocent.txt
 
 TEST "echo abc > $B0/brick0/self-accusing-bigger-exists.txt"
 TEST "echo def > $B0/brick1/self-accusing-bigger-exists.txt"
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/self-accusing-bigger-exists.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000300000000000000000 $B0/brick0/self-accusing-bigger-exists.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-bigger-exists.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-bigger-exists.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/self-accusing-bigger-exists.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000300000000000000000 $B0/brick0/self-accusing-bigger-exists.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/self-accusing-bigger-exists.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/self-accusing-bigger-exists.txt
 
 TEST "echo abc > $B0/brick0/size-more-prio-than-self-accused.txt"
 TEST "echo defg > $B0/brick1/size-more-prio-than-self-accused.txt"
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/size-more-prio-than-self-accused.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000300000000000000000 $B0/brick0/size-more-prio-than-self-accused.txt
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/size-more-prio-than-self-accused.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/size-more-prio-than-self-accused.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/size-more-prio-than-self-accused.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000300000000000000000 $B0/brick0/size-more-prio-than-self-accused.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick1/size-more-prio-than-self-accused.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000200000000000000000 $B0/brick1/size-more-prio-than-self-accused.txt
 
 TEST "echo abc > $B0/brick0/v1-dirty.txt"
 TEST "echo def > $B0/brick1/v1-dirty.txt"
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/v1-dirty.txt
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000100000000000000000 $B0/brick1/v1-dirty.txt
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000200000000000000000 $B0/brick0/v1-dirty.txt
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000100000000000000000 $B0/brick1/v1-dirty.txt
 
 #Create base entry in indices/xattrop
 echo "Data" > $M0/FILE

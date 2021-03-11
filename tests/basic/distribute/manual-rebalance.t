@@ -33,7 +33,7 @@ errors=0
 migrations=0
 for i in {1..10};
 do
-    setfattr -n trusted.distribute.migrate-data -v 1 $M0/d/$i 2>/dev/null
+    setfattr -n user.distribute.migrate-data -v 1 $M0/d/$i 2>/dev/null
     if [ $? -eq 0 ] #Migration happened for the file
     then
         if [ "${checksums[i]}" != "$(md5sum $B0/${V0}1/d/$i | awk '{print $1}')" ]

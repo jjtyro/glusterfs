@@ -12,7 +12,7 @@ hashdebugxattr="dht.file.hashed-subvol."
 
 function get_brick_index {
         local inpath=$1
-        brickroot=$(getfattr -m . -n trusted.glusterfs.pathinfo $inpath | tr ' ' '\n' | sed -n 's/<POSIX(\(.*\)):.*:.*>.*/\1/p')
+        brickroot=$(getfattr -m . -n user.glusterfs.pathinfo $inpath | tr ' ' '\n' | sed -n 's/<POSIX(\(.*\)):.*:.*>.*/\1/p')
         echo ${brickroot:(-1)}
 }
 
@@ -143,7 +143,7 @@ function file_is_linkto
         return
     fi
 
-    test=$(getfattr -n trusted.glusterfs.dht.linkto -e text $brick_filepath 2>&1)
+    test=$(getfattr -n user.glusterfs.dht.linkto -e text $brick_filepath 2>&1)
 
     if [ $? -eq 0 ]; then
        echo "1"

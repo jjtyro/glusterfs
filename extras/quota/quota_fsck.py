@@ -122,7 +122,7 @@ def fix_xattr(file_name, mark_dirty):
     if mark_dirty:
         print("MARKING DIRTY: " + file_name)
         out = subprocess.check_output (["/usr/bin/setfattr", "-n",
-                                       "trusted.glusterfs.quota.dirty",
+                                       "user.glusterfs.quota.dirty",
                                        "-v", IS_DIRTY, file_name])
     rel_path = os.path.relpath(file_name, brick_path)
     print("stat on "  + mnt_path + "/" + rel_path)
@@ -140,12 +140,12 @@ def get_quota_xattr_brick(dpath):
     [root@dhcp35-100 mnt]# getfattr -d -m. -e hex /export/b1/B0/d14/d13/
     # file: export/b1/B0/d14/d13/
     security.selinux=0x756e636f6e66696e65645f753a6f626a6563745f723a7573725f743a733000
-    trusted.gfid=0xbae5e0d2d05043de9fd851d91ecf63e8
-    trusted.glusterfs.dht=0x000000010000000000000000ffffffff
-    trusted.glusterfs.dht.mds=0x00000000
-    trusted.glusterfs.quota.6a7675a3-b85a-40c5-830b-de9229d702ce.contri.39=0x00000000000000000000000000000000000000000000000e
-    trusted.glusterfs.quota.dirty=0x3000
-    trusted.glusterfs.quota.size.39=0x00000000000000000000000000000000000000000000000e
+    user.gfid=0xbae5e0d2d05043de9fd851d91ecf63e8
+    user.glusterfs.dht=0x000000010000000000000000ffffffff
+    user.glusterfs.dht.mds=0x00000000
+    user.glusterfs.quota.6a7675a3-b85a-40c5-830b-de9229d702ce.contri.39=0x00000000000000000000000000000000000000000000000e
+    user.glusterfs.quota.dirty=0x3000
+    user.glusterfs.quota.size.39=0x00000000000000000000000000000000000000000000000e
     '''
 
     '''

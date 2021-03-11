@@ -40,7 +40,7 @@ TEST $CLI volume set $V0 performance.quick-read off
 
 #Create sample file
 TEST `echo "1234" > $M0/FILE1`
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.bit-rot.signature' check_for_xattr 'trusted.bit-rot.signature' "/$B0/${V0}1/FILE1"
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.bit-rot.signature' check_for_xattr 'user.bit-rot.signature' "/$B0/${V0}1/FILE1"
 
 ##disable bitrot
 TEST $CLI volume bitrot $V0 disable
@@ -77,7 +77,7 @@ TEST $CLI volume bitrot $V0 scrub ondemand
 # corruption has happened) which are filesystem operations.
 sleep 2
 
-TEST ! getfattr -n 'trusted.bit-rot.bad-file' $B0/${V0}1/FILE1
+TEST ! getfattr -n 'user.bit-rot.bad-file' $B0/${V0}1/FILE1
 
 ##Mount $V0
 TEST glusterfs --volfile-id=$V0 --volfile-server=$H0 $M0 --attribute-timeout=0 --entry-timeout=0

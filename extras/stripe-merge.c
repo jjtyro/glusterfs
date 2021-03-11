@@ -31,10 +31,10 @@
 #include <sys/xattr.h>
 #include <fnmatch.h>
 
-#define ATTRNAME_STRIPE_INDEX "trusted.*.stripe-index"
-#define ATTRNAME_STRIPE_COUNT "trusted.*.stripe-count"
-#define ATTRNAME_STRIPE_SIZE "trusted.*.stripe-size"
-#define ATTRNAME_STRIPE_COALESCE "trusted.*.stripe-coalesce"
+#define ATTRNAME_STRIPE_INDEX "user.*.stripe-index"
+#define ATTRNAME_STRIPE_COUNT "user.*.stripe-count"
+#define ATTRNAME_STRIPE_SIZE "user.*.stripe-size"
+#define ATTRNAME_STRIPE_COALESCE "user.*.stripe-coalesce"
 
 #define INVALID_FD -1
 #define INVALID_MODE UINT32_MAX

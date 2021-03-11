@@ -7,12 +7,12 @@ cleanup;
 
 
 # Test steps:
-# The test checks to make sure that the trusted.pgfid.xx xattr is set on
+# The test checks to make sure that the user.pgfid.xx xattr is set on
 # both the linkto and data files post the final rename.
 # The test creates files file-1 and file-3 so that src_hashed = dst_hashed,
 # src_cached = dst_cached and xxx_hashed != xxx_cached.
 # It then renames file-1 to file-3 which triggers the posix_mknod call
-# which updates the trusted.pgfid.xx xattr.
+# which updates the user.pgfid.xx xattr.
 
 
 TEST glusterd
@@ -35,7 +35,7 @@ TEST mkdir $M0/tmp
 # file-2 will hash to the other subvol
 
 TEST touch $M0/tmp/file-2
-pgfid_xattr_name=$(getfattr -m "trusted.pgfid.*" $B0/${V0}1/tmp/file-2 | grep "trusted.pgfid")
+pgfid_xattr_name=$(getfattr -m "user.pgfid.*" $B0/${V0}1/tmp/file-2 | grep "user.pgfid")
 echo $pgfid_xattr_name
 
 

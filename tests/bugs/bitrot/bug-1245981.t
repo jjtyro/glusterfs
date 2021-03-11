@@ -47,9 +47,9 @@ touch $M0/5
 sleep `expr $SLEEP_TIME \* 2`
 
 backpath=$(get_backend_paths $fname)
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.bit-rot.signature' check_for_xattr 'trusted.bit-rot.signature' $backpath
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.bit-rot.signature' check_for_xattr 'user.bit-rot.signature' $backpath
 
 backpath=$(get_backend_paths $M0/new_file)
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'trusted.bit-rot.signature' check_for_xattr 'trusted.bit-rot.signature' $backpath
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT 'user.bit-rot.signature' check_for_xattr 'user.bit-rot.signature' $backpath
 
 cleanup;

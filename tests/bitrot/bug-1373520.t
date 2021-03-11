@@ -43,7 +43,7 @@ echo "Corrupted data" >> $B0/${V0}5/FILE1
 gfid1=$(getfattr -n glusterfs.gfid.string --only-values $M0/FILE1)
 
 #Manually set bad-file xattr
-TEST setfattr -n trusted.bit-rot.bad-file -v 0x3100 $B0/${V0}5/FILE1
+TEST setfattr -n user.bit-rot.bad-file -v 0x3100 $B0/${V0}5/FILE1
 TEST touch "$B0/${V0}5/.glusterfs/quarantine/$gfid1"
 TEST chmod 000 "$B0/${V0}5/.glusterfs/quarantine/$gfid1"
 EXPECT "3" get_quarantine_count "$B0/${V0}5";

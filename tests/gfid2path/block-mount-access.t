@@ -32,7 +32,7 @@ backpath=$B0/${V0}1/file1
 pgfid="00000000-0000-0000-0000-000000000001"
 
 #Check for the presence of xattr
-key="trusted.gfid2path"
+key="user.gfid2path"
 gfid2path_xattr=$(getfattr -h -d -m. $backpath 2>/dev/null | grep -a $key | cut -f1 -d'=')
 
 #Check getxattr
@@ -45,7 +45,7 @@ EXPECT_NOT $gfid2path_xattr get_xattr_key $key $M0/file1
 TEST ! setfattr -h -x $gfid2path_xattr $M0/file1
 
 #Check setxattr
-TEST ! setfattr -h -n "trusted.gfid2path.d16e15bafe6e4257" -v "$pgfid/file2" $M0/file1
+TEST ! setfattr -h -n "user.gfid2path.d16e15bafe6e4257" -v "$pgfid/file2" $M0/file1
 
 #Cleanup
 cleanup;

@@ -19,7 +19,7 @@
 #include <glusterfs/compat.h>
 #include <glusterfs/compat-errno.h>
 
-#define MARKER_XATTR_PREFIX "trusted.glusterfs"
+#define MARKER_XATTR_PREFIX "user.glusterfs"
 #define XTIME "xtime"
 #define VOLUME_MARK "volume-mark"
 #define GF_XATTR_MARKER_KEY MARKER_XATTR_PREFIX "." VOLUME_MARK

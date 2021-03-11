@@ -289,7 +289,7 @@ typedef enum {
 } afr_transaction_type;
 
 /*
-  xattr format: trusted.afr.volume = [x y z]
+  xattr format: user.afr.volume = [x y z]
   x - data pending
   y - metadata pending
   z - entry pending

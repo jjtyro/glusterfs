@@ -16,7 +16,7 @@
 #include <glusterfs/compat-uuid.h>
 #include <glusterfs/call-stub.h>
 
-#define MARKER_XATTR_PREFIX "trusted.glusterfs"
+#define MARKER_XATTR_PREFIX "user.glusterfs"
 #define XTIME "xtime"
 #define VOLUME_MARK "volume-mark"
 #define VOLUME_UUID "volume-uuid"

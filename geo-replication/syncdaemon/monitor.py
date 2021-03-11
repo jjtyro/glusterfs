@@ -325,7 +325,7 @@ def distribute(master, slave):
 
     # save this xattr for the session delete command
     old_stime_xattr_prefix = gconf.get("stime-xattr-prefix", None)
-    new_stime_xattr_prefix = "trusted.glusterfs." + mvol.uuid + "." + \
+    new_stime_xattr_prefix = "user.glusterfs." + mvol.uuid + "." + \
                              svol.uuid
     if not old_stime_xattr_prefix or \
        old_stime_xattr_prefix != new_stime_xattr_prefix:

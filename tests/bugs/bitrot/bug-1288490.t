@@ -20,7 +20,7 @@ TEST dd if=/dev/urandom of=$M0/FILE bs=1024 count=1
 # corrupt data -- append 2 bytes
 echo -n "~~" >> $B0/brick0/FILE
 # manually set bad-file xattr
-TEST setfattr -n trusted.bit-rot.bad-file -v 0x3100 $B0/brick0/FILE
+TEST setfattr -n user.bit-rot.bad-file -v 0x3100 $B0/brick0/FILE
 
 TEST $CLI volume stop $V0
 TEST $CLI volume start $V0

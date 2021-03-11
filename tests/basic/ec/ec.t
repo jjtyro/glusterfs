@@ -12,7 +12,7 @@ function my_getfattr {
 }
 
 function get_rep_count {
-    v=$(my_getfattr -n trusted.jbr.rep-count $1)
+    v=$(my_getfattr -n user.jbr.rep-count $1)
     #echo $v > /dev/tty
     echo $v
 }

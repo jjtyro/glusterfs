@@ -18,9 +18,9 @@ TEST $CLI volume start $V0
 # Mount FUSE
 TEST glusterfs -s $H0 --volfile-id $V0 $M0
 
-TEST ! setfattr -x trusted.gfid $M0
-TEST ! setfattr -x trusted.glusterfs.volume-id $M0
-TEST setfattr -n trusted.abc -v abc $M0
-TEST setfattr -x trusted.abc $M0
+TEST ! setfattr -x user.gfid $M0
+TEST ! setfattr -x user.glusterfs.volume-id $M0
+TEST setfattr -n user.abc -v abc $M0
+TEST setfattr -x user.abc $M0
 
 cleanup;

@@ -37,7 +37,7 @@ EXPECT_WITHIN $CONFIG_UPDATE_TIMEOUT "^6$" ec_option_value $V0 $M0 0 quorum-coun
 
 TEST touch $M0/a
 TEST touch $M0/data
-TEST setfattr -n trusted.def -v def $M0/a
+TEST setfattr -n user.def -v def $M0/a
 TEST touch $M0/src
 TEST touch $M0/del-me
 TEST mkdir $M0/dir1
@@ -60,8 +60,8 @@ TEST ! rmdir $M0/dir1
 TEST ! dd if=/dev/zero of=$M0/a bs=1M count=1 conv=notrunc
 TEST ! dd if=/dev/zero of=$M0/data bs=1M count=1 conv=notrunc
 TEST ! truncate -s 0 $M0/a
-TEST ! setfattr -n trusted.abc -v abc $M0/a
-TEST ! setfattr -x trusted.def $M0/a
+TEST ! setfattr -n user.abc -v abc $M0/a
+TEST ! setfattr -x user.def $M0/a
 TEST ! chmod +x $M0/a
 TEST ! fallocate -l 2m -n $M0/a
 TEST ! fallocate -p -l 512k $M0/a
@@ -74,7 +74,7 @@ TEST $CLI volume reset $V0 disperse.quorum-count
 EXPECT_WITHIN $CONFIG_UPDATE_TIMEOUT "^0$" ec_option_value $V0 $M0 0 quorum-count
 TEST touch $M0/a1
 TEST touch $M0/data1
-TEST setfattr -n trusted.def -v def $M0/a1
+TEST setfattr -n user.def -v def $M0/a1
 TEST touch $M0/src1
 TEST touch $M0/del-me1
 TEST mkdir $M0/dir11
@@ -91,8 +91,8 @@ TEST rmdir $M0/dir11
 TEST dd if=/dev/zero of=$M0/a1 bs=1M count=1 conv=notrunc
 TEST dd if=/dev/zero of=$M0/data1 bs=1M count=1 conv=notrunc
 TEST truncate -s 0 $M0/a1
-TEST setfattr -n trusted.abc -v abc $M0/a1
-TEST setfattr -x trusted.def $M0/a1
+TEST setfattr -n user.abc -v abc $M0/a1
+TEST setfattr -x user.def $M0/a1
 TEST chmod +x $M0/a1
 TEST fallocate -l 2m -n $M0/a1
 TEST fallocate -p -l 512k $M0/a1
@@ -101,7 +101,7 @@ EXPECT_WITHIN $CHILD_UP_TIMEOUT "6" ec_child_up_count $V0 0
 
 TEST touch $M0/a2
 TEST touch $M0/data2
-TEST setfattr -n trusted.def -v def $M0/a1
+TEST setfattr -n user.def -v def $M0/a1
 TEST touch $M0/src2
 TEST touch $M0/del-me2
 TEST mkdir $M0/dir12
@@ -119,8 +119,8 @@ TEST ! rmdir $M0/dir12
 TEST ! dd if=/dev/zero of=$M0/a2 bs=1M count=1 conv=notrunc
 TEST ! dd if=/dev/zero of=$M0/data2 bs=1M count=1 conv=notrunc
 TEST ! truncate -s 0 $M0/a2
-TEST ! setfattr -n trusted.abc -v abc $M0/a2
-TEST ! setfattr -x trusted.def $M0/a2
+TEST ! setfattr -n user.abc -v abc $M0/a2
+TEST ! setfattr -x user.def $M0/a2
 TEST ! chmod +x $M0/a2
 TEST ! fallocate -l 2m -n $M0/a2
 TEST ! fallocate -p -l 512k $M0/a2
@@ -133,7 +133,7 @@ TEST $CLI volume set $V0 disperse.quorum-count 5
 EXPECT_WITHIN $CONFIG_UPDATE_TIMEOUT "^5$" ec_option_value $V0 $M0 0 quorum-count
 TEST touch $M0/a3
 TEST touch $M0/data3
-TEST setfattr -n trusted.def -v def $M0/a3
+TEST setfattr -n user.def -v def $M0/a3
 TEST touch $M0/src3
 TEST touch $M0/del-me3
 TEST mkdir $M0/dir13
@@ -149,8 +149,8 @@ TEST rmdir $M0/dir13
 TEST dd if=/dev/zero of=$M0/a3 bs=1M count=1 conv=notrunc
 TEST dd if=/dev/zero of=$M0/data3 bs=1M count=1 conv=notrunc
 TEST truncate -s 0 $M0/a3
-TEST setfattr -n trusted.abc -v abc $M0/a3
-TEST setfattr -x trusted.def $M0/a3
+TEST setfattr -n user.abc -v abc $M0/a3
+TEST setfattr -x user.def $M0/a3
 TEST chmod +x $M0/a3
 TEST fallocate -l 2m -n $M0/a3
 TEST fallocate -p -l 512k $M0/a3

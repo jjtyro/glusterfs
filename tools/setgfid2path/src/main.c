@@ -15,7 +15,7 @@
 
 #define MAX_GFID2PATH_LINK_SUP 500
 #define GFID_SIZE 16
-#define GFID_XATTR_KEY "trusted.gfid"
+#define GFID_XATTR_KEY "user.gfid"
 
 int
 main(int argc, char **argv)

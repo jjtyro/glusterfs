@@ -45,7 +45,7 @@ exit 1
 }
 
 TARGET_DIR=$1
-EXT_ATTR_NAME="trusted.glusterfs-quota-du"
+EXT_ATTR_NAME="user.glusterfs-quota-du"
 
 #output of du in number of bytes
 get_disk_usage ()

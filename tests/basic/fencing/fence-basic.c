@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define NO_INIT 1
-#define GF_ENFORCE_MANDATORY_LOCK "trusted.glusterfs.enforce-mandatory-lock"
+#define GF_ENFORCE_MANDATORY_LOCK "user.glusterfs.enforce-mandatory-lock"
 
 FILE *fp;
 char *buf = "0123456789";

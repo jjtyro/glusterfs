@@ -58,11 +58,11 @@ backend_paths=`get_backend_paths $pth`
 backend_paths_array=($backend_paths)
 
 # setxattr xattr for this file
-EXPECT 0 set_xattr $pth "trusted.name" "test"
+EXPECT 0 set_xattr $pth "user.name" "test"
 
 # confirm the set on backend
-EXPECT 0 xattr_query_check ${backend_paths_array[0]} "trusted.name"
-EXPECT 0 xattr_query_check ${backend_paths_array[1]} "trusted.name"
+EXPECT 0 xattr_query_check ${backend_paths_array[0]} "user.name"
+EXPECT 0 xattr_query_check ${backend_paths_array[1]} "user.name"
 
 brick_path=`echo ${backend_paths_array[0]} | sed -n 's/\(.*\)\/'$f'/\1/p'`
 brick_id=`$CLI volume info $V0 | grep "Brick[[:digit:]]" | grep -n $brick_path  | cut -f1 -d:`
@@ -71,12 +71,12 @@ brick_id=`$CLI volume info $V0 | grep "Brick[[:digit:]]" | grep -n $brick_path  
 TEST kill_brick $V0 $H0 $brick_path
 
 # remove the xattr from the mount point
-EXPECT 0 remove_xattr $pth "trusted.name"
+EXPECT 0 remove_xattr $pth "user.name"
 
 # we killed ${backend_paths[0]} - so expect the xattr to be there
 # on the backend there
-EXPECT 0 xattr_query_check ${backend_paths_array[0]} "trusted.name"
-EXPECT 1 xattr_query_check ${backend_paths_array[1]} "trusted.name"
+EXPECT 0 xattr_query_check ${backend_paths_array[0]} "user.name"
+EXPECT 1 xattr_query_check ${backend_paths_array[1]} "user.name"
 
 # restart the brick process
 TEST $CLI volume start $V0 force
@@ -91,7 +91,7 @@ TEST $CLI volume heal $V0
 
 EXPECT_WITHIN $HEAL_TIMEOUT "0" get_pending_heal_count $V0
 # check backends - xattr should not be present anywhere
-EXPECT 1 xattr_query_check ${backend_paths_array[0]} "trusted.name"
-EXPECT 1 xattr_query_check ${backend_paths_array[1]} "trusted.name"
+EXPECT 1 xattr_query_check ${backend_paths_array[0]} "user.name"
+EXPECT 1 xattr_query_check ${backend_paths_array[1]} "user.name"
 
 cleanup;

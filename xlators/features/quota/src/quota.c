@@ -3221,10 +3221,10 @@ quota_fgetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, const char *name,
 {
     int32_t ret = 0;
 
-    if (name && strcasecmp(name, "trusted.limit.list") == 0) {
+    if (name && strcasecmp(name, "user.limit.list") == 0) {
         ret = quota_send_dir_limit_to_cli(frame, this, fd->inode,
-                                          "trusted.limit.list",
-                                          SLEN("trusted.limit.list"));
+                                          "user.limit.list",
+                                          SLEN("user.limit.list"));
         if (ret == 0) {
             return 0;
         }
@@ -3241,10 +3241,10 @@ quota_getxattr(call_frame_t *frame, xlator_t *this, loc_t *loc,
 {
     int32_t ret = 0;
 
-    if ((name != NULL) && strcasecmp(name, "trusted.limit.list") == 0) {
+    if ((name != NULL) && strcasecmp(name, "user.limit.list") == 0) {
         ret = quota_send_dir_limit_to_cli(frame, this, loc->inode,
-                                          "trusted.limit.list",
-                                          SLEN("trusted.limit.list"));
+                                          "user.limit.list",
+                                          SLEN("user.limit.list"));
         if (ret == 0)
             return 0;
     }
@@ -3979,9 +3979,9 @@ quota_setxattr(call_frame_t *frame, xlator_t *this, loc_t *loc, dict_t *dict,
         internal_fop = _gf_true;
 
     if (frame->root->pid >= 0 && internal_fop == _gf_false) {
-        GF_IF_INTERNAL_XATTR_GOTO("trusted.glusterfs.quota*", dict, op_errno,
+        GF_IF_INTERNAL_XATTR_GOTO("user.glusterfs.quota*", dict, op_errno,
                                   err);
-        GF_IF_INTERNAL_XATTR_GOTO("trusted.pgfid*", dict, op_errno, err);
+        GF_IF_INTERNAL_XATTR_GOTO("user.pgfid*", dict, op_errno, err);
     }
 
     quota_get_limits(this, dict, &hard_lim, &soft_lim, &object_hard_limit,
@@ -4076,9 +4076,9 @@ quota_fsetxattr(call_frame_t *frame, xlator_t *this, fd_t *fd, dict_t *dict,
     VALIDATE_OR_GOTO(fd, err);
 
     if (0 <= frame->root->pid) {
-        GF_IF_INTERNAL_XATTR_GOTO("trusted.glusterfs.quota*", dict, op_errno,
+        GF_IF_INTERNAL_XATTR_GOTO("user.glusterfs.quota*", dict, op_errno,
                                   err);
-        GF_IF_INTERNAL_XATTR_GOTO("trusted.pgfid*", dict, op_errno, err);
+        GF_IF_INTERNAL_XATTR_GOTO("user.pgfid*", dict, op_errno, err);
     }
 
     quota_get_limits(this, dict, &hard_lim, &soft_lim, &object_hard_limit,
@@ -4142,9 +4142,9 @@ quota_removexattr(call_frame_t *frame, xlator_t *this, loc_t *loc,
      * Hence its ok that we don't allow removexattr on quota keys here.
      */
     if (frame->root->pid >= 0) {
-        GF_IF_NATIVE_XATTR_GOTO("trusted.glusterfs.quota*", name, op_errno,
+        GF_IF_NATIVE_XATTR_GOTO("user.glusterfs.quota*", name, op_errno,
                                 err);
-        GF_IF_NATIVE_XATTR_GOTO("trusted.pgfid*", name, op_errno, err);
+        GF_IF_NATIVE_XATTR_GOTO("user.pgfid*", name, op_errno, err);
     }
 
     VALIDATE_OR_GOTO(frame, err);
@@ -4189,9 +4189,9 @@ quota_fremovexattr(call_frame_t *frame, xlator_t *this, fd_t *fd,
     VALIDATE_OR_GOTO(fd, err);
 
     if (frame->root->pid >= 0) {
-        GF_IF_NATIVE_XATTR_GOTO("trusted.glusterfs.quota*", name, op_errno,
+        GF_IF_NATIVE_XATTR_GOTO("user.glusterfs.quota*", name, op_errno,
                                 err);
-        GF_IF_NATIVE_XATTR_GOTO("trusted.pgfid*", name, op_errno, err);
+        GF_IF_NATIVE_XATTR_GOTO("user.pgfid*", name, op_errno, err);
     }
     STACK_WIND(frame, quota_fremovexattr_cbk, FIRST_CHILD(this),
                FIRST_CHILD(this)->fops->fremovexattr, fd, name, xdata);

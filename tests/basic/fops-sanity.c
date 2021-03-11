@@ -228,7 +228,7 @@ fd_based_fops_1(char *filename)
      *              result |= ret;
      *      }
 
-     *      ret = fsetxattr (fd, "trusted.xattr-test", "working", 8, 0);
+     *      ret = fsetxattr (fd, "user.xattr-test", "working", 8, 0);
      *      if (ret < 0) {
      *              fprintf (stderr, "fsetxattr failed : %s\n", strerror
      (errno));
@@ -242,14 +242,14 @@ fd_based_fops_1(char *filename)
      *              result |= ret;
      *      }
 
-     *      ret = fgetxattr (fd, "trusted.xattr-test", NULL, 0);
+     *      ret = fgetxattr (fd, "user.xattr-test", NULL, 0);
      *      if (ret <= 0) {
      *              fprintf (stderr, "fgetxattr failed : %s\n", strerror
      (errno));
      *              result |= ret;
      *      }
 
-     *      ret = fremovexattr (fd, "trusted.xattr-test");
+     *      ret = fremovexattr (fd, "user.xattr-test");
      *      if (ret < 0) {
      *              fprintf (stderr, "fremovexattr failed : %s\n", strerror
      (errno));
@@ -339,7 +339,7 @@ fd_based_fops_2(char *filename)
         result |= ret;
     }
 
-    ret = fsetxattr(fd, "trusted.xattr-test", "working", 8, 0);
+    ret = fsetxattr(fd, "user.xattr-test", "working", 8, 0);
     if (ret < 0) {
         fprintf(stderr, "fsetxattr failed : %s\n", strerror(errno));
         result |= ret;
@@ -357,13 +357,13 @@ fd_based_fops_2(char *filename)
         result |= ret;
     }
 
-    ret = fgetxattr(fd, "trusted.xattr-test", NULL, 0);
+    ret = fgetxattr(fd, "user.xattr-test", NULL, 0);
     if (ret <= 0) {
         fprintf(stderr, "fgetxattr failed : %s\n", strerror(errno));
         result |= ret;
     }
 
-    ret = fremovexattr(fd, "trusted.xattr-test");
+    ret = fremovexattr(fd, "user.xattr-test");
     if (ret < 0) {
         fprintf(stderr, "fremovexattr failed : %s\n", strerror(errno));
         result |= ret;
@@ -424,7 +424,7 @@ path_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = setxattr(filename, "trusted.xattr-test", "working", 8, 0);
+    ret = setxattr(filename, "user.xattr-test", "working", 8, 0);
     if (ret < 0) {
         fprintf(stderr, "setxattr failed: %s\n", strerror(errno));
         result |= ret;
@@ -437,13 +437,13 @@ path_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = getxattr(filename, "trusted.xattr-test", NULL, 0);
+    ret = getxattr(filename, "user.xattr-test", NULL, 0);
     if (ret <= 0) {
         fprintf(stderr, "getxattr failed: %s\n", strerror(errno));
         result |= ret;
     }
 
-    ret = removexattr(filename, "trusted.xattr-test");
+    ret = removexattr(filename, "user.xattr-test");
     if (ret < 0) {
         fprintf(stderr, "removexattr failed: %s\n", strerror(errno));
         result |= ret;
@@ -628,7 +628,7 @@ dup_fd_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = fsetxattr(newfd, "trusted.xattr-test", "working", 8, 0);
+    ret = fsetxattr(newfd, "user.xattr-test", "working", 8, 0);
     if (ret < 0) {
         fprintf(stderr, "fsetxattr failed : %s\n", strerror(errno));
         result |= ret;
@@ -646,13 +646,13 @@ dup_fd_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = fgetxattr(newfd, "trusted.xattr-test", NULL, 0);
+    ret = fgetxattr(newfd, "user.xattr-test", NULL, 0);
     if (ret <= 0) {
         fprintf(stderr, "fgetxattr failed : %s\n", strerror(errno));
         result |= ret;
     }
 
-    ret = fremovexattr(newfd, "trusted.xattr-test");
+    ret = fremovexattr(newfd, "user.xattr-test");
     if (ret < 0) {
         fprintf(stderr, "fremovexattr failed : %s\n", strerror(errno));
         result |= ret;
@@ -730,7 +730,7 @@ dir_based_fops(char *dirname)
         result |= ret;
     }
 
-    ret = setxattr(dirname, "trusted.xattr-test", "working", 8, 0);
+    ret = setxattr(dirname, "user.xattr-test", "working", 8, 0);
     if (ret < 0) {
         fprintf(stderr, "setxattr failed: %s\n", strerror(errno));
         result |= ret;
@@ -743,14 +743,14 @@ dir_based_fops(char *dirname)
         result |= ret;
     }
 
-    ret = getxattr(dirname, "trusted.xattr-test", NULL, 0);
+    ret = getxattr(dirname, "user.xattr-test", NULL, 0);
     if (ret <= 0) {
         ret = -1;
         fprintf(stderr, "getxattr failed: %s\n", strerror(errno));
         result |= ret;
     }
 
-    ret = removexattr(dirname, "trusted.xattr-test");
+    ret = removexattr(dirname, "user.xattr-test");
     if (ret < 0) {
         fprintf(stderr, "removexattr failed: %s\n", strerror(errno));
         result |= ret;
@@ -845,7 +845,7 @@ link_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = lsetxattr(linkname, "trusted.lxattr-test", "working", 8, 0);
+    ret = lsetxattr(linkname, "user.lxattr-test", "working", 8, 0);
     if (ret < 0) {
         fprintf(stderr, "lsetxattr failed: %s\n", strerror(errno));
         result |= ret;
@@ -858,14 +858,14 @@ link_based_fops(char *filename)
         result |= ret;
     }
 
-    ret = lgetxattr(linkname, "trusted.lxattr-test", NULL, 0);
+    ret = lgetxattr(linkname, "user.lxattr-test", NULL, 0);
     if (ret < 0) {
         ret = -1;
         fprintf(stderr, "lgetxattr failed: %s\n", strerror(errno));
         result |= ret;
     }
 
-    ret = lremovexattr(linkname, "trusted.lxattr-test");
+    ret = lremovexattr(linkname, "user.lxattr-test");
     if (ret < 0) {
         fprintf(stderr, "lremovexattr failed: %s\n", strerror(errno));
         result |= ret;

@@ -11,7 +11,7 @@ function get_pathinfo_in_loop {
         failed=0
         for i in {1..1000}
         do
-                getfattr -n trusted.glusterfs.pathinfo $M0 2>/dev/null
+                getfattr -n user.glusterfs.pathinfo $M0 2>/dev/null
                 if [ $? -ne 0 ]; then failed=1;break; fi
         done
         return $failed

@@ -36,39 +36,39 @@ EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 1
   cat $M0/data.txt > /dev/null
   EXPECT "1" echo $?
   ## pending xattrs blame each other.
-  brick0_pending=$(get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0/data.txt)
-  brick1_pending=$(get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1/data.txt)
+  brick0_pending=$(get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0/data.txt)
+  brick1_pending=$(get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1/data.txt)
   TEST [ $brick0_pending -ne "000000000000000000000000" ]
   TEST [ $brick1_pending -ne "000000000000000000000000" ]
 
   ## I/O fails
   getfattr -n user.value $M0/mdata.txt
   EXPECT "1" echo $?
-  brick0_pending=$(get_hex_xattr trusted.afr.$V0-client-1 $B0/${V0}0/mdata.txt)
-  brick1_pending=$(get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1/mdata.txt)
+  brick0_pending=$(get_hex_xattr user.afr.$V0-client-1 $B0/${V0}0/mdata.txt)
+  brick1_pending=$(get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1/mdata.txt)
   TEST [ $brick0_pending -ne "000000000000000000000000" ]
   TEST [ $brick1_pending -ne "000000000000000000000000" ]
 
 ## Let us use mtime as fav-child policy. So brick0 will be source.
    # Set dirty (data part) on the sink brick to check if it is reset later along with the pending xattr.
-   TEST setfattr -n trusted.afr.dirty -v 0x000000010000000000000000 $B0/${V0}1/data.txt
+   TEST setfattr -n user.afr.dirty -v 0x000000010000000000000000 $B0/${V0}1/data.txt
    # Set dirty (metadata part) on the sink brick to check if it is reset later along with the pending xattr.
-   TEST setfattr -n trusted.afr.dirty -v 0x000000000000000100000000 $B0/${V0}1/mdata.txt
+   TEST setfattr -n user.afr.dirty -v 0x000000000000000100000000 $B0/${V0}1/mdata.txt
 
    TEST $CLI volume set $V0 favorite-child-policy mtime
 
    # Reading the file should be allowed and sink brick xattrs must be reset.
    cat $M0/data.txt > /dev/null
    EXPECT "0" echo $?
-   TEST brick1_pending=$(get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1/data.txt)
-   TEST brick1_dirty=$(get_hex_xattr trusted.afr.dirty $B0/${V0}1/data.txt)
+   TEST brick1_pending=$(get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1/data.txt)
+   TEST brick1_dirty=$(get_hex_xattr user.afr.dirty $B0/${V0}1/data.txt)
    TEST [ $brick1_dirty -eq "000000000000000000000000" ]
    TEST [ $brick1_pending -eq "000000000000000000000000" ]
 
    # Accessing the file should be allowed and sink brick xattrs must be reset.
    EXPECT "value2" echo $(getfattr --only-values -n user.value  $M0/mdata.txt)
-   TEST brick1_pending=$(get_hex_xattr trusted.afr.$V0-client-0 $B0/${V0}1/data.txt)
-   TEST brick1_dirty=$(get_hex_xattr trusted.afr.dirty $B0/${V0}1/data.txt)
+   TEST brick1_pending=$(get_hex_xattr user.afr.$V0-client-0 $B0/${V0}1/data.txt)
+   TEST brick1_dirty=$(get_hex_xattr user.afr.dirty $B0/${V0}1/data.txt)
    TEST [ $brick1_dirty -eq "000000000000000000000000" ]
    TEST [ $brick1_pending -eq "000000000000000000000000" ]
 

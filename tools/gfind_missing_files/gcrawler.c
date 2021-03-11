@@ -544,7 +544,7 @@ parse_and_validate_args(int argc, char *argv[])
     }
 
 #ifndef __FreeBSD__
-    ret = sys_lgetxattr(basedir, "trusted.glusterfs.volume-id", volume_id, 16);
+    ret = sys_lgetxattr(basedir, "user.glusterfs.volume-id", volume_id, 16);
     if (ret != 16) {
         err("%s:Not a valid brick path.\n", basedir);
         return NULL;

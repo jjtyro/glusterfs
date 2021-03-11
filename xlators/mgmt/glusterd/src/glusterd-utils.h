@@ -25,7 +25,7 @@
 #include "glusterfs3-xdr.h"
 #include "glusterd-peer-utils.h"
 
-#define GLUSTERD_SOCK_DIR "/var/run/gluster"
+#define GLUSTERD_SOCK_DIR DATADIR "/run/gluster"
 #define GLUSTERD_ASSIGN_BRICKID_TO_BRICKINFO(brickinfo, volinfo, brickid)      \
     do {                                                                       \
         sprintf(brickinfo->brick_id, "%s-client-%d", volinfo->volname,         \
@@ -85,11 +85,6 @@ typedef struct glusterd_dict_ctx_ {
     char *val_name;
     char *prefix;
 } glusterd_dict_ctx_t;
-
-typedef struct glusterd_hostname_ {
-    char *hostname;
-    struct list_head hostname_list;
-} glusterd_hostname_t;
 
 gf_boolean_t
 is_brick_mx_enabled(void);
@@ -862,6 +857,4 @@ search_brick_path_from_proc(pid_t brick_pid, char *brickpath);
 int32_t
 glusterd_add_shd_to_dict(glusterd_volinfo_t *volinfo, dict_t *dict,
                          int32_t count);
-gf_boolean_t
-glusterd_gf_is_local_addr(char *hostname);
 #endif

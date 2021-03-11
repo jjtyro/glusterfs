@@ -13,7 +13,7 @@ function remove_mds_xattr {
 
        for i in `seq 1 10`
        do
-               setfattr -x trusted.glusterfs.dht.mds $1/tmp${i} 2> /dev/null
+               setfattr -x user.glusterfs.dht.mds $1/tmp${i} 2> /dev/null
        done
 }
 

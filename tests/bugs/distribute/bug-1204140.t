@@ -15,8 +15,8 @@ TEST $CLI volume start $V0
 ## Mount FUSE
 TEST glusterfs -s $H0 --volfile-id $V0 $M0;
 TEST touch $M0/new.txt;
-TEST getfattr -n "glusterfs.get_real_filename:NEW.txt" $M0;
-TEST ! getfattr -n "glusterfs.get_realfilename:NEXT.txt" $M0;
+TEST getfattr -n "user.glusterfs.get_real_filename:NEW.txt" $M0;
+TEST ! getfattr -n "user.glusterfs.get_realfilename:NEXT.txt" $M0;
 
 
 cleanup;

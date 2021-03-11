@@ -22,7 +22,7 @@ TEST [ $? -eq 0 ]
 
 TEST ta_start_mount_process $M0
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" ta_up_status $V0 $M0 0
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT "trusted.afr.patchy-ta-2" ls $B0/ta
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT "user.afr.patchy-ta-2" ls $B0/ta
 
 TEST touch $M0/FILE
 TEST ls $B0/brick0/FILE

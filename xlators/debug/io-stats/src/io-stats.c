@@ -21,7 +21,7 @@
  * fd d) counts of write IO block size - since process start, last interval and
  * per fd e) counts of all FOP types passing through it
  *
- *  Usage: setfattr -n trusted.io-stats-dump /tmp/filename /mnt/gluster
+ *  Usage: setfattr -n user.io-stats-dump /tmp/filename /mnt/gluster
  *      output is written to /tmp/filename.<iostats xlator instance name>
  *
  */

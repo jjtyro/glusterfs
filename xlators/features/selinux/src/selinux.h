@@ -13,7 +13,7 @@
 #include <glusterfs/common-utils.h>
 
 #define SELINUX_XATTR "security.selinux"
-#define SELINUX_GLUSTER_XATTR "trusted.glusterfs.selinux"
+#define SELINUX_GLUSTER_XATTR "user.glusterfs.selinux"
 
 struct selinux_priv {
     gf_boolean_t selinux_enabled;

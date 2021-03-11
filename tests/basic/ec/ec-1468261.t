@@ -27,12 +27,12 @@ EXPECT_WITHIN $CHILD_UP_TIMEOUT "6" ec_child_up_count $V0 0
 TEST mkdir $M0/test_dir
 TEST touch $M0/test_dir/file
 sleep 2
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}0/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}1/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}2/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}3/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}4/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr trusted.ec.dirty $B0/${V0}5/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}0/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}1/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}2/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}3/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}4/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT "^$" get_hex_xattr user.ec.dirty $B0/${V0}5/test_dir
 
 #Kill two bricks and touch a file
 TEST kill_brick $V0 $H0 $B0/${V0}0
@@ -42,10 +42,10 @@ TEST touch $M0/test_dir/new_file
 sleep 2
 
 #Dirty should be set on up bricks
-EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr trusted.ec.dirty $B0/${V0}2/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr trusted.ec.dirty $B0/${V0}3/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr trusted.ec.dirty $B0/${V0}4/test_dir
-EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr trusted.ec.dirty $B0/${V0}5/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr user.ec.dirty $B0/${V0}2/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr user.ec.dirty $B0/${V0}3/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr user.ec.dirty $B0/${V0}4/test_dir
+EXPECT_WITHIN $IO_WAIT_TIMEOUT  "^00000000000000010000000000000001$" get_hex_xattr user.ec.dirty $B0/${V0}5/test_dir
 
 #Bring up the down bricks
 TEST $CLI volume start $V0 force

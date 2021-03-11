@@ -385,26 +385,26 @@ function test_readdir()
 
 function test_setxattr()
 {
-    setfattr -n trusted.testing -v c00k33 $PFX/dir/file || fail "setfattr"
+    setfattr -n user.testing -v c00k33 $PFX/dir/file || fail "setfattr"
 }
 
 
 function test_listxattr()
 {
-    getfattr -m trusted $PFX/dir/file 2>/dev/null | grep -q trusted.testing || fail "getfattr"
+    getfattr -m trusted $PFX/dir/file 2>/dev/null | grep -q user.testing || fail "getfattr"
 }
 
 
 function test_getxattr()
 {
-    getfattr -n trusted.testing $PFX/dir/file 2>/dev/null | grep -q c00k33 || fail "getfattr"
+    getfattr -n user.testing $PFX/dir/file 2>/dev/null | grep -q c00k33 || fail "getfattr"
 }
 
 
 function test_removexattr()
 {
-    setfattr -x trusted.testing $PFX/dir/file || fail "setfattr remove"
-    getfattr -n trusted.testing $PFXf/dir/file 2>&1 | grep -q "No such attribute"
+    setfattr -x user.testing $PFX/dir/file || fail "setfattr remove"
+    getfattr -n user.testing $PFXf/dir/file 2>&1 | grep -q "No such attribute"
 }
 
 

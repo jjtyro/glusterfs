@@ -141,7 +141,7 @@ do
         echo "processing $mnt/$i"
 
         #check whether the file is already archived
-        getfattr -n trusted.glusterfs.cs.remote $i &> /dev/null
+        getfattr -n user.glusterfs.cs.remote $i &> /dev/null
         if [ $? -eq 0 ]
         then
                 echo "file $mnt/$i is already archived"
@@ -151,7 +151,7 @@ do
                 mtime=`stat -c "%Y" $mnt/$i`
 
                 #post processing of upload
-                setfattr -n trusted.glusterfs.csou.complete -v $mtime $mnt/$i
+                setfattr -n user.glusterfs.csou.complete -v $mtime $mnt/$i
                 if [ $? -ne 0 ]
                 then
                         echo "archiving of file $mnt/$i failed"

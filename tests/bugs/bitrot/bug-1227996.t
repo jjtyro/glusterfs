@@ -39,11 +39,11 @@ echo "ZZZ" > $fname
 sleep `expr $SLEEP_TIME \* 2`
 
 backpath=$(get_backend_paths $fname)
-TEST getfattr -m . -n trusted.bit-rot.signature $backpath
+TEST getfattr -m . -n user.bit-rot.signature $backpath
 
 ## for now just remove the signature xattr to test for signing
 ## upon truncate()
-TEST setfattr -x trusted.bit-rot.signature $backpath
+TEST setfattr -x user.bit-rot.signature $backpath
 
 ## overwrite the file (truncate(), write())
 echo "XYX" > $fname
@@ -52,6 +52,6 @@ echo "XYX" > $fname
 sleep `expr $SLEEP_TIME \* 2`
 
 # test for new signature
-TEST getfattr -m . -n trusted.bit-rot.signature $backpath
+TEST getfattr -m . -n user.bit-rot.signature $backpath
 
 cleanup;

@@ -542,7 +542,7 @@ posix_create_unlink_dir(xlator_t *this)
         default:
             break;
     }
-    ret = sys_mkdir(unlink_path, 0600);
+    ret = sys_mkdir(unlink_path, 0700);
     if (ret) {
         gf_msg(this->name, GF_LOG_ERROR, errno, P_MSG_HANDLE_CREATE,
                "Creating directory %s failed", unlink_path);
@@ -726,7 +726,7 @@ posix_init(xlator_t *this)
             ret = -1;
             goto out;
         }
-        size = sys_lgetxattr(dir_data->data, "trusted.glusterfs.volume-id",
+        size = sys_lgetxattr(dir_data->data, "user.glusterfs.volume-id",
                              old_uuid, 16);
         if (size == 16) {
             if (gf_uuid_compare(old_uuid, dict_uuid)) {
@@ -742,7 +742,7 @@ posix_init(xlator_t *this)
             }
         } else if ((size == -1) && (errno == ENODATA || errno == ENOATTR)) {
             gf_msg(this->name, GF_LOG_ERROR, errno, P_MSG_VOLUME_ID_ABSENT,
-                   "Extended attribute trusted.glusterfs."
+                   "Extended attribute user.glusterfs."
                    "volume-id is absent");
             gf_event(EVENT_POSIX_BRICK_NOT_IN_VOLUME, "brick=%s:%s",
                      _private->hostname, _private->base_path);
@@ -770,7 +770,7 @@ posix_init(xlator_t *this)
 
     /* Now check if the export directory has some other 'gfid',
        other than that of root '/' */
-    size = sys_lgetxattr(dir_data->data, "trusted.gfid", gfid, 16);
+    size = sys_lgetxattr(dir_data->data, "user.gfid", gfid, 16);
     if (size == 16) {
         if (!__is_root_gfid(gfid)) {
             gf_msg(this->name, GF_LOG_WARNING, errno, P_MSG_GFID_SET_FAILED,
@@ -793,7 +793,7 @@ posix_init(xlator_t *this)
         goto out;
     } else {
         /* First time volume, set the GFID */
-        size = sys_lsetxattr(dir_data->data, "trusted.gfid", rootgfid, 16,
+        size = sys_lsetxattr(dir_data->data, "user.gfid", rootgfid, 16,
                              XATTR_CREATE);
         if (size == -1) {
             gf_msg(this->name, GF_LOG_ERROR, errno, P_MSG_GFID_SET_FAILED,

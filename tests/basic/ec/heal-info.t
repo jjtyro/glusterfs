@@ -44,12 +44,12 @@ EXPECT "^0$" echo $total_heal_count
 
 #When only data heal is required it should print it
 #There is no easy way to create this using commands so assigning xattrs directly
-TEST setfattr -n trusted.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}0/1000
-TEST setfattr -n trusted.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}1/1000
-TEST setfattr -n trusted.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}2/1000
-TEST setfattr -n trusted.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}3/1000
-TEST setfattr -n trusted.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}4/1000
-TEST setfattr -n trusted.ec.version -v 0x00000000000000010000000000000000 $B0/${V0}5/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}0/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}1/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}2/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}3/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000020000000000000000 $B0/${V0}4/1000
+TEST setfattr -n user.ec.version -v 0x00000000000000010000000000000000 $B0/${V0}5/1000
 index_path=$B0/${V0}5/.glusterfs/indices/xattrop/$(gf_gfid_xattr_to_str $(gf_get_gfid_xattr $B0/${V0}5/1000))
 while [ -f $index_path ]; do :; done
 TEST touch $index_path

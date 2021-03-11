@@ -82,10 +82,10 @@ TEST ! "getfattr -d -e hex -m . $M0/test_dir/2.txt | grep pgfid ";
 TEST ! "getfattr -d -e hex -m . $M0/test_dir | grep quota";
 
 # setfattr should fail
-TEST ! setfattr -n trusted.glusterfs.quota.limit-set -v 10 $M0/test_dir;
+TEST ! setfattr -n user.glusterfs.quota.limit-set -v 10 $M0/test_dir;
 
 # remove xattr should fail
-TEST ! setfattr -x trusted.glusterfs.quota.limit-set $M0/test_dir;
+TEST ! setfattr -x user.glusterfs.quota.limit-set $M0/test_dir;
 
 TEST rm $M0/test_dir/2.txt
 EXPECT_WITHIN $MARKER_UPDATE_TIMEOUT "0Bytes" quotausage "/test_dir"
@@ -190,10 +190,10 @@ TEST [ $USED_MB -le $((($QUOTALIMIT * 110) / 100)) ]
 # 66-67
 ## <Test the xattrs healed to new brick>
 ## -------------------------------------
-TEST getfattr -d -m "trusted.glusterfs.quota.limit-set" -e hex \
+TEST getfattr -d -m "user.glusterfs.quota.limit-set" -e hex \
               --absolute-names $B0/brick{3,4}/$TESTDIR/dir{1..10};
 # Test on root.
-TEST getfattr -d -m "trusted.glusterfs.quota.limit-set" -e hex \
+TEST getfattr -d -m "user.glusterfs.quota.limit-set" -e hex \
               --absolute-names $B0/brick{3,4};
 
 ## -------------------------------------------------

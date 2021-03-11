@@ -35,12 +35,12 @@ wait_for_rebalance () {
 }
 
 get_xattr () {
-	cmd="getfattr --absolute-names --only-values -n trusted.glusterfs.dht"
+	cmd="getfattr --absolute-names --only-values -n user.glusterfs.dht"
 	$cmd $1 | od -tx1 -An | tr -d ' '
 }
 
 get_xattr_hash () {
-        cmd="getfattr --absolute-names --only-values -n trusted.glusterfs.dht"
+        cmd="getfattr --absolute-names --only-values -n user.glusterfs.dht"
         $cmd $1 | od -tx1 -An | awk '{printf("%s%s%s%s\n", $1, $2, $3, $4);}'
 }
 
@@ -74,9 +74,9 @@ TEST wait_for_rebalance
 
 # Now for the sneaky part.  *Undo* the part of rebalance that updated the volume
 # commit hash, forcing a false match between that and the directory commit hashes.
-TEST setfattr -x trusted.glusterfs.dht.commithash $B0/${V0}1
-TEST setfattr -x trusted.glusterfs.dht.commithash $B0/${V0}2
-TEST setfattr -x trusted.glusterfs.dht.commithash $B0/${V0}3
+TEST setfattr -x user.glusterfs.dht.commithash $B0/${V0}1
+TEST setfattr -x user.glusterfs.dht.commithash $B0/${V0}2
+TEST setfattr -x user.glusterfs.dht.commithash $B0/${V0}3
 
 # Mount and check that we do *not* see all of the files.  This indicates that we
 # correctly skipped the broadcast lookup that would have found them.
@@ -104,7 +104,7 @@ TEST [ ! x"$old_val" = x"$new_val" ]
 # Force an anomoly on an existing layout and heal it
 ## The healed layout should not carry a commit-hash (or should carry 1 in the
 ## commit-hash)
-TEST setfattr -x trusted.glusterfs.dht $B0/${V0}1/dir
+TEST setfattr -x user.glusterfs.dht $B0/${V0}1/dir
 TEST $GFS -s $H0 --volfile-id $V0 $M0
 TEST [ -d $M0/dir ]
 new_hash=$(get_xattr_hash $B0/${V0}1/dir)

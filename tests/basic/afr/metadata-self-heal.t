@@ -13,12 +13,12 @@ function is_heal_done {
         local iatt2=$(stat -c "%g:%u:%A" $f2_path)
         local diff="1"
         if [ "$iatt1" == "$iatt2" ]; then diff=0; fi
-        local xattr11=$(get_hex_xattr trusted.afr.$V0-client-0 $f1_path)
-        local xattr12=$(get_hex_xattr trusted.afr.$V0-client-1 $f1_path)
-        local xattr21=$(get_hex_xattr trusted.afr.$V0-client-0 $f2_path)
-        local xattr22=$(get_hex_xattr trusted.afr.$V0-client-1 $f2_path)
-        local dirty1=$(get_hex_xattr trusted.afr.dirty $f1_path)
-        local dirty2=$(get_hex_xattr trusted.afr.dirty $f2_path)
+        local xattr11=$(get_hex_xattr user.afr.$V0-client-0 $f1_path)
+        local xattr12=$(get_hex_xattr user.afr.$V0-client-1 $f1_path)
+        local xattr21=$(get_hex_xattr user.afr.$V0-client-0 $f2_path)
+        local xattr22=$(get_hex_xattr user.afr.$V0-client-1 $f2_path)
+        local dirty1=$(get_hex_xattr user.afr.dirty $f1_path)
+        local dirty2=$(get_hex_xattr user.afr.dirty $f2_path)
         if [ -z $xattr11 ]; then xattr11="000000000000000000000000"; fi
         if [ -z $xattr12 ]; then xattr12="000000000000000000000000"; fi
         if [ -z $xattr21 ]; then xattr21="000000000000000000000000"; fi
@@ -60,8 +60,8 @@ TEST touch a
 TEST kill_brick $V0 $H0 $B0/brick0
 TEST chmod 777 a
 TEST chown 100:100 a
-TEST setfattr -n trusted.abc -v 0x616263 a
-TEST setfattr -n trusted.def -v 0x646566 a
+TEST setfattr -n user.abc -v 0x616263 a
+TEST setfattr -n user.def -v 0x646566 a
 permissions=$(stat -c "%A" a)
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $HEAL_TIMEOUT "~" print_pending_heals a
@@ -79,29 +79,29 @@ EXPECT 100 stat -c "%u" a
 EXPECT 100 stat -c "%u" $B0/brick0/a
 EXPECT 100 stat -c "%u" $B0/brick1/a
 
-EXPECT 616263 get_hex_xattr trusted.abc a
-EXPECT 616263 get_hex_xattr trusted.abc $B0/brick0/a
-EXPECT 616263 get_hex_xattr trusted.abc $B0/brick1/a
+EXPECT 616263 get_hex_xattr user.abc a
+EXPECT 616263 get_hex_xattr user.abc $B0/brick0/a
+EXPECT 616263 get_hex_xattr user.abc $B0/brick1/a
 
-EXPECT 646566 get_hex_xattr trusted.def a
-EXPECT 646566 get_hex_xattr trusted.def $B0/brick0/a
-EXPECT 646566 get_hex_xattr trusted.def $B0/brick1/a
+EXPECT 646566 get_hex_xattr user.def a
+EXPECT 646566 get_hex_xattr user.def $B0/brick0/a
+EXPECT 646566 get_hex_xattr user.def $B0/brick1/a
 
 TEST kill_brick $V0 $H0 $B0/brick1
-TEST setfattr -n trusted.abc -v 0x646566 a
-TEST setfattr -x trusted.def a
+TEST setfattr -n user.abc -v 0x646566 a
+TEST setfattr -x user.def a
 
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $HEAL_TIMEOUT "~" print_pending_heals a
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 1
 
-EXPECT 646566 get_hex_xattr trusted.abc a
-EXPECT 646566 get_hex_xattr trusted.abc $B0/brick0/a
-EXPECT 646566 get_hex_xattr trusted.abc $B0/brick1/a
+EXPECT 646566 get_hex_xattr user.abc a
+EXPECT 646566 get_hex_xattr user.abc $B0/brick0/a
+EXPECT 646566 get_hex_xattr user.abc $B0/brick1/a
 
-TEST ! getfattr -n trusted.def a
-TEST ! getfattr -n trusted.def $B0/brick0/a
-TEST ! getfattr -n trusted.def $B0/brick1/a
+TEST ! getfattr -n user.def a
+TEST ! getfattr -n user.def $B0/brick0/a
+TEST ! getfattr -n user.def $B0/brick1/a
 
 #Test split-brain && iatt mismatch without any xattrs (this will be simulated)
 TEST $CLI volume set $V0 cluster.self-heal-daemon off
@@ -116,8 +116,8 @@ TEST kill_brick $V0 $H0 $B0/brick1
 TEST chown 100:100 b
 TEST chown 100:100 c
 TEST $CLI volume stop $V0
-TEST setfattr -x trusted.afr.$V0-client-0 $B0/brick1/c
-TEST setfattr -x trusted.afr.$V0-client-1 $B0/brick0/c
+TEST setfattr -x user.afr.$V0-client-0 $B0/brick1/c
+TEST setfattr -x user.afr.$V0-client-1 $B0/brick0/c
 TEST $CLI volume set $V0 cluster.self-heal-daemon on
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" afr_child_up_status $V0 0

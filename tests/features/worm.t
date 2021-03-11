@@ -75,7 +75,7 @@ TEST ! rm -f $M0/file4
 ## Test for state transition if auto-commit-period is 0
 TEST $CLI volume set $V0 features.auto-commit-period 0
 TEST `echo "worm 1" > $M0/file5`
-EXPECT '3/10/0' echo $(getfattr -e text --absolute-names --only-value -n "trusted.reten_state" $B0/${V0}1/file5)
+EXPECT '3/10/0' echo $(getfattr -e text --absolute-names --only-value -n "user.reten_state" $B0/${V0}1/file5)
 EXPECT 'worm 1' cat $M0/file5
 TEST ! rm -f $M0/file5
 TEST $CLI volume set $V0 features.auto-commit-period 5
@@ -86,11 +86,11 @@ TEST `echo "worm 1" >> $M0/file1`
 initial_timestamp=$(date +%s)
 current_time_seconds=$(date +%S | sed 's/^0*//' );
 TEST chmod 0444 $M0/file1
-EXPECT '3/10/5' echo $(getfattr -e text --absolute-names --only-value -n "trusted.reten_state" $B0/${V0}1/file1)
+EXPECT '3/10/5' echo $(getfattr -e text --absolute-names --only-value -n "user.reten_state" $B0/${V0}1/file1)
 changed_timestamp=$(date +%Y%m%d%H%M --date '60 seconds');
 seconds_diff=`expr 60 - $((current_time_seconds))`
 TEST `touch -a -t "${changed_timestamp}" $M0/file1`
-EXPECT "3/$seconds_diff/5" echo $(getfattr -e text --absolute-names --only-value -n "trusted.reten_state" $B0/${V0}1/file1)
+EXPECT "3/$seconds_diff/5" echo $(getfattr -e text --absolute-names --only-value -n "user.reten_state" $B0/${V0}1/file1)
 sleep $seconds_diff
 TEST `echo "worm 2" >> $M0/file1`
 EXPECT  "$initial_timestamp" echo $(stat --printf %X $M0/file1)
@@ -101,11 +101,11 @@ TEST $CLI volume set $V0 features.default-retention-period 120
 initial_timestamp=$(date +%s)
 current_time_seconds=$(date +%S | sed 's/^0*//' );
 TEST chmod 0444 $M0/file1
-EXPECT '3/120/5' echo $(getfattr -e text --absolute-names --only-value -n "trusted.reten_state" $B0/${V0}1/file1)
+EXPECT '3/120/5' echo $(getfattr -e text --absolute-names --only-value -n "user.reten_state" $B0/${V0}1/file1)
 changed_timestamp=$(date +%Y%m%d%H%M --date '60 seconds');
 seconds_diff=`expr 60 - $((current_time_seconds))`
 TEST `touch -a -t "${changed_timestamp}" $M0/file1`
-EXPECT "3/$seconds_diff/5" echo $(getfattr -e text --absolute-names --only-value -n "trusted.reten_state" $B0/${V0}1/file1)
+EXPECT "3/$seconds_diff/5" echo $(getfattr -e text --absolute-names --only-value -n "user.reten_state" $B0/${V0}1/file1)
 sleep $seconds_diff
 TEST `echo "worm 4" >> $M0/file1`
 EXPECT  "$initial_timestamp" echo $(stat --printf %X $M0/file1)

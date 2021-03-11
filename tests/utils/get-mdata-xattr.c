@@ -45,7 +45,7 @@ typedef struct {
     struct timespec atime;
 } posix_mdata_t;
 
-#define GF_XATTR_MDATA_KEY "trusted.glusterfs.mdata"
+#define GF_XATTR_MDATA_KEY "user.glusterfs.mdata"
 
 /* posix_mdata_from_disk converts posix_mdata_disk_t into host byte order
  */

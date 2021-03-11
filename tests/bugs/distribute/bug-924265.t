@@ -20,7 +20,7 @@ mkdir -p $H0:$B0/${V0}0
 
 # Create a volume and set the option.
 TEST $CLI volume create $V0 $H0:$B0/${V0}0
-TEST $CLI volume set $V0 cluster.dht-xattr-name trusted.foo.bar
+TEST $CLI volume set $V0 cluster.dht-xattr-name user.foo.bar
 
 # Start and mount the volume.
 TEST $CLI volume start $V0
@@ -29,7 +29,7 @@ TEST glusterfs --volfile-server=$H0 --volfile-id=$V0 $M0
 
 # Create a directory and make sure it has the right xattr.
 mkdir $M0/test
-TEST ! silent_getfattr -n trusted.glusterfs.dht $B0/${V0}0/test
-TEST silent_getfattr -n trusted.foo.bar $B0/${V0}0/test
+TEST ! silent_getfattr -n user.glusterfs.dht $B0/${V0}0/test
+TEST silent_getfattr -n user.foo.bar $B0/${V0}0/test
 
 cleanup

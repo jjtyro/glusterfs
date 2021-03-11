@@ -34,7 +34,7 @@ TEST $CLI volume start $V0
 TEST $GFS --volfile-id=/$V0 --volfile-server=$H0 $M0
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "3" ec_child_up_count $V0 0
 EXPECT_WITHIN $HEAL_TIMEOUT "^2$" get_pending_heal_count $V0
-TEST ! getfattr -n trusted.ec.heal $M0/a
+TEST ! getfattr -n user.ec.heal $M0/a
 EXPECT_WITHIN $HEAL_TIMEOUT "^2$" get_pending_heal_count $V0
 
 #fail write fop and test that heal fails
@@ -44,7 +44,7 @@ TEST $CLI volume set $V0 debug.error-fops write
 TEST $CLI volume start $V0
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "3" ec_child_up_count $V0 0
 EXPECT_WITHIN $HEAL_TIMEOUT "^2$" get_pending_heal_count $V0
-TEST ! getfattr -n trusted.ec.heal $M0/a
+TEST ! getfattr -n user.ec.heal $M0/a
 EXPECT_WITHIN $HEAL_TIMEOUT "^2$" get_pending_heal_count $V0
 
 TEST $CLI volume stop $V0 #Stop volume so that error-gen can be disabled
@@ -56,7 +56,7 @@ TEST $CLI volume reset $V0 debug.error-failure
 TEST $CLI volume start $V0
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "3" ec_child_up_count $V0 0
 EXPECT_WITHIN $HEAL_TIMEOUT "^2$" get_pending_heal_count $V0
-TEST getfattr -n trusted.ec.heal $M0/a
+TEST getfattr -n user.ec.heal $M0/a
 EXPECT "^0$" get_pending_heal_count $V0
 
 #Test that heal worked as expected by forcing read from brick0

@@ -30,12 +30,12 @@ function heal_status {
         else
                 insync="N"
         fi
-        local xattr11=$(get_hex_xattr trusted.afr.$V0-client-0 $f1_path)
-        local xattr12=$(get_hex_xattr trusted.afr.$V0-client-1 $f1_path)
-        local xattr21=$(get_hex_xattr trusted.afr.$V0-client-0 $f2_path)
-        local xattr22=$(get_hex_xattr trusted.afr.$V0-client-1 $f2_path)
-        local dirty1=$(get_hex_xattr trusted.afr.dirty $f1_path)
-        local dirty2=$(get_hex_xattr trusted.afr.dirty $f2_path)
+        local xattr11=$(get_hex_xattr user.afr.$V0-client-0 $f1_path)
+        local xattr12=$(get_hex_xattr user.afr.$V0-client-1 $f1_path)
+        local xattr21=$(get_hex_xattr user.afr.$V0-client-0 $f2_path)
+        local xattr22=$(get_hex_xattr user.afr.$V0-client-1 $f2_path)
+        local dirty1=$(get_hex_xattr user.afr.dirty $f1_path)
+        local dirty2=$(get_hex_xattr user.afr.dirty $f2_path)
         if [ -z $xattr11 ]; then xattr11="000000000000000000000000"; fi
         if [ -z $xattr12 ]; then xattr12="000000000000000000000000"; fi
         if [ -z $xattr21 ]; then xattr21="000000000000000000000000"; fi
@@ -62,12 +62,12 @@ function is_file_heal_done {
         local size1=$(stat -c "%s" $f1_path)
         local size2=$(stat -c "%s" $f2_path)
         local diff=$((size1-size2))
-        local x11=$(get_hex_xattr trusted.afr.$V0-client-0 $f1_path)
-        local x12=$(get_hex_xattr trusted.afr.$V0-client-1 $f1_path)
-        local x21=$(get_hex_xattr trusted.afr.$V0-client-0 $f2_path)
-        local x22=$(get_hex_xattr trusted.afr.$V0-client-1 $f2_path)
-        local dirty1=$(get_hex_xattr trusted.afr.dirty $f1_path)
-        local dirty2=$(get_hex_xattr trusted.afr.dirty $f2_path)
+        local x11=$(get_hex_xattr user.afr.$V0-client-0 $f1_path)
+        local x12=$(get_hex_xattr user.afr.$V0-client-1 $f1_path)
+        local x21=$(get_hex_xattr user.afr.$V0-client-0 $f2_path)
+        local x22=$(get_hex_xattr user.afr.$V0-client-1 $f2_path)
+        local dirty1=$(get_hex_xattr user.afr.dirty $f1_path)
+        local dirty2=$(get_hex_xattr user.afr.dirty $f2_path)
         if [ -z $x11 ]; then x11="000000000000000000000000"; fi
         if [ -z $x12 ]; then x12="000000000000000000000000"; fi
         if [ -z $x21 ]; then x21="000000000000000000000000"; fi

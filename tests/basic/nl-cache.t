@@ -77,9 +77,9 @@ TEST rm $M0/dir/fifo
 #Check getxattr
 TEST touch $M0/file1
 TEST getfattr -d -m. -e hex $M0/file1
-TEST getfattr -n "glusterfs.get_real_filename:file1" $M0;
-TEST getfattr -n "glusterfs.get_real_filename:FILE1" $M0;
-TEST ! getfattr -n "glusterfs.get_real_filename:FILE2" $M0;
+TEST getfattr -n "user.glusterfs.get_real_filename:file1" $M0;
+TEST getfattr -n "user.glusterfs.get_real_filename:FILE1" $M0;
+TEST ! getfattr -n "user.glusterfs.get_real_filename:FILE2" $M0;
 
 #Check statedump
 TEST generate_mount_statedump $V0 $M0

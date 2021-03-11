@@ -23,7 +23,7 @@ TEST touch $M0/foo
 function xattr_query_check() {
     local path=$1
 
-    local ret=`getfattr -m . -d $path 2>&1 | grep -c 'trusted.glusterfs'`
+    local ret=`getfattr -m . -d $path 2>&1 | grep -c 'user.glusterfs'`
     echo $ret
 }
 
@@ -47,8 +47,8 @@ function remove_xattr() {
 EXPECT 0 xattr_query_check $M0/
 EXPECT 0 xattr_query_check $M0/foo
 
-EXPECT 1 set_xattr $M0/ 'trusted.glusterfs.volume-id' 'foo'
-EXPECT 1 remove_xattr $M0/ 'trusted.glusterfs.volume-id'
+EXPECT 1 set_xattr $M0/ 'user.glusterfs.volume-id' 'foo'
+EXPECT 1 remove_xattr $M0/ 'user.glusterfs.volume-id'
 
 
 ## Finish up

@@ -78,7 +78,7 @@ TEST dd if=$M0/file of=/dev/null bs=128k count=1
 TEST ls $M0/file
 # Verify the attributes on the healthy replica do not reflect consistency with
 # the other replica.
-xa=`getfattr -n trusted.afr.test-locks-0 -e hex $B0/test2/file 2>&1 | grep = | cut -f2 -d=`
+xa=`getfattr -n user.afr.test-locks-0 -e hex $B0/test2/file 2>&1 | grep = | cut -f2 -d=`
 EXPECT_NOT 0x000000000000000000000000 echo $xa
 
 TEST rm -f $M0/file

@@ -27,7 +27,7 @@
 #include "client-messages.h"
 
 /* FIXME: Needs to be defined in a common file */
-#define CLIENT_DUMP_LOCKS "trusted.glusterfs.clientlk-dump"
+#define CLIENT_DUMP_LOCKS "user.glusterfs.clientlk-dump"
 #define GF_MAX_SOCKET_WINDOW_SIZE (1 * GF_UNIT_MB)
 #define GF_MIN_SOCKET_WINDOW_SIZE (0)
 

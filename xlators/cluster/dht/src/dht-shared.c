@@ -1023,7 +1023,7 @@ struct volume_options dht_options[] = {
     {
         .key = {"xattr-name"},
         .type = GF_OPTION_TYPE_STR,
-        .default_value = "trusted.glusterfs.dht",
+        .default_value = "user.glusterfs.dht",
         .description =
             "Base for extended attributes used by this "
             "translator instance, to avoid conflicts with others above or "

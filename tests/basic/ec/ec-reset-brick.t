@@ -40,11 +40,11 @@ EXPECT_WITHIN $HEAL_TIMEOUT "^0$" get_pending_heal_count ${V0}
 EXPECT "^12$" num_entries $B0/${V0}5/dir
 EXPECT "^11$" num_entries $B0/${V0}5/dir/dir1
 
-ec_version=$(get_hex_xattr trusted.ec.version $B0/${V0}0)
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}1
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}2
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}3
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}4
-EXPECT "$ec_version" get_hex_xattr trusted.ec.version $B0/${V0}5
+ec_version=$(get_hex_xattr user.ec.version $B0/${V0}0)
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}1
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}2
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}3
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}4
+EXPECT "$ec_version" get_hex_xattr user.ec.version $B0/${V0}5
 
 cleanup;

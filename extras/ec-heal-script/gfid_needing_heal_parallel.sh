@@ -116,7 +116,7 @@ function print_entry_gfid()
     local dirpath="$2"
     local entry="$3"
     local gfid
-    gfid="$(ssh -n "${host}" "getfattr -d -m. -e hex $dirpath/$entry 2>/dev/null | grep trusted.gfid=|cut -f2 -d'='")"
+    gfid="$(ssh -n "${host}" "getfattr -d -m. -e hex $dirpath/$entry 2>/dev/null | grep user.gfid=|cut -f2 -d'='")"
     echo "$entry" - "$gfid"
 }
 

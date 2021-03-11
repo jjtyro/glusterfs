@@ -47,15 +47,15 @@ echo "1" > $M0/d
 TEST kill_brick $V0 $H0 $B0/${V0}2
 echo "1" > $M0/a
 echo "1" > $M0/c
-TEST setfattr -n trusted.mdata -v abc $M0/b
-TEST setfattr -n trusted.mdata -v abc $M0/d
+TEST setfattr -n user.mdata -v abc $M0/b
+TEST setfattr -n user.mdata -v abc $M0/d
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 1
 TEST kill_brick $V0 $H0 $B0/${V0}1
 echo "2" > $M0/a
 echo "2" > $M0/c
-TEST setfattr -n trusted.mdata -v def $M0/b
-TEST setfattr -n trusted.mdata -v def $M0/d
+TEST setfattr -n user.mdata -v def $M0/b
+TEST setfattr -n user.mdata -v def $M0/d
 TEST $CLI volume start $V0 force
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 0
 EXPECT_WITHIN $CHILD_UP_TIMEOUT "1" afr_child_up_status $V0 1
@@ -69,16 +69,16 @@ TEST ! cat $M0/b;
 TEST ! cat $M1/b;
 
 #Reset split-brain status
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/a;
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/b;
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/a;
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/b;
 
 #The operations should do self-heal and give correct output
 EXPECT "2" cat $M0/a;
 # FAIL HERE - see comment about cluster.self-heal-background-count above.
 EXPECT "2" cat $M1/a;
 TEST dd if=$M0/b of=/dev/null bs=1024k
-EXPECT "def" getfattr -n trusted.mdata --only-values $M0/b 2>/dev/null
-EXPECT "def" getfattr -n trusted.mdata --only-values $M1/b 2>/dev/null
+EXPECT "def" getfattr -n user.mdata --only-values $M0/b 2>/dev/null
+EXPECT "def" getfattr -n user.mdata --only-values $M1/b 2>/dev/null
 
 EXPECT_WITHIN $UMOUNT_TIMEOUT "Y" force_umount $M0
 EXPECT_WITHIN $UMOUNT_TIMEOUT "Y" force_umount $M1
@@ -95,8 +95,8 @@ TEST ! cat $M1/c
 TEST ! cat $M0/d
 TEST ! cat $M1/d
 
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/c
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/d
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/c
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000000 $B0/${V0}1/d
 
 #The operations should NOT do self-heal but give correct output
 EXPECT "2" cat $M0/c

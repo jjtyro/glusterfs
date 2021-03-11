@@ -2632,7 +2632,7 @@ ec_heal_do(xlator_t *this, void *data, loc_t *loc, int32_t partial)
             /* We need to send xattrop to set dirty flag so that it can be
              * healed and index entry could be removed. We need not to take lock
              * on this entry to do so as we are just setting dirty flag which
-             * actually increases the trusted.ec.dirty count and does not set
+             * actually increases the user.ec.dirty count and does not set
              * the new value.
              * This will make sure that it is not interfering in other fops.*/
             ec_heal_set_dirty_without_lock(frame, ec, loc->inode);

@@ -39,7 +39,7 @@ TEST ta_start_mount_process $M0
 TEST ta_start_mount_process $M1
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" ta_up_status $V0 $M0 0
 EXPECT_WITHIN $PROCESS_UP_TIMEOUT "1" ta_up_status $V0 $M1 0
-EXPECT_WITHIN $PROCESS_UP_TIMEOUT "trusted.afr.patchy-ta-2" ls $B0/ta
+EXPECT_WITHIN $PROCESS_UP_TIMEOUT "user.afr.patchy-ta-2" ls $B0/ta
 
 TEST ta_create_shd_volfile brick0 brick1 ta
 TEST ta_start_shd_process glustershd

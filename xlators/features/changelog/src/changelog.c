@@ -872,7 +872,7 @@ changelog_mknod(call_frame_t *frame, xlator_t *this, loc_t *loc, mode_t mode,
      * 1. Whether internal fop AND
      * 2. Whether tier rebalance process activity (this will help in
      * recording mknod if tier rebalance process calls this mknod) */
-    if (!(dict_get(xdata, "trusted.tier.tier-dht.linkto"))) {
+    if (!(dict_get(xdata, "user.tier.tier-dht.linkto"))) {
         CHANGELOG_IF_INTERNAL_FOP_THEN_GOTO(frame, xdata, wind);
         if (frame->root->pid == GF_CLIENT_PID_TIER_DEFRAG)
             goto wind;
@@ -2498,18 +2498,18 @@ reconfigure(xlator_t *this, dict_t *options)
     if (!priv->changelog_dir)
         goto out;
 
-    ret = mkdir_p(priv->changelog_dir, 0600, _gf_true);
+    ret = mkdir_p(priv->changelog_dir, 0700, _gf_true);
 
     if (ret)
         goto out;
     CHANGELOG_FILL_HTIME_DIR(priv->changelog_dir, htime_dir);
-    ret = mkdir_p(htime_dir, 0600, _gf_true);
+    ret = mkdir_p(htime_dir, 0700, _gf_true);
 
     if (ret)
         goto out;
 
     CHANGELOG_FILL_CSNAP_DIR(priv->changelog_dir, csnap_dir);
-    ret = mkdir_p(csnap_dir, 0600, _gf_true);
+    ret = mkdir_p(csnap_dir, 0700, _gf_true);
 
     if (ret)
         goto out;
@@ -2652,18 +2652,18 @@ changelog_init_options(xlator_t *this, changelog_priv_t *priv)
      * create the directory even if change-logging would be inactive
      * so that consumers can _look_ into it (finding nothing...)
      */
-    ret = mkdir_p(priv->changelog_dir, 0600, _gf_true);
+    ret = mkdir_p(priv->changelog_dir, 0700, _gf_true);
 
     if (ret)
         goto dealloc_2;
 
     CHANGELOG_FILL_HTIME_DIR(priv->changelog_dir, htime_dir);
-    ret = mkdir_p(htime_dir, 0600, _gf_true);
+    ret = mkdir_p(htime_dir, 0700, _gf_true);
     if (ret)
         goto dealloc_2;
 
     CHANGELOG_FILL_CSNAP_DIR(priv->changelog_dir, csnap_dir);
-    ret = mkdir_p(csnap_dir, 0600, _gf_true);
+    ret = mkdir_p(csnap_dir, 0700, _gf_true);
     if (ret)
         goto dealloc_2;
 

@@ -126,7 +126,7 @@ def gfid_to_path(gfid):
     if not path:
         output_not_found(gfid)
         return
-    gfid1 = str(uuid.UUID(bytes=xattr.get(path, "trusted.gfid")))
+    gfid1 = str(uuid.UUID(bytes=xattr.get(path, "user.gfid")))
     if gfid != gfid1:
         output_not_found(gfid)
         return

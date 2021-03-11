@@ -16,13 +16,13 @@ cd $M0
 TEST mkfifo fifo
 TEST mknod block b 0 0
 TEST touch a
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo trusted.afr.$V0-client-0 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo trusted.afr.$V0-client-0 entry
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo trusted.afr.$V0-client-0 metadata
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block trusted.afr.$V0-client-0 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block trusted.afr.$V0-client-0 entry
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block trusted.afr.$V0-client-0 metadata
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a trusted.afr.$V0-client-0 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a trusted.afr.$V0-client-0 entry
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a trusted.afr.$V0-client-0 metadata
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo user.afr.$V0-client-0 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo user.afr.$V0-client-0 entry
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/fifo user.afr.$V0-client-0 metadata
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block user.afr.$V0-client-0 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block user.afr.$V0-client-0 entry
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/block user.afr.$V0-client-0 metadata
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a user.afr.$V0-client-0 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a user.afr.$V0-client-0 entry
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/a user.afr.$V0-client-0 metadata
 cleanup

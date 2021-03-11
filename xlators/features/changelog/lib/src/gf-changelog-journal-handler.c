@@ -829,14 +829,14 @@ gf_changelog_open_dirs(xlator_t *this, gf_changelog_journal_t *jnl)
                 jnl->jnl_current_dir, NULL);
         goto out;
     }
-    ret = mkdir_p(jnl->jnl_current_dir, 0600, _gf_false);
+    ret = mkdir_p(jnl->jnl_current_dir, 0700, _gf_false);
     if (ret)
         goto out;
 
     /* .processed */
     (void)snprintf(jnl->jnl_processed_dir, PATH_MAX,
                    "%s/" GF_CHANGELOG_PROCESSED_DIR "/", jnl->jnl_working_dir);
-    ret = mkdir_p(jnl->jnl_processed_dir, 0600, _gf_false);
+    ret = mkdir_p(jnl->jnl_processed_dir, 0700, _gf_false);
     if (ret)
         goto out;
 
@@ -851,7 +851,7 @@ gf_changelog_open_dirs(xlator_t *this, gf_changelog_journal_t *jnl)
         goto out;
     }
 
-    ret = mkdir_p(jnl->jnl_processing_dir, 0600, _gf_false);
+    ret = mkdir_p(jnl->jnl_processing_dir, 0700, _gf_false);
     if (ret)
         goto out;
 
@@ -902,7 +902,7 @@ gf_changelog_init_history(xlator_t *this, gf_changelog_journal_t *jnl,
     (void)snprintf(hist_scratch_dir, PATH_MAX,
                    "%s/" GF_CHANGELOG_HISTORY_DIR "/", jnl->jnl_working_dir);
 
-    ret = mkdir_p(hist_scratch_dir, 0600, _gf_false);
+    ret = mkdir_p(hist_scratch_dir, 0700, _gf_false);
     if (ret)
         goto dealloc_hist;
 
@@ -978,7 +978,7 @@ gf_changelog_journal_init(void *xl, struct gf_brick_spec *brick)
         goto dealloc_private;
 
     if (sys_stat(scratch_dir, &buf) && errno == ENOENT) {
-        ret = mkdir_p(scratch_dir, 0600, _gf_true);
+        ret = mkdir_p(scratch_dir, 0700, _gf_true);
         if (ret)
             goto dealloc_private;
     }

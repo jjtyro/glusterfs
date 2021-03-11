@@ -90,27 +90,27 @@
 #define ZR_FUSE_MOUNTOPTS "fuse-mountopts"
 #define IO_THREADS_QUEUE_SIZE_KEY "io-thread-queue-size"
 
-#define GF_XATTR_CLRLK_CMD "glusterfs.clrlk"
-#define GF_XATTR_PATHINFO_KEY "trusted.glusterfs.pathinfo"
-#define GF_XATTR_NODE_UUID_KEY "trusted.glusterfs.node-uuid"
-#define GF_XATTR_LIST_NODE_UUIDS_KEY "trusted.glusterfs.list-node-uuids"
-#define GF_REBAL_FIND_LOCAL_SUBVOL "glusterfs.find-local-subvol"
-#define GF_REBAL_OLD_FIND_LOCAL_SUBVOL "glusterfs.old-find-local-subvol"
-#define GF_XATTR_VOL_ID_KEY "trusted.glusterfs.volume-id"
-#define GF_XATTR_LOCKINFO_KEY "trusted.glusterfs.lockinfo"
-#define GF_META_LOCK_KEY "glusterfs.lock-migration-meta-lock"
-#define GF_META_UNLOCK_KEY "glusterfs.lock-migration-meta-unlock"
-#define GF_XATTR_GET_REAL_FILENAME_KEY "glusterfs.get_real_filename:"
-#define GF_XATTR_USER_PATHINFO_KEY "glusterfs.pathinfo"
-#define GF_INTERNAL_IGNORE_DEEM_STATFS "ignore-deem-statfs"
-#define GF_XATTR_IOSTATS_DUMP_KEY "trusted.io-stats-dump"
+#define GF_XATTR_CLRLK_CMD "user.glusterfs.clrlk"
+#define GF_XATTR_PATHINFO_KEY "user.glusterfs.pathinfo"
+#define GF_XATTR_NODE_UUID_KEY "user.glusterfs.node-uuid"
+#define GF_XATTR_LIST_NODE_UUIDS_KEY "user.glusterfs.list-node-uuids"
+#define GF_REBAL_FIND_LOCAL_SUBVOL "user.glusterfs.find-local-subvol"
+#define GF_REBAL_OLD_FIND_LOCAL_SUBVOL "user.glusterfs.old-find-local-subvol"
+#define GF_XATTR_VOL_ID_KEY "user.glusterfs.volume-id"
+#define GF_XATTR_LOCKINFO_KEY "user.glusterfs.lockinfo"
+#define GF_META_LOCK_KEY "user.glusterfs.lock-migration-meta-lock"
+#define GF_META_UNLOCK_KEY "user.glusterfs.lock-migration-meta-unlock"
+#define GF_XATTR_GET_REAL_FILENAME_KEY "user.glusterfs.get_real_filename:"
+#define GF_XATTR_USER_PATHINFO_KEY "user.glusterfs.pathinfo"
+#define GF_INTERNAL_IGNORE_DEEM_STATFS "user.ignore-deem-statfs"
+#define GF_XATTR_IOSTATS_DUMP_KEY "user.io-stats-dump"
 
-#define GF_READDIR_SKIP_DIRS "readdir-filter-directories"
-#define GF_MDC_LOADED_KEY_NAMES "glusterfs.mdc.loaded.key.names"
+#define GF_READDIR_SKIP_DIRS "user.readdir-filter-directories"
+#define GF_MDC_LOADED_KEY_NAMES "user.glusterfs.mdc.loaded.key.names"
 
 #define BD_XATTR_KEY "user.glusterfs"
-#define GF_PREOP_PARENT_KEY "glusterfs.preop.parent.key"
-#define GF_PREOP_CHECK_FAILED "glusterfs.preop.check.failed"
+#define GF_PREOP_PARENT_KEY "user.glusterfs.preop.parent.key"
+#define GF_PREOP_CHECK_FAILED "user.glusterfs.preop.check.failed"
 
 #define XATTR_IS_PATHINFO(x)                                                   \
     ((strncmp(x, GF_XATTR_PATHINFO_KEY, strlen(x)) == 0) ||                    \
@@ -125,47 +125,47 @@
 
 #define XATTR_IS_BD(x) (strncmp(x, BD_XATTR_KEY, SLEN(BD_XATTR_KEY)) == 0)
 
-#define GF_XATTR_LINKINFO_KEY "trusted.distribute.linkinfo"
-#define GFID_XATTR_KEY "trusted.gfid"
-#define PGFID_XATTR_KEY_PREFIX "trusted.pgfid."
-#define GFID2PATH_VIRT_XATTR_KEY "glusterfs.gfidtopath"
-#define GFID2PATH_XATTR_KEY_PREFIX "trusted.gfid2path."
+#define GF_XATTR_LINKINFO_KEY "user.distribute.linkinfo"
+#define GFID_XATTR_KEY "user.gfid"
+#define PGFID_XATTR_KEY_PREFIX "user.pgfid."
+#define GFID2PATH_VIRT_XATTR_KEY "user.glusterfs.gfidtopath"
+#define GFID2PATH_XATTR_KEY_PREFIX "user.gfid2path."
 #define GFID2PATH_XATTR_KEY_PREFIX_LENGTH 18
-#define VIRTUAL_GFID_XATTR_KEY_STR "glusterfs.gfid.string"
-#define VIRTUAL_GFID_XATTR_KEY "glusterfs.gfid"
-#define GF_XATTR_MDATA_KEY "trusted.glusterfs.mdata"
+#define VIRTUAL_GFID_XATTR_KEY_STR "user.glusterfs.gfid.string"
+#define VIRTUAL_GFID_XATTR_KEY "user.glusterfs.gfid"
+#define GF_XATTR_MDATA_KEY "user.glusterfs.mdata"
 #define UUID_CANONICAL_FORM_LEN 36
 
-#define GET_ANCESTRY_PATH_KEY "glusterfs.ancestry.path"
-#define GET_ANCESTRY_DENTRY_KEY "glusterfs.ancestry.dentry"
+#define GET_ANCESTRY_PATH_KEY "user.glusterfs.ancestry.path"
+#define GET_ANCESTRY_DENTRY_KEY "user.glusterfs.ancestry.dentry"
 
 #define BITROT_DEFAULT_CURRENT_VERSION (unsigned long)1
 #define BITROT_DEFAULT_SIGNING_VERSION (unsigned long)0
 
 /* on-disk object signature keys */
-#define BITROT_OBJECT_BAD_KEY "trusted.bit-rot.bad-file"
-#define BITROT_CURRENT_VERSION_KEY "trusted.bit-rot.version"
-#define BITROT_SIGNING_VERSION_KEY "trusted.bit-rot.signature"
+#define BITROT_OBJECT_BAD_KEY "user.bit-rot.bad-file"
+#define BITROT_CURRENT_VERSION_KEY "user.bit-rot.version"
+#define BITROT_SIGNING_VERSION_KEY "user.bit-rot.signature"
 
 /* globally usable bad file marker */
-#define GLUSTERFS_BAD_INODE "glusterfs.bad-inode"
+#define GLUSTERFS_BAD_INODE "user.glusterfs.bad-inode"
 
 /* on-disk size of signing xattr (not the signature itself) */
-#define BITROT_SIGNING_XATTR_SIZE_KEY "trusted.glusterfs.bit-rot.size"
+#define BITROT_SIGNING_XATTR_SIZE_KEY "user.glusterfs.bit-rot.size"
 
 /* GET/SET object signature */
-#define GLUSTERFS_GET_OBJECT_SIGNATURE "trusted.glusterfs.get-signature"
-#define GLUSTERFS_SET_OBJECT_SIGNATURE "trusted.glusterfs.set-signature"
+#define GLUSTERFS_GET_OBJECT_SIGNATURE "user.glusterfs.get-signature"
+#define GLUSTERFS_SET_OBJECT_SIGNATURE "user.glusterfs.set-signature"
 
 /* operation needs to be durable on-disk */
-#define GLUSTERFS_DURABLE_OP "trusted.glusterfs.durable-op"
+#define GLUSTERFS_DURABLE_OP "user.glusterfs.durable-op"
 
 /* key for version exchange b/w bitrot stub and changelog */
-#define GLUSTERFS_VERSION_XCHG_KEY "glusterfs.version.xchg"
+#define GLUSTERFS_VERSION_XCHG_KEY "user.glusterfs.version.xchg"
 
-#define GLUSTERFS_INTERNAL_FOP_KEY "glusterfs-internal-fop"
+#define GLUSTERFS_INTERNAL_FOP_KEY "user.glusterfs-internal-fop"
 
-#define GF_ENFORCE_MANDATORY_LOCK "trusted.glusterfs.enforce-mandatory-lock"
+#define GF_ENFORCE_MANDATORY_LOCK "user.glusterfs.enforce-mandatory-lock"
 
 /* GlusterFS Internal FOP Indicator flags
  * (To pass information on the context in which a paritcular
@@ -175,7 +175,7 @@
  * a scenario where there is a need for such context across translators.
  * So it cannot be an absolute information on context.
  */
-#define GF_INTERNAL_CTX_KEY "glusterfs.internal-ctx"
+#define GF_INTERNAL_CTX_KEY "user.glusterfs.internal-ctx"
 
 /*
  * Always append entries to end of the enum, do not delete entries.
@@ -194,65 +194,65 @@ enum gf_internal_fop_indicator {
 
 #define DHT_CHANGELOG_RENAME_OP_KEY "changelog.rename-op"
 
-#define GLUSTERFS_WRITE_IS_APPEND "glusterfs.write-is-append"
-#define GLUSTERFS_WRITE_UPDATE_ATOMIC "glusterfs.write-update-atomic"
-#define GLUSTERFS_OPEN_FD_COUNT "glusterfs.open-fd-count"
-#define GLUSTERFS_ACTIVE_FD_COUNT "glusterfs.open-active-fd-count"
-#define GLUSTERFS_INODELK_COUNT "glusterfs.inodelk-count"
-#define GLUSTERFS_ENTRYLK_COUNT "glusterfs.entrylk-count"
-#define GLUSTERFS_POSIXLK_COUNT "glusterfs.posixlk-count"
-#define GLUSTERFS_PARENT_ENTRYLK "glusterfs.parent-entrylk"
-#define GLUSTERFS_INODELK_DOM_COUNT "glusterfs.inodelk-dom-count"
-#define GLUSTERFS_INODELK_DOM_PREFIX "glusterfs.inodelk-dom-prefix"
-#define GLUSTERFS_MULTIPLE_DOM_LK_CNT_REQUESTS "glusterfs.multi-dom-lk-cnt-req"
-#define GFID_TO_PATH_KEY "glusterfs.gfid2path"
-#define GF_XATTR_STIME_PATTERN "trusted.glusterfs.*.stime"
-#define GF_XATTR_XTIME_PATTERN "trusted.glusterfs.*.xtime"
-#define GF_XATTR_TRIGGER_SYNC "glusterfs.geo-rep.trigger-sync"
+#define GLUSTERFS_WRITE_IS_APPEND "user.glusterfs.write-is-append"
+#define GLUSTERFS_WRITE_UPDATE_ATOMIC "user.glusterfs.write-update-atomic"
+#define GLUSTERFS_OPEN_FD_COUNT "user.glusterfs.open-fd-count"
+#define GLUSTERFS_ACTIVE_FD_COUNT "user.glusterfs.open-active-fd-count"
+#define GLUSTERFS_INODELK_COUNT "user.glusterfs.inodelk-count"
+#define GLUSTERFS_ENTRYLK_COUNT "user.glusterfs.entrylk-count"
+#define GLUSTERFS_POSIXLK_COUNT "user.glusterfs.posixlk-count"
+#define GLUSTERFS_PARENT_ENTRYLK "user.glusterfs.parent-entrylk"
+#define GLUSTERFS_INODELK_DOM_COUNT "user.glusterfs.inodelk-dom-count"
+#define GLUSTERFS_INODELK_DOM_PREFIX "user.glusterfs.inodelk-dom-prefix"
+#define GLUSTERFS_MULTIPLE_DOM_LK_CNT_REQUESTS "user.glusterfs.multi-dom-lk-cnt-req"
+#define GFID_TO_PATH_KEY "user.glusterfs.gfid2path"
+#define GF_XATTR_STIME_PATTERN "user.glusterfs.*.stime"
+#define GF_XATTR_XTIME_PATTERN "user.glusterfs.*.xtime"
+#define GF_XATTR_TRIGGER_SYNC "user.glusterfs.geo-rep.trigger-sync"
 
 /* quota xattrs */
-#define QUOTA_SIZE_KEY "trusted.glusterfs.quota.size"
-#define QUOTA_LIMIT_KEY "trusted.glusterfs.quota.limit-set"
-#define QUOTA_LIMIT_OBJECTS_KEY "trusted.glusterfs.quota.limit-objects"
-#define VIRTUAL_QUOTA_XATTR_CLEANUP_KEY "glusterfs.quota-xattr-cleanup"
-#define QUOTA_READ_ONLY_KEY "trusted.glusterfs.quota.read-only"
+#define QUOTA_SIZE_KEY "user.glusterfs.quota.size"
+#define QUOTA_LIMIT_KEY "user.glusterfs.quota.limit-set"
+#define QUOTA_LIMIT_OBJECTS_KEY "user.glusterfs.quota.limit-objects"
+#define VIRTUAL_QUOTA_XATTR_CLEANUP_KEY "user.glusterfs.quota-xattr-cleanup"
+#define QUOTA_READ_ONLY_KEY "user.glusterfs.quota.read-only"
 
 /* ctime related */
 #define CTIME_MDATA_XDATA_KEY "set-ctime-mdata"
 
 /* afr related */
-#define AFR_XATTR_PREFIX "trusted.afr"
+#define AFR_XATTR_PREFIX "user.afr"
 
 /* Index xlator related */
-#define GF_XATTROP_INDEX_GFID "glusterfs.xattrop_index_gfid"
-#define GF_XATTROP_ENTRY_CHANGES_GFID "glusterfs.xattrop_entry_changes_gfid"
-#define GF_XATTROP_INDEX_COUNT "glusterfs.xattrop_index_count"
-#define GF_XATTROP_DIRTY_GFID "glusterfs.xattrop_dirty_gfid"
-#define GF_XATTROP_DIRTY_COUNT "glusterfs.xattrop_dirty_count"
-#define GF_XATTROP_ENTRY_IN_KEY "glusterfs.xattrop-entry-create"
-#define GF_XATTROP_ENTRY_OUT_KEY "glusterfs.xattrop-entry-delete"
-#define GF_INDEX_IA_TYPE_GET_REQ "glusterfs.index-ia-type-get-req"
-#define GF_INDEX_IA_TYPE_GET_RSP "glusterfs.index-ia-type-get-rsp"
+#define GF_XATTROP_INDEX_GFID "user.glusterfs.xattrop_index_gfid"
+#define GF_XATTROP_ENTRY_CHANGES_GFID "user.glusterfs.xattrop_entry_changes_gfid"
+#define GF_XATTROP_INDEX_COUNT "user.glusterfs.xattrop_index_count"
+#define GF_XATTROP_DIRTY_GFID "user.glusterfs.xattrop_dirty_gfid"
+#define GF_XATTROP_DIRTY_COUNT "user.glusterfs.xattrop_dirty_count"
+#define GF_XATTROP_ENTRY_IN_KEY "user.glusterfs.xattrop-entry-create"
+#define GF_XATTROP_ENTRY_OUT_KEY "user.glusterfs.xattrop-entry-delete"
+#define GF_INDEX_IA_TYPE_GET_REQ "user.glusterfs.index-ia-type-get-req"
+#define GF_INDEX_IA_TYPE_GET_RSP "user.glusterfs.index-ia-type-get-rsp"
 
-#define GF_HEAL_INFO "glusterfs.heal-info"
-#define GF_AFR_HEAL_SBRAIN "glusterfs.heal-sbrain"
+#define GF_HEAL_INFO "user.glusterfs.heal-info"
+#define GF_AFR_HEAL_SBRAIN "user.glusterfs.heal-sbrain"
 #define GF_AFR_SBRAIN_STATUS "replica.split-brain-status"
 #define GF_AFR_SBRAIN_CHOICE "replica.split-brain-choice"
 #define GF_AFR_SPB_CHOICE_TIMEOUT "replica.split-brain-choice-timeout"
 #define GF_AFR_SBRAIN_RESOLVE "replica.split-brain-heal-finalize"
-#define GF_AFR_ADD_BRICK "trusted.add-brick"
-#define GF_AFR_REPLACE_BRICK "trusted.replace-brick"
-#define GF_AFR_DIRTY "trusted.afr.dirty"
-#define GF_XATTROP_ENTRY_OUT "glusterfs.xattrop-entry-delete"
-#define GF_XATTROP_PURGE_INDEX "glusterfs.xattrop-purge-index"
+#define GF_AFR_ADD_BRICK "user.add-brick"
+#define GF_AFR_REPLACE_BRICK "user.replace-brick"
+#define GF_AFR_DIRTY "user.afr.dirty"
+#define GF_XATTROP_ENTRY_OUT "user.glusterfs.xattrop-entry-delete"
+#define GF_XATTROP_PURGE_INDEX "user.glusterfs.xattrop-purge-index"
 
 #define GF_GFIDLESS_LOOKUP "gfidless-lookup"
 /* replace-brick and pump related internal xattrs */
-#define RB_PUMP_CMD_START "glusterfs.pump.start"
-#define RB_PUMP_CMD_PAUSE "glusterfs.pump.pause"
-#define RB_PUMP_CMD_COMMIT "glusterfs.pump.commit"
-#define RB_PUMP_CMD_ABORT "glusterfs.pump.abort"
-#define RB_PUMP_CMD_STATUS "glusterfs.pump.status"
+#define RB_PUMP_CMD_START "user.glusterfs.pump.start"
+#define RB_PUMP_CMD_PAUSE "user.glusterfs.pump.pause"
+#define RB_PUMP_CMD_COMMIT "user.glusterfs.pump.commit"
+#define RB_PUMP_CMD_ABORT "user.glusterfs.pump.abort"
+#define RB_PUMP_CMD_STATUS "user.glusterfs.pump.status"
 
 #define GLUSTERFS_MARKER_DONT_ACCOUNT_KEY "glusters.marker.dont-account"
 #define GLUSTERFS_RDMA_INLINE_THRESHOLD (2048)
@@ -322,8 +322,8 @@ enum gf_internal_fop_indicator {
 
 #define CTR_ATTACH_TIER_LOOKUP "ctr_attach_tier_lookup"
 
-#define CLIENT_CMD_CONNECT "trusted.glusterfs.client-connect"
-#define CLIENT_CMD_DISCONNECT "trusted.glusterfs.client-disconnect"
+#define CLIENT_CMD_CONNECT "user.glusterfs.client-connect"
+#define CLIENT_CMD_DISCONNECT "user.glusterfs.client-disconnect"
 
 #define GF_LOG_LRU_BUFSIZE_DEFAULT 5
 #define GF_LOG_LRU_BUFSIZE_MIN 0
@@ -345,7 +345,7 @@ enum gf_internal_fop_indicator {
 
 #define GF_LK_ADVISORY 0  /* maps to GLFS_LK_ADVISORY from libgfapi*/
 #define GF_LK_MANDATORY 1 /* maps to GLFS_LK_MANDATORY from libgfapi*/
-#define GF_LOCK_MODE "glusterfs.lk.lkmode"
+#define GF_LOCK_MODE "user.glusterfs.lk.lkmode"
 
 #define GF_CHECK_XATTR_KEY_AND_GOTO(key, cmpkey, errval, lbl)                  \
     do {                                                                       \
@@ -355,18 +355,18 @@ enum gf_internal_fop_indicator {
         }                                                                      \
     } while (0)
 
-#define GF_CS_OBJECT_SIZE "trusted.glusterfs.cs.object_size"
-#define GF_CS_BLOCK_SIZE "trusted.glusterfs.cs.block_size"
-#define GF_CS_NUM_BLOCKS "trusted.glusterfs.cs.num_blocks"
+#define GF_CS_OBJECT_SIZE "user.glusterfs.cs.object_size"
+#define GF_CS_BLOCK_SIZE "user.glusterfs.cs.block_size"
+#define GF_CS_NUM_BLOCKS "user.glusterfs.cs.num_blocks"
 
-#define GF_CS_XATTR_ARCHIVE_UUID "trusted.cloudsync.uuid"
+#define GF_CS_XATTR_ARCHIVE_UUID "user.cloudsync.uuid"
 
-#define GF_CS_OBJECT_UPLOAD_COMPLETE "trusted.glusterfs.csou.complete"
-#define GF_CS_OBJECT_REMOTE "trusted.glusterfs.cs.remote"
-#define GF_CS_OBJECT_DOWNLOADING "trusted.glusterfs.cs.downloading"
-#define GF_CS_OBJECT_DOWNLOADED "trusted.glusterfs.cs.downloaded"
-#define GF_CS_OBJECT_STATUS "trusted.glusterfs.cs.status"
-#define GF_CS_OBJECT_REPAIR "trusted.glusterfs.cs.repair"
+#define GF_CS_OBJECT_UPLOAD_COMPLETE "user.glusterfs.csou.complete"
+#define GF_CS_OBJECT_REMOTE "user.glusterfs.cs.remote"
+#define GF_CS_OBJECT_DOWNLOADING "user.glusterfs.cs.downloading"
+#define GF_CS_OBJECT_DOWNLOADED "user.glusterfs.cs.downloaded"
+#define GF_CS_OBJECT_STATUS "user.glusterfs.cs.status"
+#define GF_CS_OBJECT_REPAIR "user.glusterfs.cs.repair"
 
 #define gf_boolean_t bool
 #define _gf_false false
@@ -441,7 +441,7 @@ fop_enum_to_pri_string(glusterfs_fop_t fop);
 #define GF_AUXILLARY_PARGFID 0xd /* RIO dummy parent gfid */
 
 /* key value which quick read uses to get small files in lookup cbk */
-#define GF_CONTENT_KEY "glusterfs.content"
+#define GF_CONTENT_KEY "user.glusterfs.content"
 
 struct _xlator_cmdline_option {
     struct list_head cmd_args;

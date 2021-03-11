@@ -628,7 +628,7 @@ worm_release(xlator_t *this, fd_t *fd)
             goto out;
         }
 
-        ret = dict_set_int8(dict, "trusted.worm_file", 1);
+        ret = dict_set_int8(dict, "user.worm_file", 1);
         if (ret) {
             gf_log(this->name, GF_LOG_ERROR,
                    "Error in setting "

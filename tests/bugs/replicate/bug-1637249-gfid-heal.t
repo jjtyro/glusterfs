@@ -31,25 +31,25 @@ TEST mkdir $M0/dir_dirty
 TEST touch $M0/dir_dirty/file2
 
 # Set pending entry xattrs on dir_pending and remove gfid of entries under it on one brick.
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/dir_pending
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/dir_pending
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/dir_pending
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}1/dir_pending
 
 gfid_f1=$(gf_get_gfid_xattr $B0/${V0}0/dir_pending/file1)
 gfid_str_f1=$(gf_gfid_xattr_to_str $gfid_f1)
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir_pending/file1
+TEST setfattr -x user.gfid $B0/${V0}1/dir_pending/file1
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_f1:0:2}/${gfid_str_f1:2:2}/$gfid_str_f1
 
 gfid_d11=$(gf_get_gfid_xattr $B0/${V0}0/dir_pending/dir11)
 gfid_str_d11=$(gf_gfid_xattr_to_str $gfid_d11)
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir_pending/dir11
+TEST setfattr -x user.gfid $B0/${V0}1/dir_pending/dir11
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_d11:0:2}/${gfid_str_d11:2:2}/$gfid_str_d11
 
 
 # Set dirty entry xattrs on dir_dirty and remove gfid of entries under it on one brick.
-TEST setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/dir_dirty
+TEST setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/dir_dirty
 gfid_f2=$(gf_get_gfid_xattr $B0/${V0}0/dir_dirty/file2)
 gfid_str_f2=$(gf_gfid_xattr_to_str $gfid_f2)
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir_dirty/file2
+TEST setfattr -x user.gfid $B0/${V0}1/dir_dirty/file2
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_f2:0:2}/${gfid_str_f2:2:2}/$gfid_str_f2
 
 # Create a file under dir_pending directly on the backend only on 1 brick
@@ -102,12 +102,12 @@ TEST mkdir $M0/dir_clean/dir11
 
 gfid_f1=$(gf_get_gfid_xattr $B0/${V0}0/dir_clean/file1)
 gfid_str_f1=$(gf_gfid_xattr_to_str $gfid_f1)
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir_clean/file1
+TEST setfattr -x user.gfid $B0/${V0}1/dir_clean/file1
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_f1:0:2}/${gfid_str_f1:2:2}/$gfid_str_f1
 
 gfid_d11=$(gf_get_gfid_xattr $B0/${V0}0/dir_clean/dir11)
 gfid_str_d11=$(gf_gfid_xattr_to_str $gfid_d11)
-TEST setfattr -x trusted.gfid $B0/${V0}1/dir_clean/dir11
+TEST setfattr -x user.gfid $B0/${V0}1/dir_clean/dir11
 TEST rm $B0/${V0}1/.glusterfs/${gfid_str_d11:0:2}/${gfid_str_d11:2:2}/$gfid_str_d11
 
 # Create a file under dir_clean directly on the backend only on 1 brick

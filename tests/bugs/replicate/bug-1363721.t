@@ -81,15 +81,15 @@ md5sum_2=$(md5sum $B0/${V0}2/file1 | awk '{print $1}')
 EXPECT_NOT "$md5sum_2" echo `md5sum $B0/${V0}0/file1 | awk '{print $1}'`
 EXPECT_NOT "$md5sum_2" echo `md5sum $B0/${V0}1/file1 | awk '{print $1}'`
 
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 trusted.afr.dirty data
-EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 trusted.afr.dirty data
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 user.afr.dirty data
+EXPECT_NOT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 user.afr.dirty data
 
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 trusted.afr.$V0-client-2 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 trusted.afr.$V0-client-2 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}2/file1 trusted.afr.$V0-client-2 data
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 trusted.afr.$V0-client-2 metadata
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 trusted.afr.$V0-client-2 metadata
-EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}2/file1 trusted.afr.$V0-client-2 metadata
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 user.afr.$V0-client-2 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 user.afr.$V0-client-2 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}2/file1 user.afr.$V0-client-2 data
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}0/file1 user.afr.$V0-client-2 metadata
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}1/file1 user.afr.$V0-client-2 metadata
+EXPECT "00000000" afr_get_specific_changelog_xattr $B0/${V0}2/file1 user.afr.$V0-client-2 metadata
 
 # Now bring the brick back up
 TEST $CLI volume start $V0 force

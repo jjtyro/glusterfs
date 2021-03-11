@@ -21,7 +21,7 @@ function query_pathinfo()
     local path=$1;
     local retval;
 
-    local pathinfo=$(getfattr  -n trusted.glusterfs.pathinfo $path);
+    local pathinfo=$(getfattr  -n user.glusterfs.pathinfo $path);
     retval=$(echo $pathinfo | grep -o 'POSIX' | wc -l);
     echo $retval
 }

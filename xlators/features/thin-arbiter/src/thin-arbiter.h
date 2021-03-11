@@ -18,7 +18,7 @@
 #include <glusterfs/defaults.h>
 #include <glusterfs/list.h>
 
-#define THIN_ARBITER_SOURCE_XATTR "trusted.ta.source"
+#define THIN_ARBITER_SOURCE_XATTR "user.ta.source"
 #define THIN_ARBITER_SOURCE_SIZE 2
 
 #define TA_FAILED_FOP(fop, frame, op_errno)                                    \

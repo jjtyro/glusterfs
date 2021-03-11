@@ -68,7 +68,7 @@ class Server(object):
     FRGN_FMTSTR = NTV_FMTSTR + FRGN_XTRA_FMT
 
     # for backend gfid fetch, do not use GX_NSPACE_PFX
-    GFID_XATTR = 'trusted.gfid'
+    GFID_XATTR = 'user.gfid'
     GFID_FMTSTR = "!" + "B" * 16
 
     local_path = ''
@@ -132,7 +132,7 @@ class Server(object):
         try:
             return not (
                 Xattr.lgetxattr_buf(path,
-                                    'trusted.glusterfs.dht.linkto') == '')
+                                    'user.glusterfs.dht.linkto') == '')
         except (IOError, OSError):
             ex = sys.exc_info()[1]
             if ex.errno in (ENOENT, ENODATA):

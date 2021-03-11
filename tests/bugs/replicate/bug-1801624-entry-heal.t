@@ -33,8 +33,8 @@ EXPECT_WITHIN $HEAL_TIMEOUT "4" get_pending_heal_count $V0
 # Launching index heal must not reset parent dir afr xattrs or remove granular entry indices.
 $CLI volume heal $V0 # CLI will fail but heal is launched anyway.
 TEST sleep 5 # give index heal a chance to do one run.
-brick0_pending=$(get_hex_xattr trusted.afr.$V0-client-1 $B0/brick0/)
-brick2_pending=$(get_hex_xattr trusted.afr.$V0-client-1 $B0/brick2/)
+brick0_pending=$(get_hex_xattr user.afr.$V0-client-1 $B0/brick0/)
+brick2_pending=$(get_hex_xattr user.afr.$V0-client-1 $B0/brick2/)
 TEST [ $brick0_pending -eq "000000000000000000000002" ]
 TEST [ $brick2_pending -eq "000000000000000000000002" ]
 EXPECT "FILE" ls $B0/brick0/.glusterfs/indices/entry-changes/00000000-0000-0000-0000-000000000001/

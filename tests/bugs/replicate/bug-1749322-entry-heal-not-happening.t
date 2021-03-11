@@ -56,11 +56,11 @@ TEST rm -f $B0/$V0"1"/dir/file3
 gfid_file4=$(gf_get_gfid_xattr $B0/$V0"0"/dir/file4)
 gfid_str_file4=$(gf_gfid_xattr_to_str $gfid_file4)
 TEST rm $B0/$V0"2"/.glusterfs/${gfid_str_file4:0:2}/${gfid_str_file4:2:2}/$gfid_str_file4
-TEST setfattr -x trusted.gfid $B0/$V0"2"/dir/file4
+TEST setfattr -x user.gfid $B0/$V0"2"/dir/file4
 
 # B0 and B2 blame each other
-setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/$V0"2"/dir
-setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/$V0"0"/dir
+setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/$V0"2"/dir
+setfattr -n user.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/$V0"0"/dir
 
 # Add entry to xattrop dir on first brick.
 xattrop_dir0=$(afr_get_index_path $B0/$V0"0")

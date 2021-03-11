@@ -37,7 +37,7 @@ function check_samples() {
         local NS_HASH=$2
         local FILE=$3
         local BRICK=$4
-        local GFID="$(getfattr -n trusted.gfid -e text --only-values $B0/$BRICK$FILE | xxd -p)"
+        local GFID="$(getfattr -n user.gfid -e text --only-values $B0/$BRICK$FILE | xxd -p)"
         local val="$(check_brick_multiplex)"
 
         if [ $val = "Y" ]; then

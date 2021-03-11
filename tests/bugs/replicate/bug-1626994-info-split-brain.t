@@ -34,27 +34,27 @@ TEST mkdir $M0/pending_dir
 
 # Set dirty xattrs on all bricks to simulate the case where entry transaction
 # succeeded only the pre-op phase.
-TEST setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}0/dirty_dir
-TEST setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/dirty_dir
-TEST setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}2/dirty_dir
+TEST setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}0/dirty_dir
+TEST setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}1/dirty_dir
+TEST setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}2/dirty_dir
 create_brick_xattrop_entry $B0/${V0}0  dirty_dir
 # Should not show up as split-brain.
 EXPECT "0" afr_get_split_brain_count $V0
 
 # replace/reset brick case where the new brick has dirty and the other 2 bricks
 # blame it should not be reported as split-brain.
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}0
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}1
-TEST setfattr -n trusted.afr.dirty -v 0x000000000000000000000001 $B0/${V0}2
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}0
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}1
+TEST setfattr -n user.afr.dirty -v 0x000000000000000000000001 $B0/${V0}2
 create_brick_xattrop_entry $B0/${V0}0 "/"
 # Should not show up as split-brain.
 EXPECT "0" afr_get_split_brain_count $V0
 
 # Set pending xattrs on all bricks blaming each other to simulate the case of
 # entry split-brain.
-TEST setfattr -n trusted.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/pending_dir
-TEST setfattr -n trusted.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}1/pending_dir
-TEST setfattr -n trusted.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}2/pending_dir
+TEST setfattr -n user.afr.$V0-client-1 -v 0x000000000000000000000001 $B0/${V0}0/pending_dir
+TEST setfattr -n user.afr.$V0-client-2 -v 0x000000000000000000000001 $B0/${V0}1/pending_dir
+TEST setfattr -n user.afr.$V0-client-0 -v 0x000000000000000000000001 $B0/${V0}2/pending_dir
 create_brick_xattrop_entry $B0/${V0}0 pending_dir
 # Should show up as split-brain.
 EXPECT "1" afr_get_split_brain_count $V0

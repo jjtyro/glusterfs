@@ -27,9 +27,9 @@ function layout_compare()
 
 function get_layout()
 {
-        layout1=`getfattr -n trusted.glusterfs.dht -e hex $1 2>&1|grep dht |cut -d = -f2`
-        layout2=`getfattr -n trusted.glusterfs.dht -e hex $2 2>&1|grep dht |cut -d = -f2`
-        layout3=`getfattr -n trusted.glusterfs.dht -e hex $3 2>&1|grep dht |cut -d = -f2`
+        layout1=`getfattr -n user.glusterfs.dht -e hex $1 2>&1|grep dht |cut -d = -f2`
+        layout2=`getfattr -n user.glusterfs.dht -e hex $2 2>&1|grep dht |cut -d = -f2`
+        layout3=`getfattr -n user.glusterfs.dht -e hex $3 2>&1|grep dht |cut -d = -f2`
 
         ret=$(layout_compare $layout1 $layout2 $layout3)
 
